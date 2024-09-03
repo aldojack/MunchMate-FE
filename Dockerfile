@@ -6,7 +6,7 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 RUN  npm install --global serve
-
+# Maybe install json server
 COPY . .
 
 RUN npm run build
