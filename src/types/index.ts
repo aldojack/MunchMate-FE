@@ -1,26 +1,17 @@
+import { MeasurementUnit } from "./enums"
+
 interface Ingredient{
     id: number | string
     name: string
 }
 
-enum MeasurementUnit {
-    Teaspoon = 'tsp',
-    Tablespoon = 'tbsp',
-    Gram = 'g',
-    Kilogram = 'kg',
-    Pound = 'lb',
-    Ounce = 'oz',
-    Milliliter = 'ml',
-    Liter = 'l',
-    Cup = 'cup',
-    Whole = 'whole',
-    Sachet = 'sachet'
-}
 
-interface RecipieIngredient extends Ingredient{
-    quantity: number
-    unit: MeasurementUnit
-}
+// interface RecipieIngredient{
+//     id: number | string
+//     ingredient: Ingredient
+//     quantity: number
+//     unit: MeasurementUnit
+// }
 
 
 interface Source{
@@ -29,15 +20,39 @@ interface Source{
     book?: {title: string, pageNo: number}
 }
 
-interface Recipe{
-    id: number | string
-    title: string
-    ingredients: RecipieIngredient[]
-    source: Source
+interface RecipeIngredientDTO {
+    id: number | string;
+    name: string;
+    quantity: number;
+    unit: MeasurementUnit | string;
+}
+
+interface RecipeDTO {
+    id?: string;
+    title: string;
+    ingredients: RecipeIngredientDTO[];
+    source: Source;
     instructions: string[];
     image: string;
     cookTime: number;
     prepTime?: number;
     servingSize: number;
 }
-export type { Ingredient, MeasurementUnit, RecipieIngredient, Source, Recipe };
+
+// interface Recipe{
+//     id: number | string
+//     title: string
+//     /*
+//     May need to change once working with a real database - 
+//     ChatGPT suggested that this way joins the tables where as Array doesn't like to a specific table
+//     ingredients: RecipieIngredient[]
+//     */
+//     ingredients: Array<RecipieIngredient>
+//     source: Source
+//     instructions: string[];
+//     image: string;
+//     cookTime: number;
+//     prepTime?: number;
+//     servingSize: number;
+// }
+export type { Ingredient, RecipeIngredientDTO, Source, RecipeDTO };

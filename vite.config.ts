@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [react()],
   preview: {
     host: true
+  },
+  server:{
+    host: true
   }
 })
