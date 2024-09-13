@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "jsonServer": "npx json-server ./src/data/db.json --port 8000"
+    "jsonServer": "json-server -h 192.168.0.62 -p 8000 -w ./src/data/db.json"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
