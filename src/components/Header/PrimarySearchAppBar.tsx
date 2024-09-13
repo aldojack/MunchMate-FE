@@ -13,10 +13,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCart } from '@mui/icons-material';
 import FavoriteIcon from '@mui/icons-material/Favorite'; 
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 // import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 // import MoreIcon from '@mui/icons-material/MoreVert';
+import MealPlannerContext from '../../hooks/MealPlannerContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,6 +62,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const context = useContext(MealPlannerContext);
+
+  if (!context) {
+    throw new Error('Navbar must be used within a MealPlannerProvider');
+  }
+
+  const { meals, favorites, shoppingList } = context;
+
+  // useEffect(() => {
+  //   const getMealCount = () => {
+  //     const localStoragePlanner = localStorage.getItem('planner')
+  //     if(localStoragePlanner) setMeals(JSON.parse(localStoragePlanner).length)
+  //   }
+  //   getMealCount()
+  // },[meals])
+
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
   //   React.useState<null | HTMLElement>(null);
@@ -176,7 +195,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            MunchMate
+            <Link to="/">MunchMate</Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
@@ -190,8 +209,13 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
+              <Badge badgeContent={meals} color="error">
+                <FavoriteIcon />
+              </Badge>
+            </IconButton>
             <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={favorites} color="error">
                 <FavoriteIcon />
               </Badge>
             </IconButton>
@@ -200,40 +224,13 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 items on shopping list"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={shoppingList} color="error">
                 <ShoppingCart />
               </Badge>
             </IconButton>
-            {/* No user accounts at this stage
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> */}
           </Box>
-          {/* Handles dotted menu at the end
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box> */}
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu} */}
-      {/* {renderMenu} */}
     </Box>
   );
 }
