@@ -3,9 +3,6 @@ import { RecipeDTO } from '../../types'
 import { useParams } from 'react-router-dom'
 import { getRecipeById } from '../../services/recipeServices';
 
-// interface RecipeProps {
-//   recipe: RecipeDTO
-// }
 
 const Recipe : FC = () => {
   const { recipeId } = useParams();
