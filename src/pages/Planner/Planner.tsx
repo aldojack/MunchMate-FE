@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { RecipeDTO } from '../../types';
 import RecipeCard from '../../components/Recipe/RecipeCard';
+import { getLocalStorage } from '../../utils/localStorageUtil';
 
 type Props = {}
 
@@ -8,8 +9,9 @@ const Planner = (props: Props) => {
     const [plannedMeals, setPlannedMeals] = useState<RecipeDTO[]>();
 
     useEffect(() => {
-        const fetchLocalStorage: string | null = localStorage.getItem("planner")
-        if (fetchLocalStorage) setPlannedMeals(JSON.parse(fetchLocalStorage))
+        const plannedMeals: RecipeDTO[] | null = getLocalStorage<RecipeDTO[]>('planner');
+        
+        if (plannedMeals) setPlannedMeals(plannedMeals)
     },[])
 
     const renderPlanner: JSX.Element[] | undefined = plannedMeals?.map((meal, index) => {

@@ -6,6 +6,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { Link } from 'react-router-dom';
 import MealPlannerContext from '../../hooks/MealPlannerContext';
 import { useContext } from 'react';
+import { getLocalStorage, setLocalStorage } from '../../utils/localStorageUtil';
 
 type RecipeCardProps = {
   recipe: RecipeDTO
@@ -22,32 +23,31 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
   const { setMeals} = context;
 
   function addToPlanner():void{
-
-      const currentMeals : string | null = localStorage.getItem("planner")
+    
+      const currentMeals : RecipeDTO[] | null = getLocalStorage<RecipeDTO[]>('planner')
       if(currentMeals)
       {
-        const parsedMeals : RecipeDTO[] = JSON.parse(currentMeals)
-        parsedMeals.push(recipe)
-        localStorage.setItem('planner', JSON.stringify(parsedMeals))
-        setMeals(parsedMeals.length)
+        currentMeals.push(recipe)
+        setLocalStorage<RecipeDTO[]>('planner', currentMeals)
+        setMeals(currentMeals.length)
       }
       else{
-        localStorage.setItem('planner', JSON.stringify([recipe]))
+        setLocalStorage<RecipeDTO[]>('planner', [recipe])
+        //May eventually cause weird issues
         setMeals(1)
       }
   }
 
   function removeFromPlanner():void{
 
-    const currentMeals : string | null = localStorage.getItem("planner")
+    const currentMeals : RecipeDTO[] | null = getLocalStorage<RecipeDTO[]>('planner')
     if(currentMeals)
     {
-      const parsedMeals : RecipeDTO[] = JSON.parse(currentMeals)
-      const index = parsedMeals.findIndex(meal => meal.title === recipe.title)
+      const index = currentMeals.findIndex(meal => meal.title === recipe.title)
       if(index !== -1){
-        parsedMeals.splice(index,1)
-        localStorage.setItem("planner", JSON.stringify(parsedMeals))
-        setMeals(parsedMeals.length)
+        currentMeals.splice(index,1)
+        setLocalStorage<RecipeDTO[]>('planner', currentMeals)
+        setMeals(currentMeals.length)
       }
 
     }

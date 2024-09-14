@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,18 +6,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
-// import MenuItem from '@mui/material/MenuItem';
-// import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCart } from '@mui/icons-material';
 import FavoriteIcon from '@mui/icons-material/Favorite'; 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import AccountCircle from '@mui/icons-material/AccountCircle';
-// import MailIcon from '@mui/icons-material/Mail';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
-// import MoreIcon from '@mui/icons-material/MoreVert';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MealPlannerContext from '../../hooks/MealPlannerContext';
 
 const Search = styled('div')(({ theme }) => ({
@@ -63,118 +57,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   const context = useContext(MealPlannerContext);
-
+  const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const handleClick = () => {
+    console.log('menu open ', menuOpen);
+    
+    setMenuOpen(!menuOpen)
+  }
   if (!context) {
     throw new Error('Navbar must be used within a MealPlannerProvider');
   }
 
   const { meals, favorites, shoppingList } = context;
 
-  // useEffect(() => {
-  //   const getMealCount = () => {
-  //     const localStoragePlanner = localStorage.getItem('planner')
-  //     if(localStoragePlanner) setMeals(JSON.parse(localStoragePlanner).length)
-  //   }
-  //   getMealCount()
-  // },[meals])
-
-  // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-  //   React.useState<null | HTMLElement>(null);
-
-  // const isMenuOpen = Boolean(anchorEl);
-  // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  // const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
-  // const handleMobileMenuClose = () => {
-  //   setMobileMoreAnchorEl(null);
-  // };
-
-  // const handleMenuClose = () => {
-  //   setAnchorEl(null);
-  //   handleMobileMenuClose();
-  // };
-
-  // const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-  //   setMobileMoreAnchorEl(event.currentTarget);
-  // };
-
-  // const menuId = 'primary-search-account-menu';
-  // const renderMenu = (
-  //   <Menu
-  //     anchorEl={anchorEl}
-  //     anchorOrigin={{
-  //       vertical: 'top',
-  //       horizontal: 'right',
-  //     }}
-  //     id={menuId}
-  //     keepMounted
-  //     transformOrigin={{
-  //       vertical: 'top',
-  //       horizontal: 'right',
-  //     }}
-  //     open={isMenuOpen}
-  //     onClose={handleMenuClose}
-  //   >
-  //     <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-  //     <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-  //   </Menu>
-  // );
-
-  // const mobileMenuId = 'primary-search-account-menu-mobile';
-  // const renderMobileMenu = (
-  //   <Menu
-  //     anchorEl={mobileMoreAnchorEl}
-  //     anchorOrigin={{
-  //       vertical: 'top',
-  //       horizontal: 'right',
-  //     }}
-  //     id={mobileMenuId}
-  //     keepMounted
-  //     transformOrigin={{
-  //       vertical: 'top',
-  //       horizontal: 'right',
-  //     }}
-  //     open={isMobileMenuOpen}
-  //     onClose={handleMobileMenuClose}
-  //   >
-  //     <MenuItem>
-  //       <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-  //         <Badge badgeContent={4} color="error">
-  //           <MailIcon />
-  //         </Badge>
-  //       </IconButton>
-  //       <p>Messages</p>
-  //     </MenuItem>
-  //     <MenuItem>
-  //       <IconButton
-  //         size="large"
-  //         aria-label="show 17 new notifications"
-  //         color="inherit"
-  //       >
-  //         <Badge badgeContent={17} color="error">
-  //           <ShoppingCart />
-  //         </Badge>
-  //       </IconButton>
-  //       <p>Notifications</p>
-  //     </MenuItem>
-  //     <MenuItem onClick={handleProfileMenuOpen}>
-  //       <IconButton
-  //         size="large"
-  //         aria-label="account of current user"
-  //         aria-controls="primary-search-account-menu"
-  //         aria-haspopup="true"
-  //         color="inherit"
-  //       >
-  //         <AccountCircle />
-  //       </IconButton>
-  //       <p>Profile</p>
-  //     </MenuItem>
-  //   </Menu>
-  // );
 
   return (
     <Box sx={{ flexGrow: 1}}>
@@ -211,7 +105,7 @@ export default function PrimarySearchAppBar() {
           </Search>
           <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
               <Badge badgeContent={meals} color="error">
-                <FavoriteIcon />
+                <MenuBookIcon />
               </Badge>
             </IconButton>
             <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
@@ -223,11 +117,17 @@ export default function PrimarySearchAppBar() {
               size="large"
               aria-label="show 17 items on shopping list"
               color="inherit"
+              onClick={() => handleClick()}
             >
               <Badge badgeContent={shoppingList} color="error">
                 <ShoppingCart />
               </Badge>
             </IconButton>
+            {menuOpen && (
+              <div className='absolute top-[4rem] right-0 h-48 bg-red-400'>
+                <h1>Shopping List</h1>
+              </div>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

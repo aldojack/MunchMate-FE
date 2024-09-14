@@ -5,6 +5,7 @@ import Recipe from "./components/Recipe/Recipe"
 import Planner from "./pages/Planner/Planner"
 import Recipes from "./pages/Recipes/Recipes"
 import { MealPlannerProvider } from "./hooks/MealPlannerContext"
+import ShoppingList from "./pages/ShoppingList/ShoppingList"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/planner" element={<Planner/>}/>
         <Route path="/recipe/:recipeId" element={<Recipe/>}/>
         <Route path="/recipes" element={<Recipes/>}/>
+        <Route path="/shopping-list" element={<ShoppingList/>}/>
       </Routes>
       </MealPlannerProvider>
     </Router>

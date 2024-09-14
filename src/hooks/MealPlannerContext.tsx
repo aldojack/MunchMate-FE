@@ -1,4 +1,7 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
+import { getLocalStorage } from '../utils/localStorageUtil';
+import { combineIngredients } from '../utils/helperFunction';
+import { RecipeDTO, RecipeIngredientDTO } from '../types';
 
 // Define types for the context values
 interface MealPlannerContextType {
@@ -19,24 +22,27 @@ interface MealPlannerProviderProps {
 
 // Create the provider component
 export const MealPlannerProvider: React.FC<MealPlannerProviderProps> = ({ children }) => {
-    const getPlannerLength = (): number => {
-        const storedPlanner = localStorage.getItem('planner');
-        if (!storedPlanner) return 0;
-    
-        try {
-          const parsedPlanner = JSON.parse(storedPlanner);
-          // Ensure it's an array before accessing its length
-          return Array.isArray(parsedPlanner) ? parsedPlanner.length : 0;
-        } catch (error) {
-          console.error("Error parsing planner from localStorage", error);
-          return 0;
-        }
-      };
-    
-      // Initialize state with values from localStorage
+  const getPlannerLength = (): number => {
+    const storedPlanner = getLocalStorage<RecipeDTO[]>('planner')
+    if (!storedPlanner) return 0;
+    return storedPlanner.length
+  };
+
+  const getShoppingListLength = (): number => {
+    const storedPlanner: RecipeIngredientDTO[] | undefined = getLocalStorage<RecipeDTO[]>('planner')?.map((recipe: RecipeDTO) => recipe.ingredients).flat()
+    if (!storedPlanner) return 0;
+
+    return combineIngredients(storedPlanner).length
+  };
+
+  // Initialize state with values from localStorage
   const [meals, setMeals] = useState<number>(getPlannerLength());
   const [favorites, setFavorites] = useState<number>(0);
-  const [shoppingList, setShoppingList] = useState<number>(0);
+  const [shoppingList, setShoppingList] = useState<number>(getShoppingListLength());
+
+  useEffect(() => {
+    setShoppingList(getShoppingListLength())
+  }, [meals])
 
   return (
     <MealPlannerContext.Provider value={{ meals, setMeals, favorites, setFavorites, shoppingList, setShoppingList }}>
