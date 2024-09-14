@@ -7,15 +7,20 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "jsonServer": "json-server -h 192.168.0.62 -p 8000 -w ./src/data/db.json"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@mui/base": "^5.0.0-beta.40",
     "@mui/icons-material": "^6.0.1",
     "@mui/material": "^6.0.1",
+    "axios": "^1.7.7",
+    "munchmate-fe": "file:",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -27,6 +32,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "json-server": "^1.0.0-beta.2",
     "postcss": "^8.4.43",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.3",

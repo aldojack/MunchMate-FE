@@ -1,10 +1,8 @@
-import React from 'react'
 
-type Props = {}
 
-const Header = (props: Props) => {
+const Header = () => {
     return (
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center fixed">
             <h1>MunchMate</h1>
             <div className="order-[-1]">
                 <p>Hamburger Menu</p>
