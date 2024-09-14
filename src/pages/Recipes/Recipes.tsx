@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RecipeDTO } from '../../types';
 import RecipeCard from '../../components/Recipe/RecipeCard';
 import { getAllRecipes } from '../../services/recipeServices';
 
-type Props = {}
 
-const Recipes = (props: Props) => {
+const Recipes = () => {
     const [recipes, setRecipes] = useState<RecipeDTO[]>();
 
     useEffect(() => {

@@ -7,7 +7,7 @@ import { getRecipeById } from '../../services/recipeServices';
 const Recipe : FC = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState<RecipeDTO>();
-  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

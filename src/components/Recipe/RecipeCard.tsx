@@ -20,7 +20,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
     throw new Error('Navbar must be used within a MealPlannerProvider');
   }
 
-  const { setMeals} = context;
+  const {setMeals} = context;
 
   function addToPlanner():void{
     
@@ -29,12 +29,10 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
       {
         currentMeals.push(recipe)
         setLocalStorage<RecipeDTO[]>('planner', currentMeals)
-        setMeals(currentMeals.length)
+        setMeals(currentMeals)
       }
       else{
         setLocalStorage<RecipeDTO[]>('planner', [recipe])
-        //May eventually cause weird issues
-        setMeals(1)
       }
   }
 
@@ -47,7 +45,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
       if(index !== -1){
         currentMeals.splice(index,1)
         setLocalStorage<RecipeDTO[]>('planner', currentMeals)
-        setMeals(currentMeals.length)
+        setMeals(currentMeals)
       }
 
     }
@@ -57,7 +55,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
     <div className=' border-2 p-8 basis-96'>
       <div className='relative'>
         <Link to={`/recipe/${recipe.id}`}>
-        <img src={recipe.image} />
+        <img src={recipe.image} alt={recipe.title}/>
         </Link>
       </div>
       <div className='flex items-center flex-col justify-around h-28'>

@@ -10,20 +10,18 @@ import ShoppingList from "./pages/ShoppingList/ShoppingList"
 function App() {
 
   return (
-    <>
-    <Router>
-      <MealPlannerProvider>
-    <PrimarySearchAppBar/>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/planner" element={<Planner/>}/>
-        <Route path="/recipe/:recipeId" element={<Recipe/>}/>
-        <Route path="/recipes" element={<Recipes/>}/>
-        <Route path="/shopping-list" element={<ShoppingList/>}/>
-      </Routes>
-      </MealPlannerProvider>
-    </Router>
-    </>
+    <MealPlannerProvider>
+      <Router>
+        <PrimarySearchAppBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/planner" element={<Planner />} />
+          <Route path="/recipe/:recipeId" element={<Recipe />} />
+          <Route path="/recipes" element={<Recipes />} />
+          <Route path="/shopping-list" element={<ShoppingList />} />
+        </Routes>
+      </Router>
+    </MealPlannerProvider>
   )
 }
 

@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { RecipeDTO } from '../../types';
+import { useContext} from 'react'
 import RecipeCard from '../../components/Recipe/RecipeCard';
-import { getLocalStorage } from '../../utils/localStorageUtil';
+import MealPlannerContext from '../../hooks/MealPlannerContext';
 
-type Props = {}
 
-const Planner = (props: Props) => {
-    const [plannedMeals, setPlannedMeals] = useState<RecipeDTO[]>();
+const Planner = () => {
+    const context = useContext(MealPlannerContext);
 
-    useEffect(() => {
-        const plannedMeals: RecipeDTO[] | null = getLocalStorage<RecipeDTO[]>('planner');
-        
-        if (plannedMeals) setPlannedMeals(plannedMeals)
-    },[])
+    if (!context) {
+      throw new Error('Navbar must be used within a MealPlannerProvider');
+    }
+  
+    const {meals} = context;
 
-    const renderPlanner: JSX.Element[] | undefined = plannedMeals?.map((meal, index) => {
+    const renderPlanner: JSX.Element[] = meals?.map((meal, index) => {
         return (<RecipeCard key={`rc${meal.id}-${index}`} recipe={meal} isPlanner={true}/>)
     })
 
@@ -24,8 +22,7 @@ const Planner = (props: Props) => {
                 <div>
                     <h1 className='text-4xl font-bold text-center'>Planner</h1>
                     <div className='container flex flex-col md:flex-row md:flex-wrap justify-center'>
-                        {renderPlanner}
-
+                        {meals.length < 1 ? <p>No meals added to planner</p> : renderPlanner}
                     </div>
                 </div>
             </div>

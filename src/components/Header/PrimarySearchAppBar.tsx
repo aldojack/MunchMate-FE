@@ -1,66 +1,31 @@
-import { styled, alpha } from '@mui/material/styles';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCart } from '@mui/icons-material';
-import FavoriteIcon from '@mui/icons-material/Favorite'; 
-import { useContext, useState } from 'react';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MealPlannerContext from '../../hooks/MealPlannerContext';
+import { RecipeIngredientDTO } from '../../types';
+import { ListItemText } from '@mui/material';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
 
 export default function PrimarySearchAppBar() {
   const context = useContext(MealPlannerContext);
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement>()
   const handleClick = () => {
     console.log('menu open ', menuOpen);
-    
+
     setMenuOpen(!menuOpen)
   }
   if (!context) {
@@ -71,7 +36,7 @@ export default function PrimarySearchAppBar() {
 
 
   return (
-    <Box sx={{ flexGrow: 1}}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
           <IconButton
@@ -87,14 +52,14 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ marginRight: 'auto' }}
           >
             <Link to="/">MunchMate</Link>
           </Typography>
 
-          <Box sx={{ flexGrow: 1 }} />
+          {/* <Box sx={{ flexGrow: 1 }} /> */}
           <Box sx={{ display: 'flex' }}>
-          <Search>
+            {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -102,11 +67,13 @@ export default function PrimarySearchAppBar() {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
-          <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
-              <Badge badgeContent={meals} color="error">
-                <MenuBookIcon />
-              </Badge>
+          </Search> */}
+            <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
+              <Link to="/planner">
+                <Badge badgeContent={meals.length} color="error">
+                  <MenuBookIcon />
+                </Badge>
+              </Link>
             </IconButton>
             <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
               <Badge badgeContent={favorites} color="error">
@@ -119,13 +86,22 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               onClick={() => handleClick()}
             >
-              <Badge badgeContent={shoppingList} color="error">
+              <Badge badgeContent={shoppingList.length} color="error">
                 <ShoppingCart />
               </Badge>
             </IconButton>
             {menuOpen && (
-              <div className='absolute top-[4rem] right-0 h-48 bg-red-400'>
-                <h1>Shopping List</h1>
+              <div className='absolute top-[4rem] right-4 max-h-80 md:max-h-[700px] lg:max-h-[900px] max-w-80 overflow-y-auto'>
+                <List sx={{backgroundColor: 'background.paper', color: 'black'}}>
+                  <h2 className='font-bold text-2xl text-center'>Shopping List</h2>
+                  {shoppingList.map((ingredient: RecipeIngredientDTO) => {
+                    return (
+                      <ListItem key={ingredient.id}>
+                        <ListItemText primary={ingredient.name} secondary={`${ingredient.quantity}${ingredient.unit}`} />
+                      </ListItem>
+                    )
+                  })}
+                </List>
               </div>
             )}
           </Box>
