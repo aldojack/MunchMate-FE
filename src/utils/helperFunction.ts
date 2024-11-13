@@ -16,8 +16,8 @@ export function combineIngredients(ingredients : RecipeIngredientDTO[]): RecipeI
                     combinedIngredients.push({ ...ingredient });
                   }
                 });
-              console.log("ingredients: ", ingredients);
-              console.log("combined: ",combinedIngredients);
+              // console.log("ingredients: ", ingredients);
+              // console.log("combined: ",combinedIngredients);
               return combinedIngredients
   }
   export default {combineIngredients}

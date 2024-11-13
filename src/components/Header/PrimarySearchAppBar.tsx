@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCart } from '@mui/icons-material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { useContext, useRef, useState } from 'react';
@@ -69,6 +70,11 @@ export default function PrimarySearchAppBar() {
             />
           </Search> */}
             <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
+              <Link to="/recipes/add">
+                  <AddIcon />
+              </Link>
+            </IconButton>
+            <IconButton size="large" aria-label="show 4 favorite recipes" color="inherit">
               <Link to="/planner">
                 <Badge badgeContent={meals.length} color="error">
                   <MenuBookIcon />
@@ -92,7 +98,7 @@ export default function PrimarySearchAppBar() {
             </IconButton>
             {menuOpen && (
               <div className='absolute top-[4rem] right-4 max-h-80 md:max-h-[700px] lg:max-h-[900px] max-w-80 overflow-y-auto'>
-                <List sx={{backgroundColor: 'background.paper', color: 'black'}}>
+                <List sx={{ backgroundColor: 'background.paper', color: 'black' }}>
                   <h2 className='font-bold text-2xl text-center'>Shopping List</h2>
                   {shoppingList.map((ingredient: RecipeIngredientDTO) => {
                     return (

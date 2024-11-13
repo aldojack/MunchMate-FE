@@ -17,7 +17,8 @@ interface Ingredient{
 interface Source{
     name: string
     url?: string
-    book?: {title: string, pageNo: number}
+    book?: string, 
+    pageNo?: number
 }
 
 interface RecipeIngredientDTO {
@@ -30,12 +31,12 @@ interface RecipeIngredientDTO {
 interface RecipeDTO {
     id?: string;
     title: string;
-    ingredients: RecipeIngredientDTO[];
+    ingredients: Omit<RecipeIngredientDTO,'id'>[];
     source: Source;
     instructions: string[];
     image: string;
     cookTime: number;
-    prepTime?: number;
+    prepTime: number;
     servingSize: number;
 }
 

@@ -6,6 +6,7 @@ import Planner from "./pages/Planner/Planner"
 import Recipes from "./pages/Recipes/Recipes"
 import { MealPlannerProvider } from "./hooks/MealPlannerContext"
 import ShoppingList from "./pages/ShoppingList/ShoppingList"
+import AddRecipe from "./pages/Recipes/Create/AddRecipe"
 
 function App() {
 
@@ -16,8 +17,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/planner" element={<Planner />} />
-          <Route path="/recipe/:recipeId" element={<Recipe />} />
           <Route path="/recipes" element={<Recipes />} />
+          <Route path="/recipes/add" element={<AddRecipe />} />
+          <Route path="/recipe/:recipeId" element={<Recipe />} />
           <Route path="/shopping-list" element={<ShoppingList />} />
         </Routes>
       </Router>
