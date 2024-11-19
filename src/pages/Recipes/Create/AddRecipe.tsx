@@ -36,9 +36,8 @@ const AddRecipe = () => {
   const [formData, setFormData] = useState<RecipeDTO>({
     title: "",
     ingredients: [],
-    instructions: [""],
-    source: { name: "", url: "", book: "", pageNo: 0 },
-    image: "",
+    instructions: [],
+    source: { name: ""},
     cookTime: 0,
     prepTime: 0,
     servingSize: 0,
@@ -46,6 +45,12 @@ const AddRecipe = () => {
   const [ingredient, setIngredient] = useState<Omit<RecipeIngredientDTO, "id">>(
     { name: "", quantity: 0, unit: "" }
   );
+  const [instruction, setInstruction] = useState<string>("");
+  const [isAddingIngredient, setIsAddingIngredient] = useState<boolean>(false);
+  const [isAddingInstruction, setIsAddingInstruction] =
+    useState<boolean>(false);
+  const [isWebsiteSource, setIsWebsiteSource] = useState<boolean>(false);
+  const [isBookSource, setIsBookSource] = useState<boolean>(false);
 
   const handleInputChange = (e: { target: HTMLInputElement }) => {
     const { name, value } = e.target;
@@ -55,48 +60,25 @@ const AddRecipe = () => {
     });
   };
 
-  // const handleIngredientChange = (
-  //   index: number,
-  //   e: { target: HTMLInputElement }
-  // ) => {
-  //   const { name, value } = e.target;
-  //   const newIngredients = [...formData.ingredients];
-  //   newIngredients[index][name] = value;
-  //   setFormData({
-  //     ...formData,
-  //     ingredients: newIngredients,
-  //   });
-  // };
-
-  const handleIngredientChange = (e: { target: HTMLInputElement }) => {
+  const handleIngredientChange = (e: {
+    target: HTMLInputElement | HTMLSelectElement;
+  }) => {
     const { name, value } = e.target;
-
-    console.log(name);
-    console.log(value);
 
     setIngredient((previousState: Omit<RecipeIngredientDTO, "id">) => ({
       ...previousState,
       [name]: value,
     }));
-    console.log(ingredient);
   };
 
-  const handleInstructionChange = (
-    index: number,
-    e: { target: HTMLInputElement }
-  ) => {
-    const newInstructions = [...formData.instructions];
-    newInstructions[index] = e.target.value;
-    setFormData({
-      ...formData,
-      instructions: newInstructions,
-    });
+  const handleInstructionChange = (e: { target: HTMLTextAreaElement }) => {
+    const { value } = e.target;
+
+    setInstruction(value);
   };
 
   const handleSourceChange = (e: { target: HTMLInputElement }) => {
     const { name, value } = e.target;
-    console.log(name);
-    console.log(value);
 
     setFormData((prevData: RecipeDTO) => ({
       ...prevData,
@@ -107,48 +89,70 @@ const AddRecipe = () => {
     }));
   };
 
-  const saveIngredient = () => {
+  const saveIngredient = (done: boolean = false) => {
+    //validate the data before setting it into form
+    if (
+      ingredient.name.trim() === "" ||
+      ingredient.quantity <= 0 ||
+      ingredient.unit === ""
+    ) {
+      console.log(
+        "Unable to save as some required fields Are missing, alternatively press cancel"
+      );
+      return;
+    }
 
-    setFormData((previousData:RecipeDTO) => ({
+    setFormData((previousData: RecipeDTO) => ({
       ...previousData,
-      ingredients:[...previousData.ingredients, ingredient]
+      ingredients: [...previousData.ingredients, ingredient],
     }));
-    setIngredient({name:"", quantity:0,unit: ""})
-  };
-
-  // const addIngredient = () => {
-  //   setFormData({
-  //     ...formData,
-  //     ingredients: [
-  //       ...formData.ingredients,
-  //       { name: "", quantity: 0, unit: "" },
-  //     ],
-  //   });
-  // };
-
-  const saveInstruction = () => {
-    setFormData({ ...formData });
-  };
-
-  const addInstruction = () => {
-    setFormData({
-      ...formData,
-      instructions: [...formData.instructions, ""],
+    setIngredient((previousState: Omit<RecipeIngredientDTO, "id">) => {
+      return { ...previousState, name: "", quantity: 0, unit: "" };
     });
+    if (done) setIsAddingIngredient(false);
+  };
+
+  const saveInstruction = (done: boolean = false) => {
+    if (instruction.trim() === "") {
+      console.log(
+        "Unable to save blank text, please enter instruction or alternatively press cancel"
+      );
+      return;
+    }
+    setFormData((previousData: RecipeDTO) => {
+      return {
+        ...previousData,
+        instructions: [...previousData.instructions, instruction],
+      };
+    });
+    setInstruction("");
+    if (done) setIsAddingInstruction(false);
+  };
+
+  const isValidSubmission = (data: RecipeDTO) => {
+    if (data.instructions.length <= 0 || data.ingredients.length <= 0) {
+      console.log(
+        "Please ensure you have saved Ingredients and Instructions before submitting"
+      );
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("form data");
-    console.log(formData);
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/recipes/add",
-        formData
-      );
-      console.log(response);
-    } catch (error) {
-      console.error(error);
+    if (isValidSubmission(formData)) {
+      try {
+        // const response = await axios.post(
+        //   "http://localhost:8080/recipes/add",
+        //   formData
+        // );
+        // console.log(response);
+        console.log("sent data to backend");
+        console.log(formData);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -156,10 +160,10 @@ const AddRecipe = () => {
     <div className="container mx-auto mt-20">
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-form h-fit space-y-2 mx-auto w-fit"
+        className="grid grid-cols-form h-fit space-y-2 mx-auto place-content-center"
       >
         {/* Recipe Details */}
-        <div className="grid grid-cols-subgrid col-span-2">
+        <div className="grid col-span-2">
           <fieldset className="col-span-2 flex flex-col  border-2 border-black p-2 rounded-md">
             <legend>Recipe Details</legend>
 
@@ -176,7 +180,6 @@ const AddRecipe = () => {
             <FormInput
               name="image"
               label="Image URL"
-              required={false}
               type="text"
               data={formData.image}
               handleChange={handleInputChange}
@@ -211,187 +214,203 @@ const AddRecipe = () => {
           </fieldset>
         </div>
         {/* Ingredients */}
-        <div className="grid grid-cols-subgrid col-span-2">
+        <div className="grid col-span-2">
           <fieldset className="col-span-2 border-2 border-black px-2 rounded-md">
             <legend>Ingredients:</legend>
 
-            {/* {formData.ingredients.map((ingredient, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-[auto_1fr] gap-2 col-start-2 my-2"
-              >
-                <label htmlFor="ingredient--name">
-                  Name:<span className="text-red-600 text-xl">*</span>
-                </label>
-                <select
-                  className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md"
-                  name="name"
-                  id="ingredient--name"
-                  onChange={(e) => handleIngredientChange(index, e)}
-                  defaultValue={ingredient.name ? ingredient.name : ""}
-                >
-                  <option disabled value={""}>
-                    -- Select Ingredient --
-                  </option>
-                  {ingredientOptions?.map((ingredient) => (
-                    <option key={ingredient.id} value={ingredient.name}>
-                      {ingredient.name}
-                    </option>
-                  ))}
-                </select>
-
-                <label htmlFor="ingredient--quantity">
-                  Quantity:<span className="text-red-600 text-xl">*</span>
-                </label>
-                <div className="flex border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 flex-1 rounded-md ">
-                  <input
-                    type="number"
-                    name="quantity"
-                    id="ingredient--quantity"
-                    placeholder="Quantity"
-                    className="pl-2 focus:outline-2 focus:outline-blue-600"
-                    defaultValue={ingredient.quantity}
-                    onChange={(e) => handleIngredientChange(index, e)}
-                  />
+            <div className="grid grid-cols-[auto_1fr] gap-2 col-start-2 my-2">
+              {isAddingIngredient ? (
+                <>
+                  <label htmlFor="ingredient--name">
+                    Name:<span className="text-red-600 text-xl">*</span>
+                  </label>
                   <select
-                    className="border-2 border-l-2 focus:outline-2 focus:outline-blue-600"
-                    name="unit"
-                    defaultValue={ingredient.unit ? ingredient.unit : ""}
-                    onChange={(e) => handleIngredientChange(index, e)}
+                    className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md"
+                    name="name"
+                    id="ingredient--name"
+                    required
+                    value={ingredient?.name}
+                    onChange={(e) => handleIngredientChange(e)}
                   >
                     <option disabled value={""}>
-                      -- Select UNIT --
+                      -- Select Ingredient --
                     </option>
-                    {units.map((unit) => (
-                      <option key={unit} value={unit}>
-                        {unit}
+                    {ingredientOptions?.map((ingredient) => (
+                      <option key={ingredient.id} value={ingredient.name}>
+                        {ingredient.name}
                       </option>
                     ))}
                   </select>
+
+                  <label htmlFor="ingredient--quantity">
+                    Quantity:<span className="text-red-600 text-xl">*</span>
+                  </label>
+                  <div className="flex border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md ">
+                    <input
+                      type="number"
+                      name="quantity"
+                      id="ingredient--quantity"
+                      placeholder="Quantity"
+                      required
+                      className="pl-2 focus:outline-2 focus:outline-blue-600"
+                      value={
+                        ingredient?.quantity <= 0 ? "" : ingredient.quantity
+                      }
+                      onChange={(e) => handleIngredientChange(e)}
+                    />
+                    <select
+                      className="border-2 border-l-2 focus:outline-2 focus:outline-blue-600 grow-[1]"
+                      name="unit"
+                      value={ingredient.unit}
+                      required
+                      onChange={(e) => handleIngredientChange(e)}
+                    >
+                      <option disabled value={""}>
+                        -- Select UNIT --
+                      </option>
+                      {units.map((unit) => (
+                        <option key={unit} value={unit}>
+                          {unit}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex space-x-2 my-4 col-span-2 place-content-center">
+                    <button
+                      className="bg-green-600 rounded-lg text-white px-4 py-2 w-fit "
+                      type="button"
+                      onClick={() => saveIngredient(true)}
+                    >
+                      Done
+                      <AddIcon />
+                    </button>
+                    <button
+                      className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
+                      type="button"
+                      onClick={() => saveIngredient()}
+                    >
+                      Add Another
+                      <AddIcon />
+                    </button>
+                    <button
+                      className="bg-red-600 rounded-lg text-white px-4 py-2 w-fit "
+                      type="button"
+                      onClick={() => setIsAddingIngredient(false)}
+                    >
+                      Remove
+                      <AddIcon />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex space-x-2 col-start-2 my-4 place-content-center">
+                  <button
+                    className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
+                    type="button"
+                    onClick={() => setIsAddingIngredient(true)}
+                  >
+                    Add Ingredient
+                    <AddIcon />
+                  </button>
                 </div>
-              </div>
-            ))} */}
-
-            <div className="grid grid-cols-[auto_1fr] gap-2 col-start-2 my-2">
-              <label htmlFor="ingredient--name">
-                Name:<span className="text-red-600 text-xl">*</span>
-              </label>
-              <select
-                className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md"
-                name="name"
-                id="ingredient--name"
-                value={ingredient?.name}
-                onChange={(e) => handleIngredientChange(e)}
-              >
-                <option disabled value={""}>
-                  -- Select Ingredient --
-                </option>
-                {ingredientOptions?.map((ingredient) => (
-                  <option key={ingredient.id} value={ingredient.name}>
-                    {ingredient.name}
-                  </option>
-                ))}
-              </select>
-
-              <label htmlFor="ingredient--quantity">
-                Quantity:<span className="text-red-600 text-xl">*</span>
-              </label>
-              <div className="flex border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 flex-1 rounded-md ">
-                <input
-                  type="number"
-                  name="quantity"
-                  id="ingredient--quantity"
-                  placeholder="Quantity"
-                  className="pl-2 focus:outline-2 focus:outline-blue-600"
-                  value={ingredient?.quantity}
-                  onChange={(e) => handleIngredientChange(e)}
-                />
-                <select
-                  className="border-2 border-l-2 focus:outline-2 focus:outline-blue-600"
-                  name="unit"
-                  value={ingredient.unit}
-                  onChange={(e) => handleIngredientChange(e)}
-                >
-                  <option disabled value={""}>
-                    -- Select UNIT --
-                  </option>
-                  {units.map((unit) => (
-                    <option key={unit} value={unit}>
-                      {unit}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="flex space-x-2 col-start-2 my-4">
-              <button
-                className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
-                type="button"
-                onClick={saveIngredient}
-              >
-                Save
-                <AddIcon />
-              </button>
-              {/* <button
-                className="bg-green-600 rounded-lg text-white px-4 py-2 w-fit"
-                type="button"
-                onClick={addIngredient}
-              >
-                Add Another
-                <AddIcon />
-              </button> */}
+              )}
             </div>
           </fieldset>
         </div>
         {/* Instructions */}
-        <div className="grid grid-cols-subgrid col-span-2">
+        <div className="grid col-span-2">
           <fieldset className="col-span-2 border-2 border-black px-2 rounded-md">
             <legend>
               Instructions:<span className="text-red-600 text-xl">*</span>
             </legend>
 
-            <ol className=" list-decimal list-inside">
-              {formData.instructions.map((instruction, index) => (
-                <li key={index} className="before:content-['step: ']">
-                  <div
-                    id="instructions"
-                    className="flex flex-col col-start-2 my-2"
-                  >
-                    <input
-                      type="text"
-                      value={instruction}
-                      onChange={(e) => handleInstructionChange(index, e)}
-                      className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 pl-2 rounded-md"
-                    />
-                  </div>
-                </li>
-              ))}
-            </ol>
+            {isAddingInstruction ? (
+              <>
+                <div
+                  id="instructions"
+                  className="flex flex-col col-start-2 my-2"
+                >
+                  <textarea
+                    name="instructions"
+                    required
+                    value={instruction}
+                    onChange={(e) => handleInstructionChange(e)}
+                    className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 pl-2 rounded-md"
+                  ></textarea>
+                </div>
 
-            <div className="flex space-x-2 col-start-2 my-4">
-              <button
-                className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
-                type="button"
-              >
-                Save
-                <AddIcon onClick={saveInstruction} />
-              </button>
-              <button
-                className="bg-green-600 rounded-lg text-white px-4 py-2 w-fit"
-                type="button"
-              >
-                Add Another
-                <AddIcon onClick={addInstruction} />
-              </button>
-            </div>
+                <div className="flex space-x-2 my-4 col-span-2 place-content-center">
+                  <button
+                    className="bg-green-600 rounded-lg text-white px-4 py-2 w-fit "
+                    type="button"
+                    onClick={() => saveInstruction(true)}
+                  >
+                    Done
+                    <AddIcon />
+                  </button>
+                  <button
+                    className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
+                    type="button"
+                    onClick={() => saveInstruction()}
+                  >
+                    Next Step
+                    <AddIcon />
+                  </button>
+                  <button
+                    className="bg-red-600 rounded-lg text-white px-4 py-2 w-fit "
+                    type="button"
+                    onClick={() => setIsAddingInstruction(false)}
+                  >
+                    Remove
+                    <AddIcon />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex space-x-2 col-start-2 my-4 place-content-center">
+                <button
+                  className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
+                  type="button"
+                  onClick={() => setIsAddingInstruction(true)}
+                >
+                  {formData.instructions.length <= 0
+                    ? "First Step"
+                    : "Next Step"}
+
+                  <AddIcon />
+                </button>
+              </div>
+            )}
           </fieldset>
         </div>
         {/* Source */}
-        <div className="grid grid-cols-subgrid col-span-2">
+        <div className="grid col-span-2">
           <fieldset className="col-span-2 border-2 border-black px-2 rounded-md">
             <legend>Source</legend>
-
+            <div className="flex space-x-4 items-center">
+              <label htmlFor="websiteCheck">
+                Website
+                <input
+                  type="checkbox"
+                  name="websiteCheck"
+                  id="websiteCheck"
+                  onChange={() => setIsWebsiteSource(previousState => !previousState)}
+                  className="ml-2"
+                  checked={isWebsiteSource}
+                />
+              </label>
+              <label htmlFor="bookCheck">
+                Book
+                <input
+                  type="checkbox"
+                  name="bookCheck"
+                  id="bookCheck"
+                  className="ml-2"
+                  onChange={() => setIsBookSource(previousState => !previousState)}
+                  checked={isBookSource}
+                />
+              </label>
+            </div>
             <div className="grid grid-cols-[auto_1fr] gap-2 col-start-2 my-2">
               <FormInput
                 name="name"
@@ -401,32 +420,39 @@ const AddRecipe = () => {
                 data={formData.source.name}
                 handleChange={handleSourceChange}
               />
-              <FormInput
-                name="url"
-                label="URL"
-                required={false}
-                type="text"
-                data={formData.source.url}
-                handleChange={handleSourceChange}
-              />
+              {isWebsiteSource && (
+                <FormInput
+                  name="url"
+                  label="URL"
+                  required={false}
+                  type="text"
+                  data={formData.source.url}
+                  handleChange={handleSourceChange}
+                />
 
-              <FormInput
-                name="book"
-                label="Book"
-                required={false}
-                type="text"
-                data={formData.source.book}
-                handleChange={handleSourceChange}
-              />
+              )}
+              {isBookSource && (
+                <>
+                <FormInput
+                  name="book"
+                  label="Book"
+                  required={false}
+                  type="text"
+                  data={formData.source.book}
+                  handleChange={handleSourceChange}
+                />
+  
+                <FormInput
+                  name="pageNo"
+                  label="Page Number"
+                  required={false}
+                  type="number"
+                  data={formData.source.pageNo}
+                  handleChange={handleSourceChange}
+                />
+                </>
 
-              <FormInput
-                name="pageNo"
-                label="Page Number"
-                required={false}
-                type="number"
-                data={formData.source.pageNo}
-                handleChange={handleSourceChange}
-              />
+              )}
             </div>
           </fieldset>
         </div>

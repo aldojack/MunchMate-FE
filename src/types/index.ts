@@ -34,7 +34,7 @@ interface RecipeDTO {
     ingredients: Omit<RecipeIngredientDTO,'id'>[];
     source: Source;
     instructions: string[];
-    image: string;
+    image?: string;
     cookTime: number;
     prepTime: number;
     servingSize: number;
