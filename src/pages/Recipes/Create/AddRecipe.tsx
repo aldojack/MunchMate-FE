@@ -4,6 +4,8 @@ import Button from "../../../components/Button";
 import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "../../../types";
 import axios from "axios";
 import FormInput from "../Components/Form/FormInput";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const units = [
   "tsp",
@@ -20,6 +22,7 @@ const units = [
 ];
 
 const AddRecipe = () => {
+  const notify = (message: string) => toast.error(message,{pauseOnHover: true, autoClose: 5000});
   const [ingredientOptions, setIngredientOptions] = useState<Ingredient[]>();
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -37,7 +40,7 @@ const AddRecipe = () => {
     title: "",
     ingredients: [],
     instructions: [],
-    source: { name: ""},
+    source: { name: "" },
     cookTime: 0,
     prepTime: 0,
     servingSize: 0,
@@ -99,6 +102,7 @@ const AddRecipe = () => {
       console.log(
         "Unable to save as some required fields Are missing, alternatively press cancel"
       );
+      notify("Unable to save as some required fields Are missing, alternatively press cancel")
       return;
     }
 
@@ -115,6 +119,9 @@ const AddRecipe = () => {
   const saveInstruction = (done: boolean = false) => {
     if (instruction.trim() === "") {
       console.log(
+        "Unable to save blank text, please enter instruction or alternatively press cancel"
+      );
+      notify(
         "Unable to save blank text, please enter instruction or alternatively press cancel"
       );
       return;
@@ -134,6 +141,9 @@ const AddRecipe = () => {
       console.log(
         "Please ensure you have saved Ingredients and Instructions before submitting"
       );
+      notify(
+        "Please ensure you have saved Ingredients and Instructions before submitting"
+      );
       return false;
     }
     return true;
@@ -143,13 +153,24 @@ const AddRecipe = () => {
     e.preventDefault();
     if (isValidSubmission(formData)) {
       try {
-        // const response = await axios.post(
-        //   "http://localhost:8080/recipes/add",
-        //   formData
-        // );
-        // console.log(response);
-        console.log("sent data to backend");
-        console.log(formData);
+        const response = await axios.post(
+          "http://localhost:8080/recipes/add",
+          formData
+        );
+        setFormData({
+          title: "",
+          ingredients: [],
+          instructions: [],
+          source: { name: "" },
+          cookTime: 0,
+          prepTime: 0,
+          servingSize: 0,
+        });
+        setIsWebsiteSource(false);
+        setIsBookSource(false);
+        console.log(response);
+        // console.log("sent data to backend");
+        // console.log(formData);
       } catch (error) {
         console.error(error);
       }
@@ -158,6 +179,7 @@ const AddRecipe = () => {
 
   return (
     <div className="container mx-auto mt-20">
+      <ToastContainer/>
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-form h-fit space-y-2 mx-auto place-content-center"
@@ -394,7 +416,9 @@ const AddRecipe = () => {
                   type="checkbox"
                   name="websiteCheck"
                   id="websiteCheck"
-                  onChange={() => setIsWebsiteSource(previousState => !previousState)}
+                  onChange={() =>
+                    setIsWebsiteSource((previousState) => !previousState)
+                  }
                   className="ml-2"
                   checked={isWebsiteSource}
                 />
@@ -406,7 +430,9 @@ const AddRecipe = () => {
                   name="bookCheck"
                   id="bookCheck"
                   className="ml-2"
-                  onChange={() => setIsBookSource(previousState => !previousState)}
+                  onChange={() =>
+                    setIsBookSource((previousState) => !previousState)
+                  }
                   checked={isBookSource}
                 />
               </label>
@@ -429,35 +455,33 @@ const AddRecipe = () => {
                   data={formData.source.url}
                   handleChange={handleSourceChange}
                 />
-
               )}
               {isBookSource && (
                 <>
-                <FormInput
-                  name="book"
-                  label="Book"
-                  required={false}
-                  type="text"
-                  data={formData.source.book}
-                  handleChange={handleSourceChange}
-                />
-  
-                <FormInput
-                  name="pageNo"
-                  label="Page Number"
-                  required={false}
-                  type="number"
-                  data={formData.source.pageNo}
-                  handleChange={handleSourceChange}
-                />
-                </>
+                  <FormInput
+                    name="book"
+                    label="Book"
+                    required={false}
+                    type="text"
+                    data={formData.source.book}
+                    handleChange={handleSourceChange}
+                  />
 
+                  <FormInput
+                    name="pageNo"
+                    label="Page Number"
+                    required={false}
+                    type="number"
+                    data={formData.source.pageNo}
+                    handleChange={handleSourceChange}
+                  />
+                </>
               )}
             </div>
           </fieldset>
         </div>
 
-        <Button name="Submit" />
+        <Button name="Submit"/>
       </form>
     </div>
   );
