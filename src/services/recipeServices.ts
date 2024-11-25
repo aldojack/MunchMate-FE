@@ -9,6 +9,7 @@ const getAllRecipes = async (): Promise<RecipeDTO[]> => {
         return response.data;
     } catch (error) {
             console.error("Error from getRecipes")
+            console.error(error)
         throw new Error('Network response was not ok');
     }
 };
@@ -20,6 +21,7 @@ const getRecipeById = async (id: string | undefined): Promise<RecipeDTO> => {
         return response.data
     } catch (error) {
         console.error("Error from getRecipeById")
+        console.error(error)
         throw new Error('Network response was not ok');
     }
 };

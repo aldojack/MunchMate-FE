@@ -6,6 +6,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { Link } from 'react-router-dom';
 import MealPlannerContext from '../../hooks/MealPlannerContext';
 import { useContext } from 'react';
+import placeholder from '../../assets/images/placeholder.webp'
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorageUtil';
 
 type RecipeCardProps = {
@@ -55,7 +56,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
     <div className=' border-2 p-8 basis-96'>
       <div className='relative'>
         <Link to={`/recipe/${recipe.id}`}>
-        <img src={recipe.image} alt={recipe.title}/>
+        <img src={recipe?.image ? recipe.image : placeholder} alt={recipe.title ? recipe.title : 'placeholder for recipe image coming soon'}/>
         </Link>
       </div>
       <div className='flex items-center flex-col justify-around h-28'>
