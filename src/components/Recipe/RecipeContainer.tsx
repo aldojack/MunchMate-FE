@@ -37,7 +37,7 @@ const RecipeContainer = () => {
           <Link to="/planner" className='bg-blue-600 rounded-lg text-white px-4 py-2 w-fit'>View Planner</Link>
           </div>
         </div>
-        <div className='flex flex-col md:flex-row'>
+        <div className='flex flex-col md:flex-row flex-wrap md:basis-[50%] md:justify-center'>
         {!isLoading ? renderRecipeCards : <div>Loading....</div>}
         </div>
       </div>

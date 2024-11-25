@@ -56,7 +56,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
     <div className=' border-2 p-8 basis-96'>
       <div className='relative'>
         <Link to={`/recipe/${recipe.id}`}>
-        <img src={recipe?.image ? recipe.image : placeholder} alt={recipe.title ? recipe.title : 'placeholder for recipe image coming soon'}/>
+        <img src={recipe?.image ? recipe.image : placeholder} alt={recipe.title ? recipe.title : 'placeholder for recipe image coming soon'} className={!recipe.image ? 'aspect-[3/2]' : ''}/>
         </Link>
       </div>
       <div className='flex items-center flex-col justify-around h-28'>
