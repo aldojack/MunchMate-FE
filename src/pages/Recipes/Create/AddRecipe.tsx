@@ -5,7 +5,7 @@ import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "../../../types";
 import axios from "axios";
 import FormInput from "../Components/Form/FormInput";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const units = [
   "tsp",
@@ -23,7 +23,8 @@ const units = [
 ];
 
 const AddRecipe = () => {
-  const notify = (message: string) => toast.error(message,{pauseOnHover: true, autoClose: 5000});
+  const notify = (message: string) =>
+    toast.error(message, { pauseOnHover: true, autoClose: 5000 });
   const [ingredientOptions, setIngredientOptions] = useState<Ingredient[]>();
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -103,7 +104,9 @@ const AddRecipe = () => {
       console.log(
         "Unable to save as some required fields Are missing, alternatively press cancel"
       );
-      notify("Unable to save as some required fields Are missing, alternatively press cancel")
+      notify(
+        "Unable to save as some required fields Are missing, alternatively press cancel"
+      );
       return;
     }
 
@@ -181,10 +184,10 @@ const AddRecipe = () => {
 
   return (
     <div className="container mx-auto mt-20">
-      <ToastContainer/>
+      <ToastContainer />
       <form
         onSubmit={handleSubmit}
-        className="space-y-2 md:grid md:grid-cols-form md:place-content-center" 
+        className="space-y-2 md:grid md:grid-cols-form md:place-content-center mx-4"
       >
         {/* Recipe Details */}
         <div className="md:grid md:col-span-2">
@@ -273,12 +276,12 @@ const AddRecipe = () => {
                     <input
                       type="number"
                       name="quantity"
-                      step={.1}
+                      step={0.1}
                       id="ingredient--quantity"
                       placeholder="Quantity"
                       required
                       min={0}
-                      className="pl-2 focus:outline-2 focus:outline-blue-600"
+                      className="pl-2 focus:outline-2 focus:outline-blue-600 sm:w-40"
                       value={
                         ingredient?.quantity <= 0 ? "" : ingredient.quantity
                       }
@@ -359,6 +362,7 @@ const AddRecipe = () => {
                   <textarea
                     name="instructions"
                     required
+                    rows={5}
                     value={instruction}
                     onChange={(e) => handleInstructionChange(e)}
                     className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 pl-2 rounded-md"
@@ -485,7 +489,7 @@ const AddRecipe = () => {
           </fieldset>
         </div>
 
-        <Button name="Submit"/>
+        <Button name="Submit" />
       </form>
     </div>
   );
