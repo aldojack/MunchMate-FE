@@ -1,6 +1,7 @@
 import { useEffect, useState, FC } from 'react';
 import { RecipeDTO } from '../../types'
 import { useParams } from 'react-router-dom'
+import placeholder from '../../assets/images/placeholder.webp'
 import { getRecipeById } from '../../services/recipeServices';
 
 
@@ -38,7 +39,7 @@ const Recipe : FC = () => {
       ) : (
         <div className="container mx-auto">
           <div>
-            <img className="h-48 w-full object-cover md:h-full" src={recipe.image} alt={recipe.title} />
+            <img className="h-48 w-full object-cover md:h-full" src={recipe?.image ? recipe.image : placeholder} alt={recipe?.image ? recipe.title : 'coming soon image for recipe'} />
           </div>
           <div className="p-8">
             <h2 className="block mt-1 text-lg leading-tight font-medium text-black">{recipe.title}</h2>
