@@ -1,38 +1,90 @@
-import { useEffect, useState } from 'react'
-import { RecipeDTO } from '../../types';
-import RecipeCard from '../../components/Recipe/RecipeCard';
-import { getAllRecipes } from '../../services/recipeServices';
-
+import { useEffect, useState } from "react";
+import { RecipeDTO } from "../../types";
+import RecipeCard from "../../components/Recipe/RecipeCard";
+import { getAllRecipes } from "../../services/recipeServices";
 
 const Recipes = () => {
-    const [recipes, setRecipes] = useState<RecipeDTO[]>();
+  const [recipes, setRecipes] = useState<RecipeDTO[]>();
+  const [filters, setFilters] = useState({
+    source: "",
+    includeIngredients: [],
+    excludeIngredients: [],
+    maxCookingTime: null,
+  });
+  const [sources, setSources] = useState<string[]>();
 
-    useEffect(() => {
-        const fetchRecipes = async () => {
-            const data : RecipeDTO[] = await getAllRecipes()
-            setRecipes(data)
-        }
+  useEffect(() => {
+    const updateSourceOptions = (data: RecipeDTO[]) => {
+      const uniqueSource = new Set<string>();
+      data.forEach((recipe: RecipeDTO) => uniqueSource.add(recipe.source.name));
+      setSources([...uniqueSource]);
+    };
 
-        fetchRecipes()
-    },[])
+    const fetchRecipes = async () => {
+      const data: RecipeDTO[] = await getAllRecipes();
+      setRecipes(data);
+      updateSourceOptions(data);
+    };
 
-    const renderRecipes: JSX.Element[] | undefined = recipes?.map((recipe : RecipeDTO) => {
-        return (<RecipeCard key={`rc${recipe.id}`} recipe={recipe}/>)
-    })
+    fetchRecipes();
+  }, []);
 
-    return (
-        <div className='w-full pt-20'>
-            <div className='container mx-auto'>
-                <div>
-                    <h1 className='text-4xl font-bold text-center'>Recipes</h1>
-                    <div className='flex flex-col md:flex-row md:flex-wrap justify-center'>
-                        {renderRecipes}
+  const filterRecipes = (): RecipeDTO[] => {
+    if (!recipes) return [];
 
-                    </div>
-                </div>
+    let filteredList = [...recipes];
+    if (filters.source && filters.source !== "all") {
+      filteredList = filteredList.filter(
+        (recipe) => recipe.source.name === filters.source
+      );
+    }
+    return filteredList;
+  };
+
+  const renderRecipes = (currentRecipes: RecipeDTO[]) => {
+    return currentRecipes?.map((recipe: RecipeDTO) => {
+      return <RecipeCard key={`rc${recipe.id}`} recipe={recipe} />;
+    });
+  };
+
+  return (
+    <div className="w-full pt-20">
+      <div className="container mx-auto">
+        <div>
+          <h1 className="text-4xl font-bold text-center">Recipes</h1>
+          <div>
+            <input
+              type="search"
+              name="search"
+              className="border-2 border-blue-600 rounded-md"
+              placeholder="Search by recipe"
+            />
+            <div>
+              <label htmlFor="">
+                <select
+                  name="source"
+                  onChange={(e) => {
+                    setFilters({ ...filters, [e.target.name]: e.target.value });
+                    filterRecipes();
+                  }}
+                >
+                  <option value="all">All</option>
+                  {sources?.map((source) => (
+                    <option key={source} value={source}>
+                      {source}
+                    </option>
+                  ))}
+                </select>
+              </label>
             </div>
+          </div>
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-center">
+            {recipes && renderRecipes(filterRecipes())}
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Recipes
+export default Recipes;
