@@ -17,6 +17,7 @@ const units = [
   "ml",
   "l",
   "cup",
+  "clove",
   "whole",
   "sachet",
 ];
@@ -159,6 +160,7 @@ const AddRecipe = () => {
         );
         setFormData({
           title: "",
+          image: "",
           ingredients: [],
           instructions: [],
           source: { name: "" },
@@ -182,11 +184,11 @@ const AddRecipe = () => {
       <ToastContainer/>
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-form h-fit space-y-2 mx-auto place-content-center"
+        className="space-y-2 md:grid md:grid-cols-form md:place-content-center" 
       >
         {/* Recipe Details */}
-        <div className="grid col-span-2">
-          <fieldset className="col-span-2 flex flex-col  border-2 border-black p-2 rounded-md">
+        <div className="md:grid md:col-span-2">
+          <fieldset className="flex flex-col  border-2 border-black p-2 rounded-md">
             <legend>Recipe Details</legend>
 
             <FormInput
@@ -236,8 +238,8 @@ const AddRecipe = () => {
           </fieldset>
         </div>
         {/* Ingredients */}
-        <div className="grid col-span-2">
-          <fieldset className="col-span-2 border-2 border-black px-2 rounded-md">
+        <div className="md:grid md:col-span-2">
+          <fieldset className="border-2 border-black px-2 rounded-md">
             <legend>Ingredients:</legend>
 
             <div className="grid grid-cols-[auto_1fr] gap-2 col-start-2 my-2">
@@ -247,7 +249,7 @@ const AddRecipe = () => {
                     Name:<span className="text-red-600 text-xl">*</span>
                   </label>
                   <select
-                    className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md"
+                    className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md w-[95%] md:w-full"
                     name="name"
                     id="ingredient--name"
                     required
@@ -267,13 +269,15 @@ const AddRecipe = () => {
                   <label htmlFor="ingredient--quantity">
                     Quantity:<span className="text-red-600 text-xl">*</span>
                   </label>
-                  <div className="flex border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md ">
+                  <div className="flex border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md w-[95%] md:w-full">
                     <input
                       type="number"
                       name="quantity"
+                      step={.1}
                       id="ingredient--quantity"
                       placeholder="Quantity"
                       required
+                      min={0}
                       className="pl-2 focus:outline-2 focus:outline-blue-600"
                       value={
                         ingredient?.quantity <= 0 ? "" : ingredient.quantity
@@ -281,7 +285,7 @@ const AddRecipe = () => {
                       onChange={(e) => handleIngredientChange(e)}
                     />
                     <select
-                      className="border-2 border-l-2 focus:outline-2 focus:outline-blue-600 grow-[1]"
+                      className="border-2 border-l-2 focus:outline-2 focus:outline-blue-600 md:grow-[1] w-full"
                       name="unit"
                       value={ingredient.unit}
                       required
@@ -340,7 +344,7 @@ const AddRecipe = () => {
           </fieldset>
         </div>
         {/* Instructions */}
-        <div className="grid col-span-2">
+        <div className="md:grid md:col-span-2">
           <fieldset className="col-span-2 border-2 border-black px-2 rounded-md">
             <legend>
               Instructions:<span className="text-red-600 text-xl">*</span>
@@ -406,7 +410,7 @@ const AddRecipe = () => {
           </fieldset>
         </div>
         {/* Source */}
-        <div className="grid col-span-2">
+        <div className="md:grid md:col-span-2">
           <fieldset className="col-span-2 border-2 border-black px-2 rounded-md">
             <legend>Source</legend>
             <div className="flex space-x-4 items-center">
@@ -468,7 +472,7 @@ const AddRecipe = () => {
                   />
 
                   <FormInput
-                    name="pageNo"
+                    name="pageNumber"
                     label="Page Number"
                     required={false}
                     type="number"
