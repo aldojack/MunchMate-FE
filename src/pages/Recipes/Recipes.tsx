@@ -38,13 +38,36 @@ const Recipes = () => {
         (recipe) => recipe.source.name === filters.source
       );
     }
+    if(filters.maxCookingTime){
+        const maxTime = filters.maxCookingTime;
+        switch(filters.maxCookingTime){
+            case 30: {
+                filteredList = filteredList.filter((recipe) => recipe.cookTime + recipe.prepTime <= maxTime)
+                break;
+            }
+            case 60: {
+                filteredList = filteredList.filter((recipe) => recipe.cookTime + recipe.prepTime <= maxTime)
+                break;
+            }
+            case 100: {
+                filteredList = filteredList.filter((recipe) => recipe.cookTime + recipe.prepTime >= maxTime)
+                break;
+            }
+            default: {
+                break
+            }
+        }
+    }
+    console.log(filteredList.length)
     return filteredList;
   };
 
   const renderRecipes = (currentRecipes: RecipeDTO[]) => {
-    return currentRecipes?.map((recipe: RecipeDTO) => {
+    const renderedList = currentRecipes?.map((recipe: RecipeDTO) => {
       return <RecipeCard key={`rc${recipe.id}`} recipe={recipe} />;
     });
+    // Possibley handle no matches better later
+    return renderedList.length >0 ? renderedList : <p>No Recipes</p>
   };
 
   return (
@@ -59,14 +82,15 @@ const Recipes = () => {
               className="border-2 border-blue-600 rounded-md"
               placeholder="Search by recipe"
             />
-            <div>
-              <label htmlFor="">
+            <div  className="flex space-x-2">
+              <label htmlFor="souce">
+                Source:
                 <select
                   name="source"
-                  onChange={(e) => {
-                    setFilters({ ...filters, [e.target.name]: e.target.value });
-                    filterRecipes();
-                  }}
+                  className="border-2 border-black rounded-md"
+                  onChange={(e) =>
+                    setFilters({ ...filters, [e.target.name]: e.target.value })
+                  }
                 >
                   <option value="all">All</option>
                   {sources?.map((source) => (
@@ -74,6 +98,20 @@ const Recipes = () => {
                       {source}
                     </option>
                   ))}
+                </select>
+              </label>
+              <label htmlFor="maxCookingTime">Total Cooktime:
+                <select
+                  name="maxCookingTime"
+                  className="border-2 border-black rounded-md"
+                  onChange={(e) =>
+                    setFilters({ ...filters, [e.target.name]: parseInt(e.target.value) })
+                  }
+                >
+                    <option value="0">All</option>
+                    <option value="30">Under 30 Mins</option>
+                    <option value="60">Under an hour</option>
+                    <option value="100">Over an hour</option>
                 </select>
               </label>
             </div>
