@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const getAllRecipes = async (): Promise<RecipeDTO[]> => {
     try {
-        const response = await axios.get<RecipeDTO[]>(`${API_URL}`);
+        const response = await axios.get<RecipeDTO[]>(`${API_URL}/recipes`);
         return response.data;
     } catch (error) {
             console.error("Error from getRecipes")
@@ -17,7 +17,7 @@ const getAllRecipes = async (): Promise<RecipeDTO[]> => {
 
 const getRecipeById = async (id: string | undefined): Promise<RecipeDTO> => {
     try {
-        const response = await axios.get<RecipeDTO>(`${API_URL}/${id}`)
+        const response = await axios.get<RecipeDTO>(`${API_URL}/recipes/${id}`)
         return response.data
     } catch (error) {
         console.error("Error from getRecipeById")
