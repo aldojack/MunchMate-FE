@@ -22,6 +22,7 @@ const Recipes = () => {
   });
   const [sources, setSources] = useState<string[]>();
   const [ingredients, setIngredients] = useState<string[]>();
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   interface SelectOptions {
     label: string;
@@ -105,7 +106,12 @@ const Recipes = () => {
         )
       );
     }
+
+    if(searchTerm){
+      filteredList = filteredList.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    }
     
+
     return filteredList;
   };
   const handleChange = (
@@ -129,6 +135,7 @@ const Recipes = () => {
       }
     }
   };
+
 
   const populateSelectOptions = (list?: string[]) => {
     if (!list) {
@@ -156,14 +163,16 @@ const Recipes = () => {
       <div className="container mx-auto">
         <div>
           <h1 className="text-4xl font-bold text-center">Recipes</h1>
-          <div>
+          <div className="flex flex-col justify-center items-center">
             <input
               type="search"
               name="search"
-              className="border-2 border-blue-600 rounded-md"
+              onChange={(event) => setSearchTerm(event.target.value)}
+              className="border-2 border-blue-600 rounded-md w-2/3 p-2 text-center"
               placeholder="Search by recipe"
+              value={searchTerm}
             />
-            <div className="flex space-x-2">
+            <div className="grid grid-cols-2 md:flex space-x-4 place-content-center">
               <label htmlFor="souce">
                 Source:
                 <Select
@@ -186,16 +195,21 @@ const Recipes = () => {
                   isClearable
                 />
               </label>
-              <label>
+              <label htmlFor="includeIngredients">
                 Includes:
                 <Select
                   isMulti
                   name="includeIngredients"
-                  options={populateSelectOptions(ingredients)}
+                  options={populateSelectOptions(
+                    ingredients?.filter(
+                      (ingredient) =>
+                        !filters.excludeIngredients.includes(ingredient)
+                    )
+                  )}
                   onChange={(value, action) => handleChange(value, action)}
                 />
               </label>
-              <label>
+              <label htmlFor="excludeIngredients">
                 Excludes:
                 <Select
                   isMulti
