@@ -1,9 +1,7 @@
 import { Button } from '@mui/base/Button';
 import { Link } from 'react-router-dom';
 
-type Props = {}
-
-const Hero = (props: Props) => {
+const Hero = () => {
   return (
     <section className='pt-20 w-full h-screen flex flex-col bg-hero-image bg-cover bg-no-repeat justify-center'>
       <div className='basis-1/2 lg:px-16 relative text-white max-w-[450px] md:max-w-[750px] lg:max-w-[850px] flex flex-col justify-center items-center'>

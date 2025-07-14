@@ -5,15 +5,6 @@ interface Ingredient{
     name: string
 }
 
-
-// interface RecipieIngredient{
-//     id: number | string
-//     ingredient: Ingredient
-//     quantity: number
-//     unit: MeasurementUnit
-// }
-
-
 interface Source{
     name: string
     url?: string
@@ -31,7 +22,8 @@ interface RecipeIngredientDTO {
 interface RecipeDTO {
     id?: string;
     title: string;
-    ingredients: Omit<RecipeIngredientDTO,'id'>[];
+    // ingredients: Omit<RecipeIngredientDTO,'id'>[];
+    ingredients: RecipeIngredientDTO[];
     source: Source;
     instructions: string[];
     image?: string;
@@ -39,21 +31,4 @@ interface RecipeDTO {
     prepTime: number;
     servingSize: number;
 }
-
-// interface Recipe{
-//     id: number | string
-//     title: string
-//     /*
-//     May need to change once working with a real database - 
-//     ChatGPT suggested that this way joins the tables where as Array doesn't like to a specific table
-//     ingredients: RecipieIngredient[]
-//     */
-//     ingredients: Array<RecipieIngredient>
-//     source: Source
-//     instructions: string[];
-//     image: string;
-//     cookTime: number;
-//     prepTime?: number;
-//     servingSize: number;
-// }
 export type { Ingredient, RecipeIngredientDTO, Source, RecipeDTO };

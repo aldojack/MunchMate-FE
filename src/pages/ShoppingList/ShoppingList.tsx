@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { RecipeIngredientDTO, RecipeDTO } from '../../types'
 import {getLocalStorage} from '../../utils/localStorageUtil'
 import {combineIngredients} from '../../utils/helperFunction'
 
-type Props = {}
-
-const ShoppingList = (props: Props) => {
-    const [ShoppingList, setShoppingList] = useState<RecipeIngredientDTO[]>([])
+const ShoppingList = () => {
+    // const [ShoppingList, setShoppingList] = useState<RecipeIngredientDTO[]>([])
 
 
     useEffect(() => {

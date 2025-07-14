@@ -6,13 +6,12 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import { ShoppingCart } from '@mui/icons-material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MealPlannerContext from '../../hooks/MealPlannerContext';
@@ -23,7 +22,7 @@ import { ListItemText } from '@mui/material';
 export default function PrimarySearchAppBar() {
   const context = useContext(MealPlannerContext);
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
-  const menuRef = useRef<HTMLDivElement>()
+
   const handleClick = () => {
     console.log('menu open ', menuOpen);
 

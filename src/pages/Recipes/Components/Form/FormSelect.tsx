@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const FormSelect = (props: Props) => {
+const FormSelect = () => {
   return (
     <div>FormSelect</div>
   )
