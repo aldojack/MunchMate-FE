@@ -9,8 +9,8 @@ const Recipe : FC = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState<RecipeDTO>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState<string | null>(null);
+  //Add in error later
+  const [, setError] = useState<string | null>(null);
 
   useEffect(() => {
 

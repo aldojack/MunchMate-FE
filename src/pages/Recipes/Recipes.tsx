@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RecipeDTO } from "../../types";
 import RecipeCard from "../../components/Recipe/RecipeCard";
 import { getAllRecipes } from "../../services/recipeServices";
-import Select from "react-select";
+import Select, {SingleValue, MultiValue} from "react-select";
 import { getAllIngredients } from "../../services/ingredientServices";
 
 interface Filters {
@@ -26,13 +26,13 @@ const Recipes = () => {
 
   interface SelectOptions {
     label: string;
-    value: string | number;
+    value: string;
   }
 
   const cookTimeOptions: SelectOptions[] = [
-    { label: "Under 30 Mins", value: 30 },
-    { label: "Under an hour", value: 59 },
-    { label: "Over an hour", value: 60 },
+    { label: "Under 30 Mins", value: '30' },
+    { label: "Under an hour", value: '59' },
+    { label: "Over an hour", value: '60' },
   ];
 
   useEffect(() => {
@@ -115,10 +115,7 @@ const Recipes = () => {
     return filteredList;
   };
   const handleChange = (
-    selectedOption:
-      | { value: string | number; label: string }
-      | Array<{ value: string; label: string }>
-      | null,
+    selectedOption: SingleValue<{ value: string ; label: string }> | MultiValue<{ value: string; label: string }>,
     actionMeta: { name?: string }
   ) => {
     if (actionMeta.name) {
@@ -126,7 +123,7 @@ const Recipes = () => {
         // Multi-select: selectedOption is an array
         const values = selectedOption.map((option) => option.value);
         setFilters({ ...filters, [actionMeta.name]: values });
-      } else if (selectedOption) {
+      } else if (selectedOption && !Array.isArray(selectedOption) && 'value' in selectedOption) {
         // Single-select: selectedOption is an object
         setFilters({ ...filters, [actionMeta.name]: selectedOption.value });
       } else {
@@ -146,7 +143,6 @@ const Recipes = () => {
       label: selection,
     }));
     optionsList.unshift({ label: "All", value: "All" });
-    // console.log(optionsList);
     return optionsList;
   };
 

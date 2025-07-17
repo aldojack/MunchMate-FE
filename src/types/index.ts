@@ -13,7 +13,7 @@ interface Source{
 }
 
 interface RecipeIngredientDTO {
-    id: number | string;
+    id?: number | string;
     name: string;
     quantity: number;
     unit: MeasurementUnit | string;
@@ -22,7 +22,6 @@ interface RecipeIngredientDTO {
 interface RecipeDTO {
     id?: string;
     title: string;
-    // ingredients: Omit<RecipeIngredientDTO,'id'>[];
     ingredients: RecipeIngredientDTO[];
     source: Source;
     instructions: string[];

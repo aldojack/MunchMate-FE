@@ -70,7 +70,7 @@ const AddRecipe = () => {
   }) => {
     const { name, value } = e.target;
 
-    setIngredient((previousState: Omit<RecipeIngredientDTO, "id">) => ({
+    setIngredient((previousState: Omit<RecipeIngredientDTO, 'id'>) => ({
       ...previousState,
       [name]: value,
     }));
@@ -114,7 +114,7 @@ const AddRecipe = () => {
       ...previousData,
       ingredients: [...previousData.ingredients, ingredient],
     }));
-    setIngredient((previousState: Omit<RecipeIngredientDTO, "id">) => {
+    setIngredient((previousState: RecipeIngredientDTO) => {
       return { ...previousState, name: "", quantity: 0, unit: "" };
     });
     if (done) setIsAddingIngredient(false);
@@ -174,8 +174,6 @@ const AddRecipe = () => {
         setIsWebsiteSource(false);
         setIsBookSource(false);
         console.log(response);
-        // console.log("sent data to backend");
-        // console.log(formData);
       } catch (error) {
         console.error(error);
       }
