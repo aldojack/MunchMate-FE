@@ -1,7 +1,7 @@
 import { useEffect, useState, FC } from 'react';
 import { RecipeDTO } from '../../types'
 import { useParams } from 'react-router-dom'
-import placeholder from '../../assets/images/placeholder.webp'
+import placeholder from '../../../public/images/placeholder.webp'
 import { getRecipeById } from '../../services/recipeServices';
 
 
@@ -16,24 +16,26 @@ const Recipe : FC = () => {
 
     const getRecipe = async () => {
       try {
+        setIsLoading(true)
         const data: RecipeDTO = await getRecipeById(recipeId)
         setRecipe(data)
       } catch (error) {
         if (typeof error === "string") {
           setError(error)
         }
+      } finally {
+        setIsLoading(false)
       }
 
     }
 
-    if (isLoading) {
+    if (recipeId) {
       getRecipe()
-      setIsLoading(!isLoading)
     }
-  }, [isLoading])
+  }, [recipeId])
   return (
     <div className='w-full pt-20'>
-      {!recipe ? (
+      {!recipe || isLoading ? (
         <div>
           <p>Loading</p>
         </div>

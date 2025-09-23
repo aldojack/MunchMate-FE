@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'hero-image': "url('./src/assets/images/timelapsed-burger.jpg')"
+        'hero-image': "url('./public/images/timelapsed-burger.jpg')"
       },
       gridTemplateColumns: {
         'form': 'max-content repeat(1, minmax(440px, max-content))'
