@@ -1,7 +1,7 @@
 import { useEffect, useState, FC } from 'react';
 import { RecipeDTO } from '../../types'
 import { useParams } from 'react-router-dom'
-import placeholder from '../../../public/images/placeholder.webp'
+import placeholder from '../../../images/placeholder.webp'
 import { getRecipeById } from '../../services/recipeServices';
 
 

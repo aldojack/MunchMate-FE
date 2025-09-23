@@ -6,7 +6,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { Link } from 'react-router-dom';
 import MealPlannerContext from '../../hooks/MealPlannerContext';
 import { useContext } from 'react';
-import placeholder from '../../../public/images/placeholder.webp'
+import placeholder from '../../../images/placeholder.webp'
 
 
 
