@@ -4,8 +4,6 @@ import RecipeCard from './RecipeCard';
 import { getAllRecipes } from '../../services/recipeServices';
 import { Link } from 'react-router-dom';
 
-
-
 const RecipeContainer = () => {
   
   const [recipes, setRecipes] = useState<RecipeDTO[]>();

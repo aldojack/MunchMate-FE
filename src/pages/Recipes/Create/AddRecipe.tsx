@@ -5,6 +5,7 @@ import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "../../../types";
 import axios from "axios";
 import FormInput from "../Components/Form/FormInput";
 import { toast, ToastContainer } from "react-toastify";
+import { API_URL } from "../../../config/api";
 import "react-toastify/dist/ReactToastify.css";
 
 const units = [
@@ -29,7 +30,7 @@ const AddRecipe = () => {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const { data } = await axios.get("http://localhost:8080/ingredients");
+        const { data } = await axios.get(`${API_URL}/ingredients`);
         setIngredientOptions(data);
       } catch (error) {
         console.error(error);
@@ -158,7 +159,7 @@ const AddRecipe = () => {
     if (isValidSubmission(formData)) {
       try {
         const response = await axios.post(
-          "http://localhost:8080/recipes/add",
+          `${API_URL}/recipes/add`,
           formData
         );
         setFormData({
