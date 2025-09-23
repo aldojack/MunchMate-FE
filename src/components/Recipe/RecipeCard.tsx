@@ -8,8 +8,6 @@ import MealPlannerContext from '../../hooks/MealPlannerContext';
 import { useContext } from 'react';
 import placeholder from '/images/placeholder.webp'
 
-
-
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorageUtil';
 
 type RecipeCardProps = {
