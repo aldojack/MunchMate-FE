@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { RecipeDTO } from "../../types";
-import RecipeCard from "../../components/Recipe/RecipeCard";
-import { getAllRecipes } from "../../services/recipeServices";
+import RecipeCard from "../../features/recipes/RecipeCard";
+import { getAllRecipes } from "../../features/recipes/services/recipeServices";
 import Select, {SingleValue, MultiValue} from "react-select";
-import { getAllIngredients } from "../../services/ingredientServices";
+import { getAllIngredients } from "../../features/recipes/services/ingredientServices";
 
 interface Filters {
   source: string;
@@ -12,7 +12,7 @@ interface Filters {
   maxCookingTime: number | null;
 }
 
-const Recipes = () => {
+const FilterRecipes = () => {
   const [recipes, setRecipes] = useState<RecipeDTO[]>();
   const [filters, setFilters] = useState<Filters>({
     source: "",
@@ -231,4 +231,4 @@ const Recipes = () => {
   );
 };
 
-export default Recipes;
+export default FilterRecipes;

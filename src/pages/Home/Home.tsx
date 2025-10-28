@@ -1,6 +1,6 @@
 
-import Hero from '../../components/Home/Hero'
-import RecipeContainer from '../../components/Recipe/RecipeContainer'
+import Hero from './Hero'
+import RecipeContainer from '../../features/recipes/RecipeContainer'
 
 
 const Home = () => {

@@ -14,7 +14,7 @@ import ListItem from '@mui/material/ListItem';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import MealPlannerContext from '../../hooks/MealPlannerContext';
+import MealPlannerContext from '../../context/MealPlannerContext';
 import { RecipeIngredientDTO } from '../../types';
 import { ListItemText } from '@mui/material';
 

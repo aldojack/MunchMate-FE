@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import PrimarySearchAppBar from "./components/Header/PrimarySearchAppBar"
 import Home from "./pages/Home/Home"
-import Recipe from "./components/Recipe/Recipe"
-import Planner from "./pages/Planner/Planner"
-import Recipes from "./pages/Recipes/Recipes"
-import { MealPlannerProvider } from "./hooks/MealPlannerContext"
-import ShoppingList from "./pages/ShoppingList/ShoppingList"
-import AddRecipe from "./pages/Recipes/Create/AddRecipe"
+import Recipe from "./features/recipes/pages/Recipe"
+import Planner from "./features/planner/pages/Planner"
+import Recipes from "./pages/Recipes/FilterRecipes"
+import { MealPlannerProvider } from "./context/MealPlannerContext"
+import ShoppingList from "./features/shoppingList/pages/ShoppingList"
+import AddRecipe from "./features/recipes/components/AddRecipeForm/AddRecipe"
 
 function App() {
 

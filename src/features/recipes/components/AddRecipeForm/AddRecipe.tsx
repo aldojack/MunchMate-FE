@@ -1,11 +1,11 @@
 import AddIcon from "@mui/icons-material/Add";
 import { FormEvent, useEffect, useState } from "react";
-import Button from "../../../components/Button";
-import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "../../../types";
+import Button from "../../../../components/Button";
+import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "../../../../types";
 import axios from "axios";
-import FormInput from "../Components/Form/FormInput";
+import FormInput from "../../../../components/Form/FormInput";
 import { toast, ToastContainer } from "react-toastify";
-import { API_URL } from "../../../config/api";
+import { API_URL } from "../../../../config/api";
 import "react-toastify/dist/ReactToastify.css";
 
 const units = [
@@ -48,10 +48,22 @@ const AddRecipe = () => {
     prepTime: 0,
     servingSize: 0,
   });
+
   const [ingredient, setIngredient] = useState<Omit<RecipeIngredientDTO, "id">>(
     { name: "", quantity: 0, unit: "" }
   );
   const [instruction, setInstruction] = useState<string>("");
+  /*
+  Maybe look into condensing the below 4 states 
+  formState with isEditing and union for sourceType 
+  or addingIngredient/addingInstruction booleans
+  const [formState, setFormState] = useState({
+  addingIngredient: false,
+  addingInstruction: false,
+  sourceType: 'none' | 'website' | 'book'
+});
+*/
+
   const [isAddingIngredient, setIsAddingIngredient] = useState<boolean>(false);
   const [isAddingInstruction, setIsAddingInstruction] =
     useState<boolean>(false);
@@ -71,7 +83,7 @@ const AddRecipe = () => {
   }) => {
     const { name, value } = e.target;
 
-    setIngredient((previousState: Omit<RecipeIngredientDTO, 'id'>) => ({
+    setIngredient((previousState: Omit<RecipeIngredientDTO, "id">) => ({
       ...previousState,
       [name]: value,
     }));
@@ -158,10 +170,7 @@ const AddRecipe = () => {
     e.preventDefault();
     if (isValidSubmission(formData)) {
       try {
-        const response = await axios.post(
-          `${API_URL}/recipes/add`,
-          formData
-        );
+        const response = await axios.post(`${API_URL}/recipes/add`, formData);
         setFormData({
           title: "",
           image: "",
@@ -243,7 +252,23 @@ const AddRecipe = () => {
         <div className="md:grid md:col-span-2">
           <fieldset className="border-2 border-black px-2 rounded-md">
             <legend>Ingredients:</legend>
-
+            {formData.ingredients.length > 0 && (
+              <div>
+                {formData.ingredients.map((ingredient) => (
+                  <button
+                    key={ingredient.id}
+                    className="border-blue-600 border-2 p-2 rounded-md text-sm"
+                    onClick={(e) => {
+                      e?.preventDefault();
+                      const updatedIngredientList = [...formData.ingredients].filter(i => i.name !== ingredient.name)
+                      setFormData((prevData) => ({ ...prevData, ingredients: updatedIngredientList }));
+                    }}
+                  >
+                    {ingredient.name}
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="grid grid-cols-[auto_1fr] gap-2 col-start-2 my-2">
               {isAddingIngredient ? (
                 <>

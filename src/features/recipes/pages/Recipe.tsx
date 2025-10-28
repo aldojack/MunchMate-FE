@@ -1,8 +1,8 @@
 import { useEffect, useState, FC } from 'react';
-import { RecipeDTO } from '../../types'
+import { RecipeDTO } from '../../../types/index'
 import { useParams } from 'react-router-dom'
 import placeholder from '/images/placeholder.webp'
-import { getRecipeById } from '../../services/recipeServices';
+import { getRecipeById } from '../services/recipeServices';
 
 
 const Recipe : FC = () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { RecipeDTO } from '../../types';
 import RecipeCard from './RecipeCard';
-import { getAllRecipes } from '../../services/recipeServices';
+import { getAllRecipes } from './services/recipeServices';
 import { Link } from 'react-router-dom';
 
 const RecipeContainer = () => {

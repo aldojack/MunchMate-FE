@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { Link } from 'react-router-dom';
-import MealPlannerContext from '../../hooks/MealPlannerContext';
+import MealPlannerContext from '../../context/MealPlannerContext';
 import { useContext } from 'react';
 import placeholder from '/images/placeholder.webp'
 
