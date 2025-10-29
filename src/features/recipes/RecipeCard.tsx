@@ -10,7 +10,7 @@ import placeholder from '/images/placeholder.webp'
 
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorageUtil';
 
-type RecipeCardProps = {
+interface RecipeCardProps {
   recipe: RecipeDTO
   isPlanner?: boolean
 }
