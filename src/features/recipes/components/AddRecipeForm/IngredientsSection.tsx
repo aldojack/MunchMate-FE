@@ -10,7 +10,7 @@ const IngredientsSection = ({
   notify,
   updateFormData,
 }: {
-  formData: RecipeDTO;
+  formData: Pick<RecipeDTO, "ingredients">;
   notify: (message: string) => Id;
   updateFormData: (formData: Partial<RecipeDTO>) => void;
 }) => {

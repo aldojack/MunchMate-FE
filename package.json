@@ -11,6 +11,7 @@
     "jsonServer": "json-server -h 192.168.0.62 -p 8000 -w ./src/data/db.json"
   },
   "dependencies": {
+    "@coreui/react": "^5.9.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/base": "^5.0.0-beta.40",

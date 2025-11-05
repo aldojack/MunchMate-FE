@@ -86,7 +86,7 @@ const AddRecipeForm = () => {
       >
       <RecipeDetailsSection updateFormData={updateFormData} formData={formData} />
       <IngredientsSection formData={formData}  notify={notify} updateFormData={updateFormData}/>
-      <InstructionsSection />
+      <InstructionsSection formData={formData}  notify={notify} updateFormData={updateFormData}/>
       <SourceSection />
       </form>
     </div>
