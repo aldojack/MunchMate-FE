@@ -2,8 +2,7 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { RecipeDTO } from "../../../../types";
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from "@coreui/react";
-import '@coreui/coreui/dist/css/coreui.min.css'
-
+import "@coreui/coreui/dist/css/coreui.min.css";
 
 const InstructionsSection = ({
   formData,
@@ -45,33 +44,35 @@ const InstructionsSection = ({
 
   return (
     <div className="md:grid md:col-span-2">
-      <fieldset className="col-span-2 border-2 border-black px-2 rounded-md">
-        <legend>
+      <fieldset className="border border-gray-300 rounded-xl p-6 shadow-sm bg-white gap-y-8">
+        <legend className="text-lg font-semibold text-gray-800">
           Instructions:<span className="text-red-600 text-xl">*</span>
         </legend>
         {formData.instructions.length > 0 && (
-          <CTabs defaultActiveItemKey="step-1">
-            <CTabList variant="pills">
-              {formData.instructions.map((_, index) => {
-                const key = `step-${index + 1}`;
-                return (
-                  <CTab key={key} itemKey={key}>
-                    Step {index + 1}
-                  </CTab>
-                );
-              })}
-            </CTabList>
-            <CTabContent>
-              {formData.instructions.map((step, index) => {
-                const key = `step-${index + 1}`;
-                return (
-                  <CTabPanel key={key} className="p-3" itemKey={key}>
-                    {step}
-                  </CTabPanel>
-                );
-              })}
-            </CTabContent>
-          </CTabs>
+          <div className="overflow-x-auto whitespace-nowrap flex gap-2">
+            <CTabs defaultActiveItemKey="step-1">
+              <CTabList variant="pills">
+                {formData.instructions.map((_, index) => {
+                  const key = `step-${index + 1}`;
+                  return (
+                    <CTab key={key} itemKey={key}>
+                      Step {index + 1}
+                    </CTab>
+                  );
+                })}
+              </CTabList>
+              <CTabContent>
+                {formData.instructions.map((step, index) => {
+                  const key = `step-${index + 1}`;
+                  return (
+                    <CTabPanel key={key} className="p-3" itemKey={key}>
+                      {step}
+                    </CTabPanel>
+                  );
+                })}
+              </CTabContent>
+            </CTabs>
+          </div>
         )}
 
         {isAddingInstruction ? (

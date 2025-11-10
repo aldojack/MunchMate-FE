@@ -8,6 +8,7 @@ import axios from "axios";
 import { API_URL } from "../../../../config/api";
 
 import { toast, ToastContainer } from "react-toastify";
+import Button from "../../../../components/Button";
 
 const AddRecipeForm = () => {
   const [formData, setFormData] = useState<RecipeDTO>({
@@ -21,15 +22,6 @@ const AddRecipeForm = () => {
     servingSize: 0,
   });
 
-  //Maybe move this to each section instead
-  const [formState, setFormState] = useState({
-    isAddingIngredient: false,
-    isAddingInstruction: false,
-    sourceType: {
-      websiteChecked: false,
-      bookChecked: false
-    }
-  })
 
     const notify = (message: string) =>
       toast.error(message, { pauseOnHover: true, autoClose: 5000 });
@@ -62,10 +54,6 @@ const AddRecipeForm = () => {
           prepTime: 0,
           servingSize: 0,
         });
-        setFormState(prevState => {
-          return {...prevState, sourceType: {bookChecked: false, websiteChecked: false}}
-        })
-        console.log(formState)
         console.log(response);
       } catch (error) {
         console.error(error);
@@ -78,16 +66,17 @@ const AddRecipeForm = () => {
   }
 
   return (
-    <div className="container mx-auto mt-20">
+    <div className="max-w-6xl mx-auto bg-gray-50 rounded-2xl p-8 shadow-md">
       <ToastContainer />
       <form
         onSubmit={handleSubmit}
-        className="space-y-2 md:grid md:grid-cols-form md:place-content-center mx-4"
+        className="grid space-y-8 md:grid-cols-2 max-w-5xl mx-auto"
       >
       <RecipeDetailsSection updateFormData={updateFormData} formData={formData} />
       <IngredientsSection formData={formData}  notify={notify} updateFormData={updateFormData}/>
       <InstructionsSection formData={formData}  notify={notify} updateFormData={updateFormData}/>
-      <SourceSection />
+      <SourceSection formData={formData} updateFormData={updateFormData}/>
+      <Button name="Submit" />
       </form>
     </div>
   );

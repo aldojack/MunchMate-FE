@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Id } from "react-toastify";
 import axios from "axios";
 import { API_URL } from "../../../../config/api";
+import FormButton from "../../../../components/Form/FormButton";
 
 const IngredientsSection = ({
   formData,
@@ -80,10 +81,11 @@ const IngredientsSection = ({
   }, []);
   return (
     <div className="md:grid md:col-span-2">
-      <fieldset className="border-2 border-black px-2 rounded-md">
-        <legend>Ingredients:</legend>
+      <fieldset className="border border-gray-300 rounded-xl p-6 shadow-sm bg-white gap-y-8">
+        <legend className="font-semibold text-lg px-2">Ingredients:</legend>
+        {/* Maybe change out to Tab later */}
         {formData.ingredients.length > 0 && (
-          <div>
+          <div className="overflow-x-auto whitespace-nowrap flex gap-2">
             {formData.ingredients.map((ingredient) => (
               <button
                 key={ingredient.id}
@@ -101,103 +103,91 @@ const IngredientsSection = ({
             ))}
           </div>
         )}
-        <div className="grid grid-cols-[auto_1fr] gap-2 col-start-2 my-2">
-          {isAddingIngredient ? (
-            <>
-              <label htmlFor="ingredient--name">
-                Name:<span className="text-red-600 text-xl">*</span>
-              </label>
-              <select
-                className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md w-[95%] md:w-full"
-                name="name"
-                id="ingredient--name"
-                required
-                value={ingredient?.name}
-                onChange={(e) => handleIngredientChange(e)}
-              >
-                <option disabled value={""}>
-                  -- Select Ingredient --
-                </option>
-                {ingredientOptions?.map((ingredient) => (
-                  <option key={ingredient.id} value={ingredient.name}>
-                    {ingredient.name}
-                  </option>
-                ))}
-              </select>
-
-              <label htmlFor="ingredient--quantity">
-                Quantity:<span className="text-red-600 text-xl">*</span>
-              </label>
-              <div className="flex border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 rounded-md w-[95%] md:w-full">
-                <input
-                  type="number"
-                  name="quantity"
-                  step={0.1}
-                  id="ingredient--quantity"
-                  placeholder="Quantity"
-                  required
-                  min={0}
-                  className="pl-2 focus:outline-2 focus:outline-blue-600 sm:w-40"
-                  value={ingredient?.quantity <= 0 ? "" : ingredient.quantity}
-                  onChange={(e) => handleIngredientChange(e)}
-                />
-                <select
-                  className="border-2 border-l-2 focus:outline-2 focus:outline-blue-600 md:grow-[1] w-full"
-                  name="unit"
-                  value={ingredient.unit}
-                  required
-                  onChange={(e) => handleIngredientChange(e)}
-                >
-                  <option disabled value={""}>
-                    -- Select UNIT --
-                  </option>
-                  {units.map((unit) => (
-                    <option key={unit} value={unit}>
-                      {unit}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex space-x-2 my-4 col-span-2 place-content-center">
-                <button
-                  className="bg-green-600 rounded-lg text-white px-4 py-2 w-fit "
-                  type="button"
-                  onClick={() => saveIngredient(true)}
-                >
-                  Done
-                  <AddIcon />
-                </button>
-                <button
-                  className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
-                  type="button"
-                  onClick={() => saveIngredient()}
-                >
-                  Add Another
-                  <AddIcon />
-                </button>
-                <button
-                  className="bg-red-600 rounded-lg text-white px-4 py-2 w-fit "
-                  type="button"
-                  onClick={() => setIsAddingIngredient(false)}
-                >
-                  Remove
-                  <AddIcon />
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="flex space-x-2 col-start-2 my-4 place-content-center">
-              <button
-                className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
-                type="button"
-                onClick={() => setIsAddingIngredient(true)}
-              >
-                Add Ingredient
-                <AddIcon />
-              </button>
-            </div>
-          )}
+<div className="space-y-4">
+  {isAddingIngredient ? (
+    <>
+      {/* Ingredient inputs */}
+      <div className="grid space-y-6 items-center">
+        <div className="flex flex-col">
+          <label htmlFor="ingredient--name" className="text-sm font-medium text-gray-700">
+            Name: <span className="text-red-600 text-lg">*</span>
+          </label>
+          <select
+            id="ingredient--name"
+            name="name"
+            required
+            value={ingredient?.name}
+            onChange={handleIngredientChange}
+            className="border-2 border-gray-300 rounded-md px-2 py-1 focus:ring-2 focus:ring-blue-500"
+          >
+            <option disabled value="">
+              -- Select Ingredient --
+            </option>
+            {ingredientOptions?.map((i) => (
+              <option key={i.id} value={i.name}>
+                {i.name}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="ingredient--quantity" className="text-sm font-medium text-gray-700">
+            Quantity: <span className="text-red-600 text-lg">*</span>
+          </label>
+          <div className="flex border-2 border-gray-300 rounded-md overflow-hidden">
+            <input
+              type="number"
+              id="ingredient--quantity"
+              name="quantity"
+              min={0}
+              step={0.1}
+              placeholder="Qty"
+              required
+              value={ingredient?.quantity <= 0 ? "" : ingredient.quantity}
+              onChange={handleIngredientChange}
+              className="w-24 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <select
+              name="unit"
+              required
+              value={ingredient.unit}
+              onChange={handleIngredientChange}
+              className="border-l-2 border-gray-300 px-2 py-1 w-full focus:ring-2 focus:ring-blue-500"
+            >
+              <option disabled value="">
+                -- Select Unit --
+              </option>
+              {units.map((unit) => (
+                <option key={unit} value={unit}>
+                  {unit}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="flex flex-wrap justify-center gap-2">
+        <FormButton name="save" handler={() => saveIngredient(true)}/>
+        <FormButton name="add" handler={() => saveIngredient(false)}/>
+        <FormButton name="cancel" handler={() => setIsAddingIngredient(false)}/>
+      </div>
+    </>
+  ) : (
+    <div className="flex justify-center">
+      <button
+        type="button"
+        onClick={() => setIsAddingIngredient(true)}
+        className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+      >
+        Add Ingredient <AddIcon />
+      </button>
+    </div>
+  )}
+</div>
+
       </fieldset>
     </div>
   );
