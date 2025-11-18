@@ -118,7 +118,7 @@ const IngredientsSection = ({
             required
             value={ingredient?.name}
             onChange={handleIngredientChange}
-            className="border-2 border-gray-300 rounded-md px-2 py-1 focus:ring-2 focus:ring-blue-500"
+            className="border-2 border-gray-300 rounded-md px-2 py-1 focus:ring-2 focus:ring-primary"
           >
             <option disabled value="">
               -- Select Ingredient --
@@ -146,14 +146,14 @@ const IngredientsSection = ({
               required
               value={ingredient?.quantity <= 0 ? "" : ingredient.quantity}
               onChange={handleIngredientChange}
-              className="w-24 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-24 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <select
               name="unit"
               required
               value={ingredient.unit}
               onChange={handleIngredientChange}
-              className="border-l-2 border-gray-300 px-2 py-1 w-full focus:ring-2 focus:ring-blue-500"
+              className="border-l-2 border-gray-300 px-2 py-1 w-full focus:ring-2 focus:ring-primary"
             >
               <option disabled value="">
                 -- Select Unit --

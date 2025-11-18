@@ -31,8 +31,8 @@ const RecipeContainer = () => {
         <div className='flex flex-col items-center'>
           <h1 className='text-4xl'>Popular Recipes</h1>
           <div className='flex gap-4 my-4'>
-          <Link to="/recipes" className='bg-blue-600 rounded-lg text-white px-4 py-2 w-fit'>View All</Link>
-          <Link to="/planner" className='bg-blue-600 rounded-lg text-white px-4 py-2 w-fit'>View Planner</Link>
+          <Link to="/recipes" className='bg-primary rounded-lg text-white px-4 py-2 w-fit'>View All</Link>
+          <Link to="/planner" className='bg-primary rounded-lg text-white px-4 py-2 w-fit'>View Planner</Link>
           </div>
         </div>
         <div className='flex flex-col md:flex-row flex-wrap md:basis-[50%] md:justify-center'>

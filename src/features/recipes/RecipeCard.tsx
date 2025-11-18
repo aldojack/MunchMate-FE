@@ -54,7 +54,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
 }
 
   return (
-    <div className=' border-2 p-8 basis-96'>
+    <div className='border-2 p-8 basis-96'>
       <div className='relative'>
         <Link to={`/recipe/${recipe.id}`}>
         <img src={recipe?.image ? recipe.image : placeholder} alt={recipe.title ? recipe.title : 'placeholder for recipe image coming soon'} className={!recipe.image ? 'aspect-[3/2]' : ''}/>
@@ -65,13 +65,13 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
         <div className='flex gap-2'>
           {isPlanner ? (
             <>
-            <Link to={`/recipe/${recipe.id}`} className='bg-blue-600 rounded-lg text-white px-4 py-2' onClick={() => addToPlanner()}>Cook <RestaurantIcon /></Link>
-            <button className='bg-blue-600 rounded-lg text-white px-4 py-2' onClick={() => removeFromPlanner()}>Remove <DeleteIcon /></button>
+            <Link to={`/recipe/${recipe.id}`} className='bg-primary rounded-lg text-white px-4 py-2' onClick={() => addToPlanner()}>Cook <RestaurantIcon /></Link>
+            <button className='bg-primary rounded-lg text-white px-4 py-2' onClick={() => removeFromPlanner()}>Remove <DeleteIcon /></button>
             </>
           ) : (
             <>
-            <button className='bg-blue-600 rounded-lg text-white px-4 py-2' onClick={() => addToPlanner()}>Add <AddIcon /></button>
-            <button className='bg-blue-600 rounded-lg text-white px-4 py-2'>Favourite <FavoriteIcon /></button> 
+            <button className='bg-primary rounded-lg text-white px-4 py-2' onClick={() => addToPlanner()}>Add <AddIcon /></button>
+            <button className='bg-secondary rounded-lg text-white px-4 py-2'>Favourite</button> 
             </>
           )}
         </div>
