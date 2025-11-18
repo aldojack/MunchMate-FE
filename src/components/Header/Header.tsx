@@ -4,10 +4,11 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { useState, useRef, useEffect } from "react";
 import lightImg from "/images/lightegg.png";
 import darkImg from "/images/darkavo.png";
+import { useTheme } from "../../context/ThemeContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [theme, setTheme] = useState<string>("light");
+  const {theme, changeTheme} = useTheme();
   const links = {
     main: [
       { name: "Add", link: "/recipes/add" },
@@ -39,10 +40,7 @@ const Header = () => {
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    const html = document.documentElement;
-    html.classList.remove("light", "dark");
-    html.classList.add(newTheme);
+    changeTheme(newTheme);
   };
 
   useEffect(() => {
