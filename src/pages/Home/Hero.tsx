@@ -1,19 +1,46 @@
-import { Button } from '@mui/base/Button';
-import { Link } from 'react-router-dom';
+import Button from "../../components/Button";
+import img from "/images/landing_pasta.png";
 
 const Hero = () => {
   return (
-    <section className='pt-20 w-full h-screen flex flex-col bg-hero-image bg-cover bg-no-repeat justify-center' style={{ backgroundImage: "url('/images/timelapsed-burger.jpg')" }}>
-      <div className='basis-1/2 lg:px-16 relative text-white max-w-[450px] md:max-w-[750px] lg:max-w-[850px] flex flex-col justify-center items-center'>
-        <h1 className='text-6xl md:text-8xl text-left px-16 pt-16 pb-4 font-bold'>Take Your Meal Prep <span className='text-4xl md:text-6xl block font-bold text-blue-500'>To The Next Level</span></h1>
-        <p className='px-16 text-lg'>Your favorite recipes, tailored shopping lists, and meal planning—all in one place.</p>
-        <Button className='bg-blue-500 w-fit p-2 rounded-xl'><Link to={"/recipes"}>Start Planning Now</Link></Button>
+    <section className="flex flex-col md:grid md:grid-cols-2">
+      <div className="flex justify-center items-center flex-col gap-4">
+        <div className="flex flex-col space-y-4">
+          <h1 className="text-lg md:text-2xl ">
+            <span className="">Discover.</span>{" "}
+            <span className="text-primary font-bold">Plan. </span>Cook.{" "}
+            <span className="text-primary font-bold">Munch. </span>
+          </h1>
+          <p>
+            <span className="text-primary foont-bold">MunchMate</span> makes
+            meal planning simple — explore your favourite recipes, create weekly
+            plans, and build your shopping list in seconds.
+          </p>
+          <Button name="Start Now" />
+        </div>
+        <div className="flex space-x-6 md:space-x-12">
+          <div className="flex flex-col border-2 border-primary p-2 rounded-md text-sm shadow-lg">
+            <p className="text-lg text-primary font-bold">80%</p>
+            <p>faster</p>
+            <p>planning</p>
+          </div>
+          <div className="flex flex-col border-2 border-primary p-2 rounded-md text-sm shadow-lg">
+            <p>Over</p>
+            <p className="text-lg text-primary font-bold">100</p>
+            <p>recipes</p>
+          </div>
+          <div className="flex flex-col border-2 border-primary p-2 rounded-md text-sm shadow-lg">
+            <p>Recipes from</p>
+            <p>well known</p>
+            <p className="text-lg text-primary font-bold">Chefs</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img src={img} className="w-full object-cover" alt="plate of pasta" />
       </div>
     </section>
+  );
+};
 
-
-
-  )
-}
-
-export default Hero
+export default Hero;
