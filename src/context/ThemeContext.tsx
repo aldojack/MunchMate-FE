@@ -1,17 +1,18 @@
 import {
   createContext,
   ReactNode,
-  useContext,
+  useEffect,
   useState,
 } from "react";
-export type ThemeType = "light" | "dark";
+const themes = ["light", "dark"] as const;
+export type ThemeType = typeof themes[number];
 interface ThemeContextInterface {
   theme: ThemeType;
   changeTheme: (theme: ThemeType) => void;
 }
 
 const ThemeContext = createContext<ThemeContextInterface | undefined>(undefined);
-// provide
+
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<ThemeType>("light");
 
@@ -19,7 +20,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (newTheme !== theme) {
       setTheme(newTheme);
       const html = document.documentElement;
-      html.classList.remove("light", "dark");
+      for(const theme of themes){
+        html.classList.remove(theme)
+      }
       html.classList.add(newTheme);
     }
   };
@@ -27,18 +30,19 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   //Import eslint to disable sonar rule here
   const state = {theme, changeTheme}
 
+  useEffect(() => {
+    //eventually pull last theme from localStorage or system preference
+    // also look at moving this code into function as repeating now
+      const html = document.documentElement;
+      html.classList.remove("light", "dark");
+      html.classList.add(theme);
+  },[])
+
   return (
     <ThemeContext.Provider value={state}>
       {children}
     </ThemeContext.Provider>
   );
-};
-// use
-export const useTheme = () => {
-  const theme = useContext(ThemeContext);
-  if (!theme)
-    throw new Error("useTheme must not be used inside <ThemeProvider>");
-  return theme;
 };
 
 export default ThemeContext;

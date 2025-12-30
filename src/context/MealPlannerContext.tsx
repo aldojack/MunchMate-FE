@@ -3,7 +3,6 @@ import { getLocalStorage } from '../utils/localStorageUtil';
 import { combineIngredients } from '../utils/helperFunction';
 import { RecipeDTO, RecipeIngredientDTO } from '../types';
 
-// Define types for the context values
 interface MealPlannerContextType {
   meals: RecipeDTO[];
   setMeals: React.Dispatch<React.SetStateAction<RecipeDTO[]>>;
@@ -13,14 +12,12 @@ interface MealPlannerContextType {
   setShoppingList: React.Dispatch<React.SetStateAction<RecipeIngredientDTO[]>>;
 }
 
-// Create the context
 const MealPlannerContext = createContext<MealPlannerContextType | undefined>(undefined);
 
 interface MealPlannerProviderProps {
   children: ReactNode;
 }
 
-// Create the provider component
 export const MealPlannerProvider: React.FC<MealPlannerProviderProps> = ({ children }) => {
   const getPlanner = (): RecipeDTO[] => {
     const storedPlanner = getLocalStorage<RecipeDTO[]>('planner')
@@ -29,7 +26,7 @@ export const MealPlannerProvider: React.FC<MealPlannerProviderProps> = ({ childr
   };
 
   const getShoppingList = (): RecipeIngredientDTO[] => {
-    const storedPlanner: RecipeIngredientDTO[] | undefined = getLocalStorage<RecipeDTO[]>('planner')?.map((recipe: RecipeDTO) => recipe.ingredients).flat()
+    const storedPlanner: RecipeIngredientDTO[] | undefined = getLocalStorage<RecipeDTO[]>('planner')?.flatMap((recipe: RecipeDTO) => recipe.ingredients)
     return storedPlanner ? combineIngredients(storedPlanner) : []
   };
 
@@ -38,7 +35,7 @@ export const MealPlannerProvider: React.FC<MealPlannerProviderProps> = ({ childr
   const [favorites, setFavorites] = useState<number>(0);
   const [shoppingList, setShoppingList] = useState<RecipeIngredientDTO[]>(getShoppingList());
 
-  const state = useMemo(() => ({ meals, setMeals, favorites, setFavorites, shoppingList, setShoppingList }),[meals, shoppingList])
+  const state = useMemo(() => ({ meals, setMeals, favorites, setFavorites, shoppingList, setShoppingList }),[meals, shoppingList, favorites])
 
   useEffect(() => {
     setShoppingList(getShoppingList())
@@ -50,6 +47,4 @@ export const MealPlannerProvider: React.FC<MealPlannerProviderProps> = ({ childr
     </MealPlannerContext.Provider>
   );
 };
-
-// Export the context and provider for use in other components
 export default MealPlannerContext;

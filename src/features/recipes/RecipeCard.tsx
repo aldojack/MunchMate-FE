@@ -4,11 +4,9 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { Link } from 'react-router-dom';
-import MealPlannerContext from '../../context/MealPlannerContext';
-import { useContext } from 'react';
 import placeholder from '/images/placeholder.webp'
-
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorageUtil';
+import {useMealPlannerContext} from '../../context/useMealPlannerContext';
 
 interface RecipeCardProps {
   recipe: RecipeDTO
@@ -16,12 +14,7 @@ interface RecipeCardProps {
 }
 
 const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
-  const context = useContext(MealPlannerContext);
-
-  if (!context) {
-    throw new Error('Navbar must be used within a MealPlannerProvider');
-  }
-
+  const context = useMealPlannerContext();
   const {setMeals} = context;
 
   function addToPlanner():void{
@@ -71,7 +64,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
           ) : (
             <>
             <button className='bg-primary rounded-lg text-white px-4 py-2' onClick={() => addToPlanner()}>Add <AddIcon /></button>
-            <button className='bg-secondary rounded-lg text-white px-4 py-2'>Favourite</button> 
+            <button className='bg-secondary rounded-lg text-white px-4 py-2'>Favourite <FavoriteIcon /></button> 
             </>
           )}
         </div>

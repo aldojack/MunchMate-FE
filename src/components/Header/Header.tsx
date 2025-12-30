@@ -4,11 +4,11 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { useState, useRef, useEffect } from "react";
 import lightImg from "/images/lightegg.png";
 import darkImg from "/images/darkavo.png";
-import { useTheme } from "../../context/ThemeContext";
+import { useThemeContext } from "../../context/useThemeContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const {theme, changeTheme} = useTheme();
+  const {theme, changeTheme} = useThemeContext();
   const links = {
     main: [
       { name: "Add", link: "/recipes/add" },
