@@ -1,4 +1,3 @@
-import React from 'react'
 import Button from '../../components/Button'
 import img from "/images/grocerylist.jpg";
 
