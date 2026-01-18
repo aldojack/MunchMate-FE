@@ -8,7 +8,7 @@ import { useThemeContext } from "../../context/useThemeContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const {theme, changeTheme} = useThemeContext();
+  const { theme, changeTheme } = useThemeContext();
   const links = {
     main: [
       { name: "Add", link: "/recipes/add" },
@@ -79,14 +79,22 @@ const Header = () => {
           >
             <div className="gap-3 flex space-x-2 lg:items-center">
               {links.main.map((link) => (
-                <Link to={link.link} key={link.name}>
+                <Link
+                  to={link.link}
+                  key={link.name}
+                  className="hover:underline hover:underline-offset-2 decoration-primary"
+                >
                   {link.name}
                 </Link>
               ))}
             </div>
             <div className="hidden lg:flex space-x-4">
               {links.auth.map((link) => (
-                <Link to={link.link} key={link.name}>
+                <Link
+                  to={link.link}
+                  key={link.name}
+                  className="hover:underline hover:underline-offset-2 decoration-primary"
+                >
                   {link.name}
                 </Link>
               ))}
@@ -114,7 +122,7 @@ const Header = () => {
             </div>
 
             {isMenuOpen && (
-              <div className="absolute top-0 right-0 bg-white w-52 h-fit p-4 rounded border-2 text-lg">
+              <div className="absolute top-0 right-0 bg-background w-52 h-fit p-4 rounded border-2 text-lg">
                 <div className="flex flex-col lg:hidden space-y-12 w-full justify-center items-center">
                   {links.main.concat(links.auth).map((link) => (
                     <Link

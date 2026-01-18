@@ -28,6 +28,7 @@ const RecipeCard = ({ recipe, isPlanner = false }: RecipeCardProps) => {
       }
       else{
         setLocalStorage<RecipeDTO[]>('planner', [recipe])
+        setMeals([recipe])
       }
   }
 
