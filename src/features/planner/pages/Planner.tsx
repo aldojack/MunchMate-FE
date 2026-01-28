@@ -1,6 +1,6 @@
 import { useContext} from 'react'
-import RecipeCard from '../../recipes/RecipeCard';
-import MealPlannerContext from '../../../context/MealPlannerContext';
+import RecipeCard from '@/features/recipes/components/RecipeCard';
+import MealPlannerContext from '@/context/MealPlannerContext';
 
 
 const Planner = () => {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { RecipeDTO } from "../../types";
-import RecipeCard from "../../features/recipes/RecipeCard";
-import { getAllRecipes } from "../../features/recipes/services/recipeServices";
+import { RecipeDTO } from "@/types";
+import RecipeCard from "@/features/recipes/components/RecipeCard";
+import { getAllRecipes } from "@/features/recipes/services/recipeServices";
 import Select, {SingleValue, MultiValue} from "react-select";
-import { getAllIngredients } from "../../features/recipes/services/ingredientServices";
+import { getAllIngredients } from "@/features/recipes/services/ingredientServices";
 
 interface Filters {
   source: string;

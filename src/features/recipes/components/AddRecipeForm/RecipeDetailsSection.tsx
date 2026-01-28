@@ -1,5 +1,5 @@
-import FormInput from "../../../../components/Form/FormInput";
-import { RecipeDTO } from "../../../../types";
+import FormInput from "@/components/shared/Form/FormInput";
+import { RecipeDTO } from "@/types";
 
 const RecipeDetailsSection = ({
   updateFormData,

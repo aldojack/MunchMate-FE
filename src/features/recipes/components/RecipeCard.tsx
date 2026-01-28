@@ -1,12 +1,12 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { RecipeDTO } from '../../types'
+import { RecipeDTO } from '@/types'
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { Link } from 'react-router-dom';
 import placeholder from '/images/placeholder.webp'
-import { getLocalStorage, setLocalStorage } from '../../utils/localStorageUtil';
-import {useMealPlannerContext} from '../../context/useMealPlannerContext';
+import { getLocalStorage, setLocalStorage } from '@/utils/localStorageUtil';
+import {useMealPlannerContext} from '@/hooks/useMealPlannerContext';
 
 interface RecipeCardProps {
   recipe: RecipeDTO

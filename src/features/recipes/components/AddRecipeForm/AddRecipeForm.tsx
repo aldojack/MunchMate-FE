@@ -1,14 +1,14 @@
-import RecipeDetailsSection from "./RecipeDetailsSection";
-import { RecipeDTO } from "../../../../types";
-import IngredientsSection from "./IngredientsSection";
-import InstructionsSection from "./InstructionsSection";
-import SourceSection from "./SourceSection";
+import RecipeDetailsSection from "@/features/recipes/components/AddRecipeForm/RecipeDetailsSection";
+import { RecipeDTO } from "@/types";
+import IngredientsSection from "@/features/recipes/components/AddRecipeForm/IngredientsSection";
+import InstructionsSection from "@/features/recipes/components/AddRecipeForm/InstructionsSection";
+import SourceSection from "@/features/recipes/components/AddRecipeForm/SourceSection";
 import { FormEvent, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../../../../config/api";
+import { API_URL } from "@/config/api";
 
 import { toast, ToastContainer } from "react-toastify";
-import Button from "../../../../components/Button";
+import Button from "@/components/shared/Button/Button";
 
 const AddRecipeForm = () => {
   const [formData, setFormData] = useState<RecipeDTO>({

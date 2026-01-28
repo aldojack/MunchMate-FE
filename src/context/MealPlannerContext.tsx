@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useMemo } from 'react';
-import { getLocalStorage } from '../utils/localStorageUtil';
-import { RecipeDTO } from '../types';
+import { getLocalStorage } from '@/utils/localStorageUtil';
+import { RecipeDTO } from '@/types';
 
 interface MealPlannerContextType {
   meals: RecipeDTO[];

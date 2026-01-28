@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { RecipeDTO } from "../../../../types";
+import { RecipeDTO } from "@/types";
 import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from "@coreui/react";
 // import "@coreui/coreui/dist/css/coreui.min.css";
 

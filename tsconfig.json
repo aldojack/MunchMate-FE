@@ -5,5 +5,11 @@
     { "path": "./tsconfig.node.json" }
   ],
   // react-jsx: Emit .js files with the JSX changed to _jsx calls optimized for production
-  "compilerOptions": {"jsx": "react-jsx"}
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }

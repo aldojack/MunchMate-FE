@@ -1,4 +1,4 @@
-import Button from "../../components/Button";
+import Button from "@/components/shared/Button/Button";
 import img from "/images/grocerylist.jpg";
 
 const ShoppingListInfo = () => {

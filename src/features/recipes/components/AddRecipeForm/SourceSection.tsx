@@ -1,6 +1,6 @@
 import { useState } from "react";
-import FormInput from "../../../../components/Form/FormInput";
-import { RecipeDTO } from "../../../../types";
+import FormInput from "@/components/shared/Form/FormInput";
+import { RecipeDTO } from "@/types";
 
 const SourceSection = ({formData, updateFormData} : {formData : Pick<RecipeDTO, 'source'>, updateFormData: (partialUpdate : Partial<RecipeDTO>) => void}) => {
   interface SourceChecked{

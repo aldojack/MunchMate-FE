@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "../../../../types";
+import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "@/types";
 import AddIcon from "@mui/icons-material/Add";
 import { Id } from "react-toastify";
 import axios from "axios";
-import { API_URL } from "../../../../config/api";
-import FormButton from "../../../../components/Form/FormButton";
+import { API_URL } from "@/config/api";
+import FormButton from "@/components/shared/Form/FormButton";
 
 const IngredientsSection = ({
   formData,

@@ -1,7 +1,11 @@
-import Button from "../../components/Button";
-import img from "/images/landing_pasta.png";
+import Button from "@/components/shared/Button/Button";
+import lightImg from "/images/landing_pasta.png";
+import darkImg from "/images/dark-pasta.png"
+import useThemeContext from "@/hooks/useThemeContext";
 
 const Hero = () => {
+  const {theme} = useThemeContext();
+  const img = theme === 'light' ? lightImg : darkImg
   return (
     <section className="flex flex-col md:grid md:grid-cols-2">
       <div className="flex justify-center items-center flex-col gap-4">

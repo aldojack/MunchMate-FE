@@ -4,7 +4,7 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { useState, useRef, useEffect } from "react";
 import lightImg from "/images/lightegg.png";
 import darkImg from "/images/darkavo.png";
-import { useThemeContext } from "../../context/useThemeContext";
+import { useThemeContext } from "@/hooks/useThemeContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

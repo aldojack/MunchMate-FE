@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MealPlannerContext from "./MealPlannerContext";
+import MealPlannerContext from "@/context/MealPlannerContext";
 
 export const useMealPlannerContext = () => {
   const mealPlanner = useContext(MealPlannerContext);
