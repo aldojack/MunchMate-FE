@@ -1,11 +1,15 @@
 import { FC, createContext, ReactNode, useState, useEffect } from "react";
-import { RecipeIngredientDTO } from "../types";
-import { getShoppingList } from "../utils/helperFunction";
-import useMealPlannerContext from "./useMealPlannerContext";
+import { ShoppingListItem } from "@/types";
+import { getShoppingList } from "@/utils/helperFunction";
+import useMealPlannerContext from "@/hooks/useMealPlannerContext";
 
 interface ShoppingListContextInterface {
-  shoppingList: RecipeIngredientDTO[];
-  setShoppingList: React.Dispatch<React.SetStateAction<RecipeIngredientDTO[]>>;
+  shoppingList: ShoppingListItem[];
+  setShoppingList: React.Dispatch<React.SetStateAction<ShoppingListItem[]>>;
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleDrawer: () => void;
+  toggleChecked: (item : ShoppingListItem) => void;
 }
 const ShoppingListContext = createContext<
   ShoppingListContextInterface | undefined
@@ -18,17 +22,26 @@ interface ShoppingListProviderProps {
 export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
   children,
 }) => {
-  const {meals} = useMealPlannerContext();
-  const [shoppingList, setShoppingList] = useState<RecipeIngredientDTO[]>(
-    getShoppingList()
-  );
+  const { meals } = useMealPlannerContext();
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [shoppingList, setShoppingList] =
+    useState<ShoppingListItem[]>(getShoppingList());
 
+  const toggleDrawer = () => {
+    setIsDrawerOpen((prev) => !prev);
+  };
+
+  const toggleChecked = (item : ShoppingListItem) => {
+      setShoppingList(prev => prev.map(ingredient => ingredient.id === item.id ? {...ingredient, isChecked: !ingredient.isChecked} : ingredient))
+  }
 
   useEffect(() => {
-    setShoppingList(getShoppingList())
-  }, [meals])
+    setShoppingList(getShoppingList());
+  }, [meals]);
   return (
-    <ShoppingListContext.Provider value={{ shoppingList, setShoppingList }}>
+    <ShoppingListContext.Provider
+      value={{ shoppingList, setShoppingList, isDrawerOpen, setIsDrawerOpen, toggleDrawer, toggleChecked }}
+    >
       {children}
     </ShoppingListContext.Provider>
   );

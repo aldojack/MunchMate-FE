@@ -1,4 +1,4 @@
-import { MeasurementUnit } from "./enums"
+import { MeasurementUnit } from "@/types/enums"
 
 interface Ingredient{
     id: number | string
@@ -19,6 +19,10 @@ interface RecipeIngredientDTO {
     unit: MeasurementUnit | string;
 }
 
+interface ShoppingListItem extends RecipeIngredientDTO {
+    isChecked: boolean
+};
+
 interface RecipeDTO {
     id?: string;
     title: string;
@@ -30,4 +34,4 @@ interface RecipeDTO {
     prepTime: number;
     servingSize: number;
 }
-export type { Ingredient, RecipeIngredientDTO, Source, RecipeDTO };
+export type { Ingredient, RecipeIngredientDTO, Source, RecipeDTO, ShoppingListItem };
