@@ -1,16 +1,10 @@
-import { useContext} from 'react'
 import RecipeCard from '@/features/recipes/components/RecipeCard';
-import MealPlannerContext from '@/context/MealPlannerContext';
+import useMealPlannerContext from '@/hooks/useMealPlannerContext';
+
 
 
 const Planner = () => {
-    const context = useContext(MealPlannerContext);
-
-    if (!context) {
-      throw new Error('Navbar must be used within a MealPlannerProvider');
-    }
-  
-    const {meals} = context;
+    const {meals} = useMealPlannerContext();
 
     const renderPlanner: JSX.Element[] = meals?.map((meal, index) => {
         return (<RecipeCard key={`rc${meal.id}-${index}`} recipe={meal} isPlanner={true}/>)

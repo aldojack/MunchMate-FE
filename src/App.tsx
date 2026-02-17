@@ -9,25 +9,28 @@ import Header from "@/components/shared/Header/Header";
 import { ShoppingListProvider } from "@/context/ShoppingListContext";
 import ShoppingListFab from "@/features/shoppingList/pages/ShoppingListFab";
 import ShoppingListDrawer from "@/features/shoppingList/pages/ShoppingListDrawer";
+import { RecipeProvider } from "@/features/recipes/context/RecipeContext";
 
 function App() {
   return (
-    <MealPlannerProvider>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/planner" element={<Planner />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/recipes/add" element={<AddRecipeForm />} />
-          <Route path="/recipe/:recipeId" element={<Recipe />} />
-        </Routes>
-      </Router>
-      <ShoppingListProvider>
-        <ShoppingListDrawer />
-        <ShoppingListFab />
-      </ShoppingListProvider>
-    </MealPlannerProvider>
+    <RecipeProvider>
+      <MealPlannerProvider>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/planner" element={<Planner />} />
+            <Route path="/recipes" element={<Recipes />} />
+            <Route path="/recipes/add" element={<AddRecipeForm />} />
+            <Route path="/recipe/:recipeId" element={<Recipe />} />
+          </Routes>
+        </Router>
+        <ShoppingListProvider>
+          <ShoppingListDrawer />
+          <ShoppingListFab />
+        </ShoppingListProvider>
+      </MealPlannerProvider>
+    </RecipeProvider>
   );
 }
 

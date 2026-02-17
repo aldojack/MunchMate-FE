@@ -1,25 +1,9 @@
-import { useEffect, useState } from 'react'
-import { RecipeDTO } from '@/types';
 import RecipeCard from '@/features/recipes/components/RecipeCard';
-import { getAllRecipes } from '@/features/recipes/services/recipeServices'
 import { Link } from 'react-router-dom';
+import useRecipeContext from '@/features/recipes/hooks/useRecipeContext';
 
 const RecipeContainer = () => {
-  
-  const [recipes, setRecipes] = useState<RecipeDTO[]>();
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  
-  useEffect(() => {
-    const getAllRecipesDB = async () => {
-      const data = await getAllRecipes()
-      setRecipes(data)
-      setIsLoading(false)
-    }
-    if(isLoading)
-    {
-      getAllRecipesDB();
-    }
-  },[isLoading])
+  const {recipes} = useRecipeContext();
 
   const renderRecipeCards : JSX.Element[] | undefined = recipes?.map((recipe, index) => {
     return (<RecipeCard key={`rc${recipe.id}-${index}`} recipe={recipe}/>)
@@ -36,7 +20,7 @@ const RecipeContainer = () => {
           </div>
         </div>
         <div className='flex flex-col md:flex-row flex-wrap md:basis-[50%] md:justify-center'>
-        {!isLoading ? renderRecipeCards : <div>Loading....</div>}
+        {recipes ? renderRecipeCards : <div>Loading....</div>}
         </div>
       </div>
     </div>

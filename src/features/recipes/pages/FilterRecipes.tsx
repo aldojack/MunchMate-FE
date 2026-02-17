@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { RecipeDTO } from "@/types";
 import RecipeCard from "@/features/recipes/components/RecipeCard";
-import { getAllRecipes } from "@/features/recipes/services/recipeServices";
 import Select, {SingleValue, MultiValue} from "react-select";
 import { getAllIngredients } from "@/features/recipes/services/ingredientServices";
+import useRecipeContext from "@/features/recipes/hooks/useRecipeContext";
 
 interface Filters {
   source: string;
   includeIngredients: string[];
   excludeIngredients: string[];
-  maxCookingTime: number | null;
+  maxCookingTime: string | null;
 }
 
 const FilterRecipes = () => {
-  const [recipes, setRecipes] = useState<RecipeDTO[]>();
+  const {recipes} = useRecipeContext();
   const [filters, setFilters] = useState<Filters>({
     source: "",
     includeIngredients: [],
@@ -48,14 +48,12 @@ const FilterRecipes = () => {
     };
 
     const fetchRecipes = async () => {
-      const data: RecipeDTO[] = await getAllRecipes();
-      setRecipes(data);
-      updateSourceOptions(data);
+      updateSourceOptions(recipes);
       updateIngredientOptions();
     };
 
     fetchRecipes();
-  }, []);
+  }, [recipes]);
 
   const filterRecipes = (): RecipeDTO[] => {
     if (!recipes) return [];
@@ -69,13 +67,13 @@ const FilterRecipes = () => {
     }
 
     if (filters.maxCookingTime) {
-      const maxTime = filters.maxCookingTime;
+      const maxTime = Number(filters.maxCookingTime);
 
-      if (filters.maxCookingTime === 30 || filters.maxCookingTime === 59) {
+      if (Number(filters.maxCookingTime) === 30 || Number(filters.maxCookingTime) === 59) {
         filteredList = filteredList.filter(
-          (recipe) => recipe.cookTime + recipe.prepTime <= maxTime
+          (recipe) => Number(recipe.cookTime) + Number(recipe.prepTime) <= maxTime
         );
-      } else if (filters.maxCookingTime >= 100) {
+      } else if (Number(filters.maxCookingTime) >= 60) {
         filteredList = filteredList.filter(
           (recipe) => recipe.cookTime + recipe.prepTime >= maxTime
         );
@@ -118,6 +116,8 @@ const FilterRecipes = () => {
     selectedOption: SingleValue<{ value: string ; label: string }> | MultiValue<{ value: string; label: string }>,
     actionMeta: { name?: string }
   ) => {
+    console.log(actionMeta)
+    console.log(selectedOption)
     if (actionMeta.name) {
       if (Array.isArray(selectedOption)) {
         // Multi-select: selectedOption is an array

@@ -11,11 +11,7 @@ interface MealPlannerContextType {
 
 const MealPlannerContext = createContext<MealPlannerContextType | undefined>(undefined);
 
-interface MealPlannerProviderProps {
-  children: ReactNode;
-}
-
-export const MealPlannerProvider: React.FC<MealPlannerProviderProps> = ({ children }) => {
+export const MealPlannerProvider = ({ children } : {children: ReactNode}) => {
   const getPlanner = (): RecipeDTO[] => {
     const storedPlanner = getLocalStorage<RecipeDTO[]>('planner')
 
@@ -25,7 +21,7 @@ export const MealPlannerProvider: React.FC<MealPlannerProviderProps> = ({ childr
   const [meals, setMeals] = useState<RecipeDTO[]>(getPlanner());
   const [favorites, setFavorites] = useState<number>(0);
 
-  const state = useMemo(() => ({ meals, setMeals, favorites, setFavorites }),[meals, favorites])
+  const state = useMemo(() => ({ meals, setMeals, favorites, setFavorites }),[meals, favorites]) 
 
 
   return (
