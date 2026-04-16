@@ -17,13 +17,15 @@ function App() {
       <MealPlannerProvider>
         <Router>
           <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/planner" element={<Planner />} />
-            <Route path="/recipes" element={<Recipes />} />
-            <Route path="/recipes/add" element={<AddRecipeForm />} />
-            <Route path="/recipe/:recipeId" element={<Recipe />} />
-          </Routes>
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/planner" element={<Planner />} />
+              <Route path="/recipes" element={<Recipes />} />
+              <Route path="/recipes/add" element={<AddRecipeForm />} />
+              <Route path="/recipe/:recipeId" element={<Recipe />} />
+            </Routes>
+          </main>
         </Router>
         <ShoppingListProvider>
           <ShoppingListDrawer />

@@ -14,8 +14,8 @@ const ShoppingListFab = () => {
     fixed bottom-4 right-4 z-[500]
     h-14 w-14
     rounded-full
-    border-2 border-text
-    bg-background text-text
+    border-2 border-primary
+    bg-primary text-white
     flex items-center justify-center
     shadow-md
     transition
@@ -27,7 +27,7 @@ const ShoppingListFab = () => {
       >
         <div className="relative">
           <div
-            className="absolute right-[-15px] top-[-15px] rounded-full bg-accent px-2 shadow-md"
+            className="absolute right-[-15px] top-[-15px] rounded-full bg-accent px-2 shadow-md text-white"
             aria-label="shopping list badge counter"
           >
             {shoppingList.length}

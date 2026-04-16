@@ -1,14 +1,14 @@
-
 import RecipeContainer from "@/features/recipes/components/RecipeContainer";
 import Hero from "@/features/home/components/Hero";
 import ShoppingListInfo from "@/features/home/components/ShoppingListInfo";
-
+import HowItWorks from "@/features/home/components/HowItWorks";
 
 const Home = () => {
   return (
-    <div className="container mx-auto px-8 md:px-0">
+    <div className="min-h-screen">
       <Hero />
       <ShoppingListInfo />
+      <HowItWorks />
       <RecipeContainer />
     </div>
   );
