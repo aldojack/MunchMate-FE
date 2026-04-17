@@ -2,7 +2,7 @@
 // import useMealPlannerContext from '@/hooks/useMealPlannerContext';
 
 import AddIcon from "@mui/icons-material/Add";
-import { days } from "../../../planner.json";
+import plannerJson from "../../../planner.json";
 import { useRecipe } from "@/features/recipes/hooks/useRecipe";
 import { RecipeDTO } from "@/types";
 
@@ -100,6 +100,9 @@ const Planner = () => {
     "saturday",
     "sunday",
   ] as const;
+
+  // const { days: daysJson } = plannerJson;
+  const days = plannerJson?.days ?? [];
 
   type DaysType = (typeof DAYS)[number];
 
