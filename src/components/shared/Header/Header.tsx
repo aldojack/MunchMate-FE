@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { useState, useRef, useEffect } from "react";
-import lightImg from "/images/lightegg.png";
-import darkImg from "/images/darkavo.png";
 import { useThemeContext } from "@/hooks/useThemeContext";
+
+const lightImg = "/images/lightegg.png";
+const darkImg = "/images/darkavo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -25,17 +26,9 @@ const Header = () => {
   const hamburgerMenu = isMenuOpen ? <MenuOpenIcon /> : <MenuIcon />;
   const themeLogo =
     theme === "dark" ? (
-      <img
-        src={lightImg}
-        alt="light mode toggle of a fried egg"
-        id="theme-toggle"
-      />
+      <img src={lightImg} alt="Switch to light mode" className="h-8 w-8" />
     ) : (
-      <img
-        src={darkImg}
-        alt="dark mode toggle of an avocado"
-        id="theme-toggle"
-      />
+      <img src={darkImg} alt="Switch to dark mode" className="h-8 w-8" />
     );
 
   const toggleTheme = () => {
@@ -57,93 +50,85 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="w-full">
-      <div className="container mx-auto flex justify-between items-center text-xl p-6">
-        <div className="flex lg:space-x-12 w-full justify-between">
-          <div>
-            <Link to="/" aria-label="Home link">
-              <span className="text-primary text-2xl underline underline-offset-4">
-                M
-              </span>
-              unch
-              <span className="text-primary text-2xl underline underline-offset-4">
-                M
-              </span>
-              ate
-            </Link>
-          </div>
-          {/* Desktop Nav */}
-          <nav
-            aria-label="Main navigation"
-            className="hidden lg:flex lg:w-full lg:justify-between"
-          >
-            <div className="gap-3 flex space-x-2 lg:items-center">
-              {links.main.map((link) => (
-                <Link
-                  to={link.link}
-                  key={link.name}
-                  className="hover:underline hover:underline-offset-2 decoration-primary"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-            <div className="hidden lg:flex space-x-4">
-              {links.auth.map((link) => (
-                <Link
-                  to={link.link}
-                  key={link.name}
-                  className="hover:underline hover:underline-offset-2 decoration-primary"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </nav>
-          {/* Mobile and Tablet Nav */}
-          <nav
-            aria-label="Mobile navigation"
-            className="lg:hidden relative"
-            role="navigation"
-            ref={ref}
-          >
-            <div className="flex space-x-4 lg:hidden">
-              <button
-                onClick={toggle}
-                className="block lg:hidden"
-                aria-expanded={isMenuOpen}
-                aria-controls="mobile-menu"
-              >
-                {hamburgerMenu}
-              </button>
-              <button onClick={toggleTheme} aria-describedby="theme-toggle">
-                {themeLogo}
-              </button>
-            </div>
+    <header className="sticky top-0 z-50 w-full bg-background/90 border-b border-primary/10 backdrop-blur-sm">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between gap-4 px-4 py-4">
+        <Link
+          to="/"
+          aria-label="Home"
+          className="text-2xl font-semibold tracking-tight text-text transition hover:text-primary"
+        >
+          <span className="text-primary">M</span>unch
+          <span className="text-primary">M</span>ate
+        </Link>
 
-            {isMenuOpen && (
-              <div className="absolute top-0 right-0 bg-background w-52 h-fit p-4 rounded border-2 text-lg">
-                <div className="flex flex-col lg:hidden space-y-12 w-full justify-center items-center">
-                  {links.main.concat(links.auth).map((link) => (
-                    <Link
-                      key={link.name}
-                      to={link.link}
-                      onClick={toggle}
-                      className="hover:underline hover:bg-slate-400 w-full p-1 text-center"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </nav>
-          <div className="hidden lg:flex items-center">
-            <button onClick={toggleTheme} aria-describedby="theme-toggle">
-              {themeLogo}
-            </button>
-          </div>
+        <nav
+          aria-label="Main navigation"
+          className="hidden lg:flex items-center gap-8"
+        >
+          {links.main.map((link) => (
+            <Link
+              to={link.link}
+              key={link.name}
+              className="text-text/80 transition hover:text-text hover:underline hover:underline-offset-4"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden lg:flex items-center gap-3">
+          {links.auth.map((link) => (
+            <Link
+              to={link.link}
+              key={link.name}
+              className="text-text/70 transition hover:text-text"
+            >
+              {link.name}
+            </Link>
+          ))}
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="rounded-full border border-primary/20 bg-primary/10 p-2 transition hover:border-primary hover:bg-primary/15"
+          >
+            {themeLogo}
+          </button>
         </div>
+
+        <div className="flex items-center gap-3 lg:hidden" ref={ref}>
+          <button
+            onClick={toggle}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            className="rounded-full border border-primary/20 bg-background p-2 text-text transition hover:bg-primary/10"
+          >
+            {hamburgerMenu}
+          </button>
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="rounded-full border border-primary/20 bg-primary/10 p-2 transition hover:border-primary hover:bg-primary/15"
+          >
+            {themeLogo}
+          </button>
+        </div>
+
+        {isMenuOpen && (
+          <div className="absolute right-4 top-full mt-3 w-64 rounded-[1.75rem] border border-primary/10 bg-background p-4 shadow-2xl lg:hidden">
+            <div className="flex flex-col gap-3">
+              {links.main.concat(links.auth).map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.link}
+                  onClick={toggle}
+                  className="rounded-2xl px-4 py-3 text-center text-text/90 transition hover:bg-primary/10 hover:text-text"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

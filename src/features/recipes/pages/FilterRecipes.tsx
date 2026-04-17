@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RecipeDTO } from "@/types";
 import RecipeCard from "@/features/recipes/components/RecipeCard";
-import Select, {SingleValue, MultiValue} from "react-select";
+import Select, { SingleValue, MultiValue, StylesConfig } from "react-select";
 import { getAllIngredients } from "@/features/recipes/services/ingredientServices";
 import useRecipeContext from "@/features/recipes/hooks/useRecipeContext";
 
@@ -13,7 +13,7 @@ interface Filters {
 }
 
 const FilterRecipes = () => {
-  const {recipes} = useRecipeContext();
+  const { recipes } = useRecipeContext();
   const [filters, setFilters] = useState<Filters>({
     source: "",
     includeIngredients: [],
@@ -30,9 +30,9 @@ const FilterRecipes = () => {
   }
 
   const cookTimeOptions: SelectOptions[] = [
-    { label: "Under 30 Mins", value: '30' },
-    { label: "Under an hour", value: '59' },
-    { label: "Over an hour", value: '60' },
+    { label: "Under 30 Mins", value: "30" },
+    { label: "Under an hour", value: "59" },
+    { label: "Over an hour", value: "60" },
   ];
 
   useEffect(() => {
@@ -47,7 +47,8 @@ const FilterRecipes = () => {
       setIngredients(data.map((ingredient) => ingredient.name));
     };
 
-    const fetchRecipes = async () => {
+    const fetchRecipes = () => {
+      if (!recipes) return;
       updateSourceOptions(recipes);
       updateIngredientOptions();
     };
@@ -62,20 +63,24 @@ const FilterRecipes = () => {
 
     if (filters.source && filters.source !== "All") {
       filteredList = filteredList.filter(
-        (recipe) => recipe.source.name === filters.source
+        (recipe) => recipe.source.name === filters.source,
       );
     }
 
     if (filters.maxCookingTime) {
       const maxTime = Number(filters.maxCookingTime);
 
-      if (Number(filters.maxCookingTime) === 30 || Number(filters.maxCookingTime) === 59) {
+      if (
+        Number(filters.maxCookingTime) === 30 ||
+        Number(filters.maxCookingTime) === 59
+      ) {
         filteredList = filteredList.filter(
-          (recipe) => Number(recipe.cookTime) + Number(recipe.prepTime) <= maxTime
+          (recipe) =>
+            Number(recipe.cookTime) + Number(recipe.prepTime) <= maxTime,
         );
       } else if (Number(filters.maxCookingTime) >= 60) {
         filteredList = filteredList.filter(
-          (recipe) => recipe.cookTime + recipe.prepTime >= maxTime
+          (recipe) => recipe.cookTime + recipe.prepTime >= maxTime,
         );
       }
     }
@@ -85,9 +90,9 @@ const FilterRecipes = () => {
       filteredList = filteredList.filter((recipe) =>
         filters.includeIngredients.every((includeIngredient) =>
           recipe.ingredients.some(
-            (ingredient) => ingredient.name === includeIngredient
-          )
-        )
+            (ingredient) => ingredient.name === includeIngredient,
+          ),
+        ),
       );
       //Looser match
       // filteredList = filteredList.filter((recipe) =>
@@ -98,32 +103,38 @@ const FilterRecipes = () => {
     }
 
     if (filters.excludeIngredients.length >= 1) {
-      filteredList = filteredList.filter((recipe) =>
-        !recipe.ingredients.some((ingredient) =>
-          filters.excludeIngredients.includes(ingredient.name)
-        )
+      filteredList = filteredList.filter(
+        (recipe) =>
+          !recipe.ingredients.some((ingredient) =>
+            filters.excludeIngredients.includes(ingredient.name),
+          ),
       );
     }
 
-    if(searchTerm){
-      filteredList = filteredList.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    if (searchTerm) {
+      filteredList = filteredList.filter((recipe) =>
+        recipe.title.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
     }
-    
 
     return filteredList;
   };
   const handleChange = (
-    selectedOption: SingleValue<{ value: string ; label: string }> | MultiValue<{ value: string; label: string }>,
-    actionMeta: { name?: string }
+    selectedOption:
+      | SingleValue<{ value: string; label: string }>
+      | MultiValue<{ value: string; label: string }>,
+    actionMeta: { name?: string },
   ) => {
-    console.log(actionMeta)
-    console.log(selectedOption)
     if (actionMeta.name) {
       if (Array.isArray(selectedOption)) {
         // Multi-select: selectedOption is an array
         const values = selectedOption.map((option) => option.value);
         setFilters({ ...filters, [actionMeta.name]: values });
-      } else if (selectedOption && !Array.isArray(selectedOption) && 'value' in selectedOption) {
+      } else if (
+        selectedOption &&
+        !Array.isArray(selectedOption) &&
+        "value" in selectedOption
+      ) {
         // Single-select: selectedOption is an object
         setFilters({ ...filters, [actionMeta.name]: selectedOption.value });
       } else {
@@ -132,7 +143,6 @@ const FilterRecipes = () => {
       }
     }
   };
-
 
   const populateSelectOptions = (list?: string[]) => {
     if (!list) {
@@ -154,24 +164,74 @@ const FilterRecipes = () => {
     return renderedList.length > 0 ? renderedList : <p>No Recipes</p>;
   };
 
+  const selectStyles: StylesConfig<SelectOptions, boolean> = {
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: "rgba(255,255,255,0.92)",
+      borderColor: "rgba(59,130,246,0.25)",
+      boxShadow: "none",
+      minHeight: "48px",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 50,
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: "rgba(59,130,246,0.15)",
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#0f172a",
+    }),
+  };
+
   return (
-    <div className="w-full pt-20">
-      <div className="container mx-auto">
-        <div>
-          <h1 className="text-4xl font-bold text-center">Recipes</h1>
-          <div className="flex flex-col justify-center items-center">
-            <input
-              type="search"
-              name="search"
-              onChange={(event) => setSearchTerm(event.target.value)}
-              className="border-2 border-blue-600 rounded-md w-2/3 p-2 text-center"
-              placeholder="Search by recipe"
-              value={searchTerm}
-            />
-            <div className="grid grid-cols-2 md:flex space-x-4 place-content-center">
-              <label htmlFor="souce">
-                Source:
+    <main className="min-h-screen bg-background/50 py-16 text-text">
+      <div className="max-w-screen-xl mx-auto px-4">
+        <div className="mb-12 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary/80">
+            Discover recipes
+          </p>
+          <h1 className="mt-4 text-4xl md:text-5xl font-semibold tracking-tight text-text">
+            Find the perfect meal for any moment.
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-base text-text/70">
+            Search, filter, and refine your recipe collection by source, prep
+            time, and ingredients.
+          </p>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-12">
+          <div className="rounded-[2rem] border border-primary/10 bg-background/95 p-6 shadow-xl">
+            <div className="mb-6">
+              <label
+                className="block text-sm font-medium text-text/70 mb-2"
+                htmlFor="search"
+              >
+                Search recipes
+              </label>
+              <input
+                id="search"
+                type="search"
+                name="search"
+                onChange={(event) => setSearchTerm(event.target.value)}
+                className="w-full rounded-3xl border border-primary/20 bg-background px-4 py-3 text-text shadow-sm outline-none transition focus:border-primary/50"
+                placeholder="Search by recipe"
+                value={searchTerm}
+              />
+            </div>
+
+            <div className="grid gap-4">
+              <div>
+                <label
+                  className="block text-sm font-medium text-text/70 mb-2"
+                  htmlFor="source-select"
+                >
+                  Source
+                </label>
                 <Select
+                  inputId="source-select"
                   value={
                     filters.source
                       ? { value: filters.source, label: filters.source }
@@ -180,54 +240,101 @@ const FilterRecipes = () => {
                   name="source"
                   options={populateSelectOptions(sources)}
                   onChange={(value, action) => handleChange(value, action)}
+                  styles={selectStyles}
+                  placeholder="All sources"
                 />
-              </label>
-              <label htmlFor="maxCookingTime">
-                Total Cooktime:
+              </div>
+
+              <div>
+                <label
+                  className="block text-sm font-medium text-text/70 mb-2"
+                  htmlFor="cooktime-select"
+                >
+                  Total cook time
+                </label>
                 <Select
+                  inputId="cooktime-select"
                   name="maxCookingTime"
                   options={cookTimeOptions}
                   onChange={(value, action) => handleChange(value, action)}
                   isClearable
+                  styles={selectStyles}
+                  placeholder="Any time"
                 />
-              </label>
-              <label htmlFor="includeIngredients">
-                Includes:
+              </div>
+
+              <div>
+                <label
+                  className="block text-sm font-medium text-text/70 mb-2"
+                  htmlFor="includes-select"
+                >
+                  Includes
+                </label>
                 <Select
+                  inputId="includes-select"
                   isMulti
                   name="includeIngredients"
                   options={populateSelectOptions(
                     ingredients?.filter(
                       (ingredient) =>
-                        !filters.excludeIngredients.includes(ingredient)
-                    )
+                        !filters.excludeIngredients.includes(ingredient),
+                    ),
                   )}
                   onChange={(value, action) => handleChange(value, action)}
+                  styles={selectStyles}
+                  placeholder="Any ingredient"
                 />
-              </label>
-              <label htmlFor="excludeIngredients">
-                Excludes:
+              </div>
+
+              <div>
+                <label
+                  className="block text-sm font-medium text-text/70 mb-2"
+                  htmlFor="excludes-select"
+                >
+                  Excludes
+                </label>
                 <Select
+                  inputId="excludes-select"
                   isMulti
                   name="excludeIngredients"
                   onChange={(value, action) => handleChange(value, action)}
-
+                  styles={selectStyles}
+                  placeholder="Exclude ingredients"
                   options={populateSelectOptions(
                     ingredients?.filter(
                       (ingredient) =>
-                        !filters.includeIngredients.includes(ingredient)
-                    )
+                        !filters.includeIngredients.includes(ingredient),
+                    ),
                   )}
                 />
-              </label>
+              </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:flex-wrap justify-center">
-            {recipes && renderRecipes(filterRecipes())}
-          </div>
+
+          <aside className="rounded-[2rem] border border-primary/10 bg-background/95 p-8 shadow-xl">
+            <div className="space-y-6">
+              <div>
+                <p className="text-sm text-text/70">Total recipes</p>
+                <p className="mt-2 text-3xl font-semibold text-text">
+                  {filterRecipes().length}
+                </p>
+              </div>
+              <div className="rounded-3xl bg-primary/10 p-5">
+                <p className="text-sm font-semibold text-primary">Tip</p>
+                <p className="mt-2 text-text/80">
+                  Use the ingredient selectors to narrow results quickly and
+                  find meals you already have the ingredients for.
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+          {recipes && renderRecipes(filterRecipes())}
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
