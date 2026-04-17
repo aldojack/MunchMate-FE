@@ -24,10 +24,14 @@ export function combineIngredients(
 }
 
 export const getShoppingList = (): ShoppingListItem[] => {
-  const storedPlanner = getLocalStorage<RecipeDTO[]>("planner")
-  ?.flatMap((recipe: RecipeDTO) => 
-    recipe.ingredients.map(ingredient => ({...ingredient, isChecked: false}))
+  const storedPlanner = getLocalStorage<RecipeDTO[]>("planner")?.flatMap(
+    (recipe: RecipeDTO) =>
+      recipe.ingredients.map((ingredient) => ({
+        ...ingredient,
+        isChecked: false,
+      })),
   );
   return storedPlanner ? combineIngredients(storedPlanner) : [];
 };
+
 export default { combineIngredients, getShoppingList };

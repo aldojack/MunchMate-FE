@@ -3,13 +3,14 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { getAllRecipes } from "@/features/recipes/services/recipeServices";
 
 interface RecipeContextType {
-  recipes: RecipeDTO[];
-  setRecipes: React.Dispatch<React.SetStateAction<RecipeDTO[]>>;
-  getRecipeById: (id: string) => RecipeDTO | undefined
+  recipes: RecipeDTO[] | null;
+  getRecipeById: (id: number) => RecipeDTO | undefined;
 }
-const RecipeContext = createContext<RecipeContextType | undefined>(undefined);
+const RecipeContext = createContext<RecipeContextType | null>(null);
 
-export const RecipeProvider = ({ children } : {children : ReactNode}) => {
+export const RecipeProvider = ({ children }: { children: ReactNode }) => {
+  const [recipes, setRecipes] = useState<RecipeDTO[] | null>(null);
+
   useEffect(() => {
     const loadRecipes = async () => {
       const data = await getAllRecipes();
@@ -18,12 +19,12 @@ export const RecipeProvider = ({ children } : {children : ReactNode}) => {
     loadRecipes();
   }, []);
 
-  const getRecipeById = (id : string) : RecipeDTO | undefined => {
-    return recipes?.find(recipe => recipe.id === id)
-  }
-  const [recipes, setRecipes] = useState<RecipeDTO[]>([]);
+  const getRecipeById = (id: number): RecipeDTO | undefined => {
+    return recipes?.find((recipe) => recipe.id === id);
+  };
+
   return (
-    <RecipeContext.Provider value={{recipes, setRecipes, getRecipeById}}>
+    <RecipeContext.Provider value={{ recipes, getRecipeById }}>
       {children}
     </RecipeContext.Provider>
   );

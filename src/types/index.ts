@@ -24,7 +24,7 @@ interface ShoppingListItem extends RecipeIngredientDTO {
 };
 
 interface RecipeDTO {
-    id: string;
+    id: number;
     title: string;
     ingredients: RecipeIngredientDTO[];
     source: Source;
