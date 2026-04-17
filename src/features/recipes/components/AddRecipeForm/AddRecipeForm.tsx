@@ -10,8 +10,10 @@ import { API_URL } from "@/config/api";
 import { toast, ToastContainer } from "react-toastify";
 import Button from "@/components/shared/Button/Button";
 
+type NewRecipe = Omit<RecipeDTO, "id">;
+
 const AddRecipeForm = () => {
-  const [formData, setFormData] = useState<RecipeDTO>({
+  const [formData, setFormData] = useState<NewRecipe>({
     title: "",
     image: "",
     ingredients: [],
@@ -22,28 +24,27 @@ const AddRecipeForm = () => {
     servingSize: 0,
   });
 
+  const notify = (message: string) =>
+    toast.error(message, { pauseOnHover: true, autoClose: 5000 });
 
-    const notify = (message: string) =>
-      toast.error(message, { pauseOnHover: true, autoClose: 5000 });
-
-    const isValidSubmission = (data: RecipeDTO) => {
+  const isValidSubmission = (data: NewRecipe) => {
     if (data.instructions.length <= 0 || data.ingredients.length <= 0) {
-      console.log(
-        "Please ensure you have saved Ingredients and Instructions before submitting"
+      console.error(
+        "Please ensure you have saved Ingredients and Instructions before submitting",
       );
       notify(
-        "Please ensure you have saved Ingredients and Instructions before submitting"
+        "Please ensure you have saved Ingredients and Instructions before submitting",
       );
       return false;
     }
     return true;
   };
 
-    const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (isValidSubmission(formData)) {
       try {
-        const response = await axios.post(`${API_URL}/recipes/add`, formData);
+        await axios.post(`${API_URL}/recipes/add`, formData);
         setFormData({
           title: "",
           image: "",
@@ -54,7 +55,6 @@ const AddRecipeForm = () => {
           prepTime: 0,
           servingSize: 0,
         });
-        console.log(response);
       } catch (error) {
         console.error(error);
       }
@@ -62,8 +62,8 @@ const AddRecipeForm = () => {
   };
 
   const updateFormData = (partialUpdate: Partial<RecipeDTO>) => {
-      setFormData(prev => ({ ...prev, ...partialUpdate }));
-  }
+    setFormData((prev) => ({ ...prev, ...partialUpdate }));
+  };
 
   return (
     <div className="max-w-6xl mx-auto bg-gray-50 rounded-2xl p-8 shadow-md">
@@ -72,11 +72,22 @@ const AddRecipeForm = () => {
         onSubmit={handleSubmit}
         className="grid space-y-8 md:grid-cols-2 max-w-5xl mx-auto"
       >
-      <RecipeDetailsSection updateFormData={updateFormData} formData={formData} />
-      <IngredientsSection formData={formData}  notify={notify} updateFormData={updateFormData}/>
-      <InstructionsSection formData={formData}  notify={notify} updateFormData={updateFormData}/>
-      <SourceSection formData={formData} updateFormData={updateFormData}/>
-      <Button name="Submit" />
+        <RecipeDetailsSection
+          updateFormData={updateFormData}
+          formData={formData}
+        />
+        <IngredientsSection
+          formData={formData}
+          notify={notify}
+          updateFormData={updateFormData}
+        />
+        <InstructionsSection
+          formData={formData}
+          notify={notify}
+          updateFormData={updateFormData}
+        />
+        <SourceSection formData={formData} updateFormData={updateFormData} />
+        <Button name="Submit" />
       </form>
     </div>
   );
