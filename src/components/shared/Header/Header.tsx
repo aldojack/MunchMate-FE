@@ -95,40 +95,42 @@ const Header = () => {
           </button>
         </div>
 
-        <div className="flex items-center gap-3 lg:hidden" ref={ref}>
-          <button
-            onClick={toggle}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-            className="rounded-full border border-primary/20 bg-background p-2 text-text transition hover:bg-primary/10"
-          >
-            {hamburgerMenu}
-          </button>
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="rounded-full border border-primary/20 bg-primary/10 p-2 transition hover:border-primary hover:bg-primary/15"
-          >
-            {themeLogo}
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="absolute right-4 top-full mt-3 w-64 rounded-[1.75rem] border border-primary/10 bg-background p-4 shadow-2xl lg:hidden">
-            <div className="flex flex-col gap-3">
-              {links.main.concat(links.auth).map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.link}
-                  onClick={toggle}
-                  className="rounded-2xl px-4 py-3 text-center text-text/90 transition hover:bg-primary/10 hover:text-text"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
+        <div ref={ref} className="relative lg:hidden">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggle}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              className="rounded-full border border-primary/20 bg-background p-2 text-text transition hover:bg-primary/10"
+            >
+              {hamburgerMenu}
+            </button>
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="rounded-full border border-primary/20 bg-primary/10 p-2 transition hover:border-primary hover:bg-primary/15"
+            >
+              {themeLogo}
+            </button>
           </div>
-        )}
+
+          {isMenuOpen && (
+            <div className="absolute right-4 top-full mt-3 w-64 rounded-[1.75rem] border border-primary/10 bg-background p-4 shadow-2xl">
+              <div className="flex flex-col gap-3">
+                {links.main.concat(links.auth).map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.link}
+                    onClick={toggle}
+                    className="rounded-2xl px-4 py-3 text-center text-text/90 transition hover:bg-primary/10 hover:text-text"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
