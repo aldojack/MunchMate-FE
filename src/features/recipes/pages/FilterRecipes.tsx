@@ -165,24 +165,15 @@ const FilterRecipes = () => {
   };
 
   const selectStyles: StylesConfig<SelectOptions, boolean> = {
-    control: (provided) => ({
-      ...provided,
-      backgroundColor: "rgba(255,255,255,0.92)",
-      borderColor: "rgba(59,130,246,0.25)",
-      boxShadow: "none",
+    control: (baseStyles) => ({
+      ...baseStyles,
+      backgroundColor: "var(--background)",
+      borderColor: "var(--text)",
       minHeight: "48px",
     }),
-    menu: (provided) => ({
-      ...provided,
-      zIndex: 50,
-    }),
-    multiValue: (provided) => ({
-      ...provided,
-      backgroundColor: "rgba(59,130,246,0.15)",
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      color: "#0f172a",
+    option: (baseStyles) => ({
+      ...baseStyles,
+      color: "black",
     }),
   };
 
@@ -216,7 +207,7 @@ const FilterRecipes = () => {
                 type="search"
                 name="search"
                 onChange={(event) => setSearchTerm(event.target.value)}
-                className="w-full rounded-3xl border border-primary/20 bg-background px-4 py-3 text-text shadow-sm outline-none transition focus:border-primary/50"
+                className="w-full rounded-3xl border border-text bg-background px-4 py-3 text-text shadow-sm outline-none transition focus:border-primary/50"
                 placeholder="Search by recipe"
                 value={searchTerm}
               />

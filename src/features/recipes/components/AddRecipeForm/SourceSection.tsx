@@ -1,41 +1,59 @@
 import { useState } from "react";
 import FormInput from "@/components/shared/Form/FormInput";
 import { RecipeDTO } from "@/types";
+import LinkIcon from "@mui/icons-material/Link";
 
-const SourceSection = ({formData, updateFormData} : {formData : Pick<RecipeDTO, 'source'>, updateFormData: (partialUpdate : Partial<RecipeDTO>) => void}) => {
-  interface SourceChecked{
+const SourceSection = ({
+  formData,
+  updateFormData,
+}: {
+  formData: Pick<RecipeDTO, "source">;
+  updateFormData: (partialUpdate: Partial<RecipeDTO>) => void;
+}) => {
+  interface SourceChecked {
     isWebsite: boolean;
-    isBook: boolean
+    isBook: boolean;
   }
   const [sourceChecked, setSourceChecked] = useState<SourceChecked>({
     isWebsite: false,
-    isBook: false
-  })
+    isBook: false,
+  });
 
-  
   const handleSourceChange = (e: { target: HTMLInputElement }) => {
     const { name, value } = e.target;
-    updateFormData({ source: {...formData.source, [name]: value }});
+    updateFormData({ source: { ...formData.source, [name]: value } });
   };
   return (
     <div className="md:grid md:col-span-2">
-      <fieldset className="border border-gray-300 rounded-xl p-6 shadow-sm bg-white gap-y-8">
-        <legend className="font-semibold text-lg px-2">Source</legend>
+      <fieldset className="border border-accent rounded-xl p-6 shadow-sm bg-background gap-y-8">
+        <legend className="font-semibold text-lg px-2 text-secondary flex items-center gap-2">
+          <LinkIcon className="text-primary" />
+          Source
+        </legend>
         <div className="flex space-x-4 items-center">
-          <label htmlFor="websiteCheck" className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="websiteCheck"
+            className="text-sm font-medium text-gray-700"
+          >
             Website
             <input
               type="checkbox"
               name="websiteCheck"
               id="websiteCheck"
               onChange={() =>
-                setSourceChecked((previousState) => ({...previousState, isWebsite:!previousState.isWebsite}))
+                setSourceChecked((previousState) => ({
+                  ...previousState,
+                  isWebsite: !previousState.isWebsite,
+                }))
               }
               className="border-2 border-gray-400 pl-2 focus:outline-2 focus:outline-blue-600 rounded-md w-full"
               checked={sourceChecked.isWebsite}
             />
           </label>
-          <label htmlFor="bookCheck" className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="bookCheck"
+            className="text-sm font-medium text-gray-700"
+          >
             Book
             <input
               type="checkbox"
@@ -43,7 +61,10 @@ const SourceSection = ({formData, updateFormData} : {formData : Pick<RecipeDTO, 
               id="bookCheck"
               className="border-2 border-gray-400 pl-2 focus:outline-2 focus:outline-blue-600 rounded-md w-full"
               onChange={() =>
-                setSourceChecked((previousState) => ({...previousState, isBook:!previousState.isBook}))
+                setSourceChecked((previousState) => ({
+                  ...previousState,
+                  isBook: !previousState.isBook,
+                }))
               }
               checked={sourceChecked.isBook}
             />

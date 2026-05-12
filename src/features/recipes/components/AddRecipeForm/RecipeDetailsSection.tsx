@@ -1,5 +1,6 @@
 import FormInput from "@/components/shared/Form/FormInput";
 import { RecipeDTO } from "@/types";
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 
 const RecipeDetailsSection = ({
   updateFormData,
@@ -18,8 +19,11 @@ const RecipeDetailsSection = ({
 
   return (
     <div className="md:grid md:col-span-2">
-      <fieldset className="border border-gray-300 rounded-xl p-6 shadow-sm bg-white gap-y-8">
-        <legend className="font-semibold text-lg px-2">Recipe Details</legend>
+      <fieldset className="border border-accent rounded-xl p-6 shadow-sm bg-background gap-y-8">
+        <legend className="font-semibold text-lg px-2 text-secondary flex items-center gap-2">
+          <RestaurantMenuIcon className="text-primary" />
+          Recipe Details
+        </legend>
         <div className="grid gap-3 sm:grid-cols-2">
           <FormInput
             name="title"

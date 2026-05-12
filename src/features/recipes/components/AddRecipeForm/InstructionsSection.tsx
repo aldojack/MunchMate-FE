@@ -1,8 +1,8 @@
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import { RecipeDTO } from "@/types";
-import { CTab, CTabContent, CTabList, CTabPanel, CTabs } from "@coreui/react";
-// import "@coreui/coreui/dist/css/coreui.min.css";
+import StepTabs from "./StepTabs";
 
 const InstructionsSection = ({
   formData,
@@ -18,21 +18,16 @@ const InstructionsSection = ({
     useState<boolean>(false);
   const saveInstruction = (done: boolean = false) => {
     if (instruction.trim() === "") {
-      console.log(
-        "Unable to save blank text, please enter instruction or alternatively press cancel"
+      console.error(
+        "Unable to save blank text, please enter instruction or alternatively press cancel",
       );
       notify(
-        "Unable to save blank text, please enter instruction or alternatively press cancel"
+        "Unable to save blank text, please enter instruction or alternatively press cancel",
       );
       return;
     }
     updateFormData({ instructions: [...formData.instructions, instruction] });
-    // setFormData((previousData: RecipeDTO) => {
-    //   return {
-    //     ...previousData,
-    //     instructions: [...previousData.instructions, instruction],
-    //   };
-    // });
+
     setInstruction("");
     if (done) setIsAddingInstruction(false);
   };
@@ -44,35 +39,13 @@ const InstructionsSection = ({
 
   return (
     <div className="md:grid md:col-span-2">
-      <fieldset className="border border-gray-300 rounded-xl p-6 shadow-sm bg-white gap-y-8">
-        <legend className="text-lg font-semibold text-gray-800">
-          Instructions:<span className="text-red-600 text-xl">*</span>
+      <fieldset className="border border-accent rounded-xl p-6 shadow-sm bg-background gap-y-8">
+        <legend className="text-lg font-semibold text-secondary flex items-center gap-2">
+          <FormatListNumberedIcon className="text-primary" />
+          Instructions<span className="text-red-600 text-xl">*</span>
         </legend>
         {formData.instructions.length > 0 && (
-          <div className="overflow-x-auto whitespace-nowrap flex gap-2">
-            <CTabs defaultActiveItemKey="step-1">
-              <CTabList variant="pills">
-                {formData.instructions.map((_, index) => {
-                  const key = `step-${index + 1}`;
-                  return (
-                    <CTab key={key} itemKey={key}>
-                      Step {index + 1}
-                    </CTab>
-                  );
-                })}
-              </CTabList>
-              <CTabContent>
-                {formData.instructions.map((step, index) => {
-                  const key = `step-${index + 1}`;
-                  return (
-                    <CTabPanel key={key} className="p-3" itemKey={key}>
-                      {step}
-                    </CTabPanel>
-                  );
-                })}
-              </CTabContent>
-            </CTabs>
-          </div>
+          <StepTabs steps={formData.instructions} />
         )}
 
         {isAddingInstruction ? (
@@ -90,7 +63,7 @@ const InstructionsSection = ({
 
             <div className="flex space-x-2 my-4 col-span-2 place-content-center">
               <button
-                className="bg-green-600 rounded-lg text-white px-4 py-2 w-fit "
+                className="bg-secondary hover:bg-secondary/80 rounded-lg text-white px-4 py-2 w-fit transition"
                 type="button"
                 onClick={() => saveInstruction(true)}
               >
@@ -98,7 +71,7 @@ const InstructionsSection = ({
                 <AddIcon />
               </button>
               <button
-                className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
+                className="bg-primary hover:bg-primary/80 rounded-lg text-white px-4 py-2 w-fit transition"
                 type="button"
                 onClick={() => saveInstruction()}
               >
@@ -106,7 +79,7 @@ const InstructionsSection = ({
                 <AddIcon />
               </button>
               <button
-                className="bg-red-600 rounded-lg text-white px-4 py-2 w-fit "
+                className="bg-accent hover:bg-accent/80 rounded-lg text-white px-4 py-2 w-fit transition"
                 type="button"
                 onClick={() => setIsAddingInstruction(false)}
               >
@@ -118,7 +91,7 @@ const InstructionsSection = ({
         ) : (
           <div className="flex space-x-2 col-start-2 my-4 place-content-center">
             <button
-              className="bg-blue-600 rounded-lg text-white px-4 py-2 w-fit "
+              className="bg-primary hover:bg-primary/80 rounded-lg text-white px-4 py-2 w-fit transition"
               type="button"
               onClick={() => setIsAddingInstruction(true)}
             >

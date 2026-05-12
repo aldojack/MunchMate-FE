@@ -66,29 +66,41 @@ const AddRecipeForm = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto bg-gray-50 rounded-2xl p-8 shadow-md">
-      <ToastContainer />
-      <form
-        onSubmit={handleSubmit}
-        className="grid space-y-8 md:grid-cols-2 max-w-5xl mx-auto"
-      >
-        <RecipeDetailsSection
-          updateFormData={updateFormData}
-          formData={formData}
-        />
-        <IngredientsSection
-          formData={formData}
-          notify={notify}
-          updateFormData={updateFormData}
-        />
-        <InstructionsSection
-          formData={formData}
-          notify={notify}
-          updateFormData={updateFormData}
-        />
-        <SourceSection formData={formData} updateFormData={updateFormData} />
-        <Button name="Submit" />
-      </form>
+    <div className="min-h-screen bg-background py-8">
+      <div className="max-w-6xl mx-auto bg-white/5 rounded-2xl p-8 shadow-lg border-accent border-2">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-secondary mb-4">
+            Add New Recipe
+          </h1>
+          <p className="text-lg text-text opacity-80">
+            Share your favorite recipes with the community
+          </p>
+        </div>
+        <ToastContainer />
+        <form
+          onSubmit={handleSubmit}
+          className="grid space-y-8 md:grid-cols-2 max-w-5xl mx-auto"
+        >
+          <RecipeDetailsSection
+            updateFormData={updateFormData}
+            formData={formData}
+          />
+          <IngredientsSection
+            formData={formData}
+            notify={notify}
+            updateFormData={updateFormData}
+          />
+          <InstructionsSection
+            formData={formData}
+            notify={notify}
+            updateFormData={updateFormData}
+          />
+          <SourceSection formData={formData} updateFormData={updateFormData} />
+          <div className="md:col-span-2 flex justify-center">
+            <Button name="Submit Recipe" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

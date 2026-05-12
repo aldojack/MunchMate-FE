@@ -1,18 +1,25 @@
 interface InputProps {
-    name: string
-    label: string
-    required?: boolean
-    type: string
-    placeholder?: string
-    data : string | number | undefined
-    handleChange: (e : {target: HTMLInputElement}) => void
-};
+  name: string;
+  label: string;
+  required?: boolean;
+  type: string;
+  placeholder?: string;
+  data: string | number | undefined;
+  handleChange: (e: { target: HTMLInputElement }) => void;
+}
 
-
-const FormInput = ({name, label,required = false, type, placeholder,data ,handleChange}: InputProps) => {
+const FormInput = ({
+  name,
+  label,
+  required = false,
+  type,
+  placeholder,
+  data,
+  handleChange,
+}: InputProps) => {
   return (
-      <>
-      <label htmlFor={name} className="text-sm font-medium text-gray-700">
+    <>
+      <label htmlFor={name} className="text-sm font-medium text-secondary">
         {label}:{required && <span className="text-red-600 text-xl">*</span>}
       </label>
       <input
@@ -22,10 +29,10 @@ const FormInput = ({name, label,required = false, type, placeholder,data ,handle
         value={data === 0 ? "" : data}
         required={required}
         placeholder={placeholder}
-        className="border-2 border-gray-400 pl-2 focus:outline-2 focus:outline-blue-600 rounded-md w-full"
+        className="border-2 border-accent pl-2 focus:outline-2 focus:outline-primary rounded-md w-full bg-background text-text"
         onChange={handleChange}
       />
-      </>
+    </>
   );
 };
 

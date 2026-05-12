@@ -14,28 +14,30 @@ type ButtonType = {
 
 const buttonMapper: Record<ButtonVariant, ButtonType> = {
   save: {
-    className:
-      "flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition",
+    className: "bg-primary hover:bg-primary/80",
     displayName: "Save",
   },
   add: {
-    className: 'flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition',
-    displayName: 'Save and Add'
+    className: "bg-primary hover:bg-primary/80",
+    displayName: "Save and Add",
   },
   cancel: {
-    className:
-      "flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition",
+    className: "bg-red-500 hover:bg-red-700/80 ",
     displayName: "Cancel",
   },
 };
 
-const FormButton = ({ name, handler, ...rest }: Props & ButtonHTMLAttributes<HTMLButtonElement>) => {
+const FormButton = ({
+  name,
+  handler,
+  ...rest
+}: Props & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
-    {...rest}
+      {...rest}
       type="button"
       onClick={handler}
-      className={buttonMapper[name].className}
+      className={`flex items-center gap-1 text-white px-4 py-2 rounded-lg transition ${buttonMapper[name].className}`}
     >
       {buttonMapper[name].displayName}
     </button>
