@@ -45,7 +45,7 @@ const IngredientsSection = ({
       console.error(
         "Unable to save as some required fields Are missing, alternatively press cancel",
       );
-      notify(
+      notify?.(
         "Unable to save as some required fields Are missing, alternatively press cancel",
       );
       return;
@@ -125,7 +125,7 @@ const IngredientsSection = ({
                     required
                     value={ingredient?.name}
                     onChange={handleIngredientChange}
-                    className="border-2 border-gray-300 rounded-md px-2 py-1 focus:ring-2 focus:ring-primary"
+                    className="border-2 border-gray-300 rounded-md px-2 py-1 focus:ring-2 focus:ring-primary bg-background"
                   >
                     <option disabled value="">
                       -- Select Ingredient --
@@ -158,14 +158,14 @@ const IngredientsSection = ({
                         ingredient?.quantity <= 0 ? "" : ingredient.quantity
                       }
                       onChange={handleIngredientChange}
-                      className="w-24 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-24 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary bg-background"
                     />
                     <select
                       name="unit"
                       required
                       value={ingredient.unit}
                       onChange={handleIngredientChange}
-                      className="border-l-2 border-gray-300 px-2 py-1 w-full focus:ring-2 focus:ring-primary"
+                      className="border-l-2 border-gray-300 px-2 py-1 w-full focus:ring-2 focus:ring-primary bg-background"
                     >
                       <option disabled value="">
                         -- Select Unit --

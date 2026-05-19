@@ -6,6 +6,7 @@ import SourceSection from "@/features/recipes/components/AddRecipeForm/SourceSec
 import { FormEvent, useState } from "react";
 import axios from "axios";
 import { API_URL } from "@/config/api";
+import "react-toastify/dist/ReactToastify.css";
 
 import { toast, ToastContainer } from "react-toastify";
 import Button from "@/components/shared/Button/Button";

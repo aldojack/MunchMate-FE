@@ -1,10 +1,19 @@
+import Button from "@/components/shared/Button/Button";
 import { useId, useRef, useState } from "react";
 
 interface StepTabsProps {
   steps: string[];
+  // handleInstructionChange: (e: { target: HTMLTextAreaElement }) => void;
+  handleEditInstruction: (index: number) => void;
+  handleDeleteInstruction: (index: number) => void;
 }
 
-const StepTabs = ({ steps }: StepTabsProps) => {
+const StepTabs = ({
+  steps,
+  // handleInstructionChange,
+  handleDeleteInstruction,
+  handleEditInstruction,
+}: StepTabsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabListRef = useRef<HTMLDivElement>(null);
   const id = useId();
@@ -59,6 +68,7 @@ const StepTabs = ({ steps }: StepTabsProps) => {
         ref={tabListRef}
         role="tablist"
         aria-label="Recipe steps"
+        tabIndex={0}
         className="flex flex-wrap gap-2"
         onKeyDown={handleKeyDown}
       >
@@ -93,9 +103,21 @@ const StepTabs = ({ steps }: StepTabsProps) => {
           aria-labelledby={tabId(index)}
           tabIndex={0}
           hidden={activeIndex !== index}
-          className="mt-3 rounded-md border border-accent/30 p-3 text-text"
+          className="mt-3 rounded-md border border-accent/30 p-3 text-text grid grid-cols-2 px-4 text-clip max-h-11"
         >
           {step}
+          <div className="flex space-x-4 justify-end">
+            <Button
+              name="Edit"
+              onClick={() => handleEditInstruction(index)}
+              type="button"
+            />
+            <Button
+              name="Remove"
+              onClick={() => handleDeleteInstruction(index)}
+              type="button"
+            />
+          </div>
         </div>
       ))}
     </div>
