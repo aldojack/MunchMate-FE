@@ -3,14 +3,12 @@ import { useId, useRef, useState } from "react";
 
 interface StepTabsProps {
   steps: string[];
-  // handleInstructionChange: (e: { target: HTMLTextAreaElement }) => void;
   handleEditInstruction: (index: number) => void;
   handleDeleteInstruction: (index: number) => void;
 }
 
 const StepTabs = ({
   steps,
-  // handleInstructionChange,
   handleDeleteInstruction,
   handleEditInstruction,
 }: StepTabsProps) => {
@@ -72,9 +70,9 @@ const StepTabs = ({
         className="flex flex-wrap gap-2"
         onKeyDown={handleKeyDown}
       >
-        {steps.map((_, index) => (
+        {steps.map((step, index) => (
           <button
-            key={index}
+            key={step.slice(0, 5)}
             id={tabId(index)}
             role="tab"
             type="button"
@@ -82,12 +80,14 @@ const StepTabs = ({
             aria-controls={panelId(index)}
             tabIndex={activeIndex === index ? 0 : -1}
             onClick={() => setActiveIndex(index)}
-            className={[
+            className={`
               "rounded-full px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-              activeIndex === index
-                ? "bg-primary text-white"
-                : "border border-accent bg-background text-text hover:bg-accent/20",
-            ].join(" ")}
+              ${
+                activeIndex === index
+                  ? "bg-primary text-white"
+                  : "border border-accent bg-background text-text hover:bg-accent/20"
+              }
+            `}
           >
             Step {index + 1}
           </button>
@@ -103,10 +103,10 @@ const StepTabs = ({
           aria-labelledby={tabId(index)}
           tabIndex={0}
           hidden={activeIndex !== index}
-          className="mt-3 rounded-md border border-accent/30 p-3 text-text grid grid-cols-2 px-4 text-clip max-h-11"
+          className={`mt-3 rounded-md border border-accent/30 p-3 text-text flex-col justify-center items-center md:grid-cols-[minmax(350px,_1fr)_minmax(200px,_200px)] px-4 gap-2 ${activeIndex === index ? "flex md:grid" : "none"}`}
         >
-          {step}
-          <div className="flex space-x-4 justify-end">
+          <p>{step}</p>
+          <div className="flex space-x-4 justify-end items-center">
             <Button
               name="Edit"
               onClick={() => handleEditInstruction(index)}

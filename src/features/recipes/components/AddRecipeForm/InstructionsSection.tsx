@@ -91,11 +91,12 @@ const InstructionsSection = ({
 
         {isAddingInstruction ? (
           <>
-            <div id="instructions" className="flex flex-col col-start-2 my-2">
+            <div id="instructions" className="flex flex-col my-2">
               <textarea
                 name="instructions"
                 required
                 rows={5}
+                maxLength={1000}
                 value={instruction}
                 onChange={(e) => handleInstructionChange(e)}
                 className="border-2 border-gray-400 focus:outline-2 focus:outline-blue-600 pl-2 rounded-md bg-background"
