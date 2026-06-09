@@ -102,7 +102,7 @@ const Planner = () => {
   ] as const;
 
   // const { days: daysJson } = plannerJson;
-  const days = plannerJson?.days ?? [];
+  const days = plannerJson ?? [];
 
   type DaysType = (typeof DAYS)[number];
 
