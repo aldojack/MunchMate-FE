@@ -1,50 +1,72 @@
-# React + TypeScript + Vite
+# MunchMate FE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MunchMate FE is the frontend for a meal planning application built with React, TypeScript, and Vite. It supports recipe browsing, recipe creation, weekly meal planning, and a shopping list drawer.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Client-side routing with React Router
+- Meal planner page with contextual state
+- Recipe listing, recipe details, and add recipe form
+- Shopping list drawer with floating action button
+- Theme provider and reusable shared components
+- Tailwind CSS plus MUI for visual components
 
-## Expanding the ESLint configuration
+## Getting started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Install dependencies:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Start the development server:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+3. Open the app in your browser at the address shown by Vite.
+
+## Available scripts
+
+- `npm run dev` - start the Vite development server
+- `npm run build` - compile TypeScript and build the production bundle
+- `npm run preview` - locally preview the production build
+- `npm run lint` - run ESLint on the repository
+- `npm run jsonServer` - optional local JSON server (requires `src/data/db.json`)
+
+## Project structure
+
+- `src/App.tsx` - application entry point and route definitions
+- `src/main.tsx` - React root setup and theme provider
+- `src/features` - feature modules for home, recipes, planner, and shopping list
+- `src/context` - shared React context providers and hooks
+- `src/components` - reusable shared UI components
+- `src/utils` - helper utilities and local storage helpers
+
+## Key technologies
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- MUI
+- React Router
+- ESLint with TypeScript rules
+
+## Conventions
+
+- Use `@` alias imports for local modules
+- Keep feature pages under `src/features/*/pages`
+- Keep shared UI in `src/components`
+- Prefer context providers for application state
+- Use strict TypeScript typings and run `npm run lint`
+
+## Notes
+
+If you add new routes, keep them registered in `src/App.tsx`.
+If you add shared app state, add a context provider in `src/context` and wrap it at the top level.
+
+## Standards
+
+See [`STANDARDS.md`](./docs/STANDARDS.md) for repository conventions, folder guidance, and coding norms.
