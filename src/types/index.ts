@@ -35,7 +35,7 @@ interface RecipeDTO {
   servingSize: number;
 }
 
-type Days =
+type DaysType =
   | "monday"
   | "tuesday"
   | "wednesday"
@@ -46,9 +46,9 @@ type Days =
 
 type MealType = "breakfast" | "lunch" | "dinner";
 
-type DayPlanner = Partial<Record<MealType, number[]>>;
+type DayPlanner = Record<MealType, Set<number>>;
 
-type Planner = Partial<Record<Days, DayPlanner>>;
+type Planner = Record<DaysType, DayPlanner>;
 
 export type {
   Ingredient,
@@ -57,4 +57,7 @@ export type {
   RecipeDTO,
   ShoppingListItem,
   Planner,
+  DayPlanner,
+  MealType,
+  DaysType,
 };
