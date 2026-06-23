@@ -3,7 +3,7 @@ import { RecipeDTO } from "@/types";
 import RecipeCard from "@/features/recipes/components/RecipeCard";
 import Select, { SingleValue, MultiValue, StylesConfig } from "react-select";
 import { getAllIngredients } from "@/features/recipes/services/ingredientServices";
-import useRecipeContext from "@/features/recipes/hooks/useRecipeContext";
+import useRecipeContext from "@/hooks/useRecipeContext";
 
 interface Filters {
   source: string;
