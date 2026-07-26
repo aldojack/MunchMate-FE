@@ -11,12 +11,12 @@
     "jsonServer": "json-server -h 192.168.0.62 -p 8000 -w ./src/data/db.json"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@mui/base": "^5.0.0-beta.40",
     "@mui/icons-material": "^6.0.1",
     "@mui/material": "^6.0.1",
-    "axios": "^1.7.7",
+    "axios": "^1.18.1",
     "munchmate-fe": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
