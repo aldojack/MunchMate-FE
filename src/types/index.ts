@@ -1,3 +1,4 @@
+import { DAYS, MEAL_TYPES } from "@/constants/constants";
 import { MeasurementUnit } from "@/types/enums";
 
 interface Ingredient {
@@ -35,16 +36,9 @@ interface RecipeDTO {
   servingSize: number;
 }
 
-type DaysType =
-  | "monday"
-  | "tuesday"
-  | "wednesday"
-  | "thursday"
-  | "friday"
-  | "saturday"
-  | "sunday";
+type DaysType = (typeof DAYS)[number];
 
-type MealType = "breakfast" | "lunch" | "dinner";
+type MealType = (typeof MEAL_TYPES)[number];
 
 type DayPlanner = Record<MealType, Set<number>>;
 

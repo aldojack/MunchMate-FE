@@ -3,10 +3,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { RecipeDTO, DayPlanner, DaysType, MealType } from "@/types";
 import { defaultPlanner } from "../constants";
 import { useRecipe } from "@/features/recipes/hooks/useRecipe";
-
-//Make more robust to handle multiple words, handle white spaces
-const stringToTitleCase = (day: string) => day[0].toUpperCase() + day.slice(1);
-const MEAL_TYPE = ["breakfast", "lunch", "dinner"] as const;
+import { stringToTitleCase } from "@/utils/helperFunction";
+import { DAYS, MEAL_TYPES } from "@/constants/constants";
 
 const EmptyCard = () => {
   return (
@@ -60,7 +58,6 @@ const MealCard = ({
 
 const DailySection = ({ day, meals }: { day: string; meals: DayPlanner }) => {
   //Revist useRecipe name and possible uses
-  console.log(meals);
   const { data } = useRecipe(meals);
 
   return (
@@ -69,7 +66,7 @@ const DailySection = ({ day, meals }: { day: string; meals: DayPlanner }) => {
         <h1 className="font-bold">{stringToTitleCase(day)}</h1>
       </header>
       <div className="lg:grid lg:grid-cols-3 lg:gap-4">
-        {MEAL_TYPE.map((mealType) => {
+        {MEAL_TYPES.map((mealType) => {
           return (
             <MealCard
               key={mealType}
@@ -85,15 +82,15 @@ const DailySection = ({ day, meals }: { day: string; meals: DayPlanner }) => {
 
 const Planner = () => {
   const { planner } = useMealPlannerContext();
-  const DAYS = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-  ] as const;
+  // const DAYS = [
+  //   "monday",
+  //   "tuesday",
+  //   "wednesday",
+  //   "thursday",
+  //   "friday",
+  //   "saturday",
+  //   "sunday",
+  // ] as const;
 
   const currentPlanner = planner ?? defaultPlanner;
 
