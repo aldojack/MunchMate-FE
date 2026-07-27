@@ -10,7 +10,7 @@ export function getLocalStorage<T>(item: string): T | null {
       return value;
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 }
