@@ -10,10 +10,11 @@ const ShoppingListComponent = ({
   toggleChecked: (item: ShoppingListItem) => void;
 }) => {
   return (
-    <li
-      className={`list-none border-b border-[#ccc] h-auto`}
-    >
-      <button onClick={() => toggleChecked(item)} className={`p-2 text-text indent-14 ${item.isChecked ? 'line-through' : ""} `}>
+    <li className={`list-none border-b border-[#ccc] h-auto`}>
+      <button
+        onClick={() => toggleChecked(item)}
+        className={`p-2 text-text indent-14 ${item.isChecked ? "line-through" : ""} `}
+      >
         {item.name}: {item.quantity} {item.unit}
       </button>
     </li>
