@@ -1,17 +1,22 @@
-import { Planner, MealType } from "@/types";
+import { Planner, MealType, DaysType } from "@/types";
 
-const emptyMeals: Record<MealType, Set<number>> = {
+const createEmptyMeals = (): Record<MealType, Set<number>> => ({
   breakfast: new Set(),
   lunch: new Set(),
   dinner: new Set(),
-};
+});
 
-export const defaultPlanner: Planner = {
-  monday: emptyMeals,
-  tuesday: emptyMeals,
-  wednesday: emptyMeals,
-  thursday: emptyMeals,
-  friday: emptyMeals,
-  saturday: emptyMeals,
-  sunday: emptyMeals,
-};
+const createEmptyDayPlanner = (): Record<
+  DaysType,
+  Record<MealType, Set<number>>
+> => ({
+  monday: createEmptyMeals(),
+  tuesday: createEmptyMeals(),
+  wednesday: createEmptyMeals(),
+  thursday: createEmptyMeals(),
+  friday: createEmptyMeals(),
+  saturday: createEmptyMeals(),
+  sunday: createEmptyMeals(),
+});
+
+export const defaultPlanner: Planner = createEmptyDayPlanner();
