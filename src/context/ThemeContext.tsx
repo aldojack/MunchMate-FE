@@ -7,15 +7,12 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 const themes = ["light", "dark"] as const;
 
 type ThemeType = (typeof themes)[number];
-
-interface ThemeContextInterface {
+type ThemeContextType = {
   theme: ThemeType;
   changeTheme: (theme: ThemeType) => void;
-}
+};
 
-const ThemeContext = createContext<ThemeContextInterface | undefined>(
-  undefined,
-);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<ThemeType>("light");

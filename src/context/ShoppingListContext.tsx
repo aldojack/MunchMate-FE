@@ -10,21 +10,21 @@ import useMealPlannerContext from "@/hooks/useMealPlannerContext";
 import { getLocalStorage } from "@/utils/localStorageUtil";
 import useRecipeContext from "@/hooks/useRecipeContext";
 
-interface ShoppingListContextInterface {
+type ShoppingListContextType = {
   shoppingList: ShoppingListItem[];
   setShoppingList: React.Dispatch<React.SetStateAction<ShoppingListItem[]>>;
   isDrawerOpen: boolean;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   toggleDrawer: () => void;
   toggleChecked: (item: ShoppingListItem) => void;
-}
-const ShoppingListContext = createContext<
-  ShoppingListContextInterface | undefined
->(undefined);
+};
+const ShoppingListContext = createContext<ShoppingListContextType | undefined>(
+  undefined,
+);
 
-interface ShoppingListProviderProps {
+type ShoppingListProviderProps = {
   children: ReactNode;
-}
+};
 
 const getShoppingList = (
   getRecipesById: (id: number[]) => RecipeDTO[],

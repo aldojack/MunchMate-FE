@@ -1,30 +1,28 @@
 import { DAYS, MEAL_TYPES } from "@/constants/constants";
 import { MeasurementUnit } from "@/types/enums";
 
-interface Ingredient {
+type Ingredient = {
   id: number | string;
   name: string;
-}
+};
 
-interface Source {
+type Source = {
   name: string;
   url?: string;
   book?: string;
   pageNo?: number;
-}
+};
 
-interface RecipeIngredientDTO {
+type RecipeIngredientDTO = {
   id?: number | string;
   name: string;
   quantity: number;
   unit: MeasurementUnit | string;
-}
+};
 
-interface ShoppingListItem extends RecipeIngredientDTO {
-  isChecked: boolean;
-}
+type ShoppingListItem = { isChecked: boolean } & RecipeIngredientDTO;
 
-interface RecipeDTO {
+type RecipeDTO = {
   id: number;
   title: string;
   ingredients: RecipeIngredientDTO[];
@@ -34,7 +32,7 @@ interface RecipeDTO {
   cookTime: number;
   prepTime: number;
   servingSize: number;
-}
+};
 
 type DaysType = (typeof DAYS)[number];
 

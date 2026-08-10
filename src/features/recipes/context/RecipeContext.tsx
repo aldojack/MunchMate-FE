@@ -9,11 +9,11 @@ import {
 } from "react";
 import { getAllRecipes } from "@/features/recipes/services/recipeServices";
 
-interface RecipeContextType {
+type RecipeContextType = {
   recipes: RecipeDTO[] | null;
   getRecipeById: (id: number) => RecipeDTO | undefined;
   getRecipesById: (ids: number[]) => RecipeDTO[];
-}
+};
 const RecipeContext = createContext<RecipeContextType | null>(null);
 
 export const RecipeProvider = ({ children }: { children: ReactNode }) => {

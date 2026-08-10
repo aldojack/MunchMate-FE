@@ -5,12 +5,12 @@ import Select, { SingleValue, MultiValue, StylesConfig } from "react-select";
 import { getAllIngredients } from "@/features/recipes/services/ingredientServices";
 import useRecipeContext from "@/hooks/useRecipeContext";
 
-interface Filters {
+type Filters = {
   source: string;
   includeIngredients: string[];
   excludeIngredients: string[];
   maxCookingTime: string | null;
-}
+};
 
 const FilterRecipes = () => {
   const { recipes } = useRecipeContext();
@@ -24,10 +24,10 @@ const FilterRecipes = () => {
   const [ingredients, setIngredients] = useState<string[]>();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  interface SelectOptions {
+  type SelectOptions = {
     label: string;
     value: string;
-  }
+  };
 
   const cookTimeOptions: SelectOptions[] = [
     { label: "Under 30 Mins", value: "30" },

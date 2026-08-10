@@ -38,7 +38,7 @@ This document captures the main conventions for frontend development in the Munc
 
 - Run `npm run lint` before committing.
 - Use strict typing wherever possible.
-- Prefer `interface` for component props and shared models.
+- Prefer `type` over using `interface` unless needing to `extend` from another object.
 - Keep lint fixes local to the relevant file and avoid disabling rules globally.
 
 ## Git workflow

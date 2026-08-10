@@ -1,11 +1,11 @@
 import Button from "@/components/shared/Button/Button";
 import { useId, useRef, useState } from "react";
 
-interface StepTabsProps {
+type StepTabsProps = {
   steps: string[];
   handleEditInstruction: (index: number) => void;
   handleDeleteInstruction: (index: number) => void;
-}
+};
 
 const StepTabs = ({
   steps,

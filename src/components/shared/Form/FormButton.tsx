@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes } from "react";
 
-interface Props {
+type FormButtonProps = {
   name: ButtonVariant;
   handler: () => void;
-}
+};
 
 type ButtonVariant = "save" | "cancel" | "add";
 
@@ -31,7 +31,7 @@ const FormButton = ({
   name,
   handler,
   ...rest
-}: Props & ButtonHTMLAttributes<HTMLButtonElement>) => {
+}: FormButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       {...rest}

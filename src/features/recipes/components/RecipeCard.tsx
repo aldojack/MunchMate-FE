@@ -7,9 +7,9 @@ import { useState } from "react";
 
 const placeholder = "/images/placeholder.webp";
 
-interface RecipeCardProps {
+type RecipeCardProps = {
   recipe: RecipeDTO;
-}
+};
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const context = useMealPlannerContext();
