@@ -8,6 +8,7 @@ import { stringToTitleCase } from "@/utils/helperFunction";
 import { DAYS, MEAL_TYPES } from "@/constants/constants";
 import useMealPlannerContext from "@/hooks/useMealPlannerContext";
 import useRecipeContext from "@/hooks/useRecipeContext";
+import { Link } from "react-router-dom";
 
 type EditorMode = "add" | "move";
 
@@ -36,11 +37,13 @@ const RecipeTile = ({
 
   return (
     <div className="overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white shadow-sm">
-      <img
-        src={meal.image ? meal.image : placeholder}
-        alt={meal.title}
-        className="h-28 w-full object-cover"
-      />
+      <Link to={`/recipe/${meal.id}`}>
+        <img
+          src={meal.image ? meal.image : placeholder}
+          alt={meal.title}
+          className="h-28 w-full object-cover"
+        />
+      </Link>
       <div className="space-y-3 p-3">
         <div>
           <p className="text-sm font-semibold text-slate-900">{meal.title}</p>
