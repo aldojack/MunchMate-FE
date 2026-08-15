@@ -148,11 +148,9 @@ const DailySection = ({
   );
 
   return (
-    <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
+    <section className="rounded-[2rem] border border-slate-200 bg-background p-5 shadow-md">
       <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h2 className="text-xl font-semibold text-slate-900">
-          {stringToTitleCase(day)}
-        </h2>
+        <h2 className="text-xl font-semibold">{stringToTitleCase(day)}</h2>
         <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
           {mealCount} planned meals
         </span>
@@ -254,16 +252,16 @@ const Planner = () => {
   };
 
   return (
-    <div className="w-full bg-slate-50 px-3 py-6 sm:px-6 lg:px-8">
+    <div className="w-full bg-background px-3 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
             Weekly planning
           </p>
-          <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
             Shape your week with ease
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
+          <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-base">
             Add meals to any day, swap them between slots, and remove anything
             that no longer fits your plan.
           </p>
