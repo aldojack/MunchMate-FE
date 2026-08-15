@@ -1,7 +1,6 @@
-import { DaysType, MealType, RecipeDTO } from "@/types";
+import { RecipeDTO } from "@/types";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
-import { useMealPlannerContext } from "@/hooks/useMealPlannerContext";
 import PlannerModal from "./PlannerModal";
 import { useState } from "react";
 
@@ -12,13 +11,7 @@ type RecipeCardProps = {
 };
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
-  const context = useMealPlannerContext();
-  const { addToPlanner } = context;
   const [open, setOpen] = useState(false);
-
-  const saveToPlanner = (day: DaysType, mealType: MealType) => {
-    addToPlanner({ day, mealType, mealId: recipe.id });
-  };
 
   return (
     <>
@@ -50,6 +43,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             <button
               className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90"
               onClick={() => setOpen(true)}
+              type="button"
             >
               Add <AddIcon className="ml-2" />
             </button>
@@ -59,7 +53,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
       <PlannerModal
         open={open}
         toggleModal={() => setOpen((prev) => !prev)}
-        savePlanner={saveToPlanner}
+        mealId={recipe.id}
       />
     </>
   );

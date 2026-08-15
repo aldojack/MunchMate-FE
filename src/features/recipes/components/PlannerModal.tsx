@@ -9,18 +9,17 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useState } from "react";
+import { useMealPlannerContext } from "@/hooks/useMealPlannerContext";
 
 type PlannerModalProps = {
   open: boolean;
   toggleModal: () => void;
-  savePlanner: (day: DaysType, mealType: MealType) => void;
+  mealId: number;
 };
 
-const PlannerModal = ({
-  open,
-  toggleModal,
-  savePlanner,
-}: PlannerModalProps) => {
+const PlannerModal = ({ open, toggleModal, mealId }: PlannerModalProps) => {
+  const context = useMealPlannerContext();
+  const { addToPlanner } = context;
   const [daySelected, setDaySelected] = useState<DaysType | null>(null);
   const [mealTypeSelected, setmealTypeSelected] = useState<MealType | null>(
     null,
@@ -44,7 +43,7 @@ const PlannerModal = ({
               Select which day to add the meal to
             </DialogContentText>
             <div className="flex gap-4 flex-wrap">
-              {DAYS.map((day) => (
+              {DAYS.map((day: DaysType) => (
                 <label
                   key={day}
                   className="has-[:checked]:bg-primary has-[:checked]:text-white cursor-pointer rounded-md px-2 "
@@ -68,7 +67,7 @@ const PlannerModal = ({
                 Select when your having this meal
               </DialogContentText>
               <div className="flex gap-4">
-                {MEAL_TYPES.map((mealType) => (
+                {MEAL_TYPES.map((mealType: MealType) => (
                   <label
                     key={mealType}
                     className="has-[:checked]:bg-primary has-[:checked]:text-white cursor-pointer rounded-md px-2 "
@@ -94,9 +93,14 @@ const PlannerModal = ({
             <button
               className="bg-primary text-white px-4 rounded-md"
               onClick={() => {
-                savePlanner(daySelected, mealTypeSelected);
+                addToPlanner({
+                  day: daySelected,
+                  mealType: mealTypeSelected,
+                  mealId,
+                });
                 toggleModal();
               }}
+              type="submit"
             >
               Save
             </button>
@@ -108,6 +112,7 @@ const PlannerModal = ({
               toggleModal();
             }}
             className={`${isReadyToAdd ? "bg-secondary" : "bg-primary"} text-white px-4 rounded-md`}
+            type="reset"
           >
             Close
           </button>
