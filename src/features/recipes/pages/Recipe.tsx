@@ -1,9 +1,10 @@
 import { useEffect, useState, FC } from "react";
 import { RecipeDTO } from "@/types/index";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getRecipeById } from "@/features/recipes/services/recipeServices";
 import AddIcon from "@mui/icons-material/Add";
 import PlannerModal from "../components/PlannerModal";
+import Button from "@/components/shared/Button/Button";
 
 const placeholder = "/images/placeholder.webp";
 
@@ -12,6 +13,7 @@ const Recipe: FC = () => {
   const [recipe, setRecipe] = useState<RecipeDTO>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getRecipe = async () => {
@@ -32,7 +34,7 @@ const Recipe: FC = () => {
   }, [recipeId]);
 
   return (
-    <main className="min-h-screen bg-background/50 py-16 text-text">
+    <main className="min-h-screen bg-background/50 text-text">
       {!recipe || isLoading ? (
         <div className="flex min-h-[50vh] items-center justify-center">
           <p className="text-xl text-text/70">Loading recipe...</p>
@@ -53,6 +55,11 @@ const Recipe: FC = () => {
             <div className="grid gap-10 lg:grid-cols-[2fr_1fr] mt-10">
               <section className="rounded-[2rem] border border-primary/10 bg-background/95 p-8 shadow-xl">
                 <div className="space-y-4">
+                  <Button
+                    name="Go Back"
+                    variant="secondary"
+                    onClick={() => navigate(-1)}
+                  />
                   <h1 className="text-4xl font-semibold tracking-tight text-text">
                     {recipe.title}
                   </h1>

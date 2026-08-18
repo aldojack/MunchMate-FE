@@ -112,7 +112,7 @@ const PlannerModal = ({ open, toggleModal, mealId }: PlannerModalProps) => {
               toggleModal();
             }}
             className={`${isReadyToAdd ? "bg-secondary" : "bg-primary"} text-white px-4 rounded-md`}
-            type="reset"
+            type="button"
           >
             Close
           </button>

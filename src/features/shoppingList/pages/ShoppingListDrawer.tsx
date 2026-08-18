@@ -14,6 +14,7 @@ const ShoppingListComponent = ({
       <button
         onClick={() => toggleChecked(item)}
         className={`p-2 text-text indent-14 ${item.isChecked ? "line-through" : ""} `}
+        type="button"
       >
         {item.name}: {item.quantity} {item.unit}
       </button>
@@ -33,7 +34,11 @@ const ShoppingListDrawer = () => {
       <div className="w-screen sm:w-[80vw] md:w-96 lg:w-[450px] p-4 h-full  bg-background">
         <div className="flex justify-between">
           <h2 className="text-text text-xl font-medium">Shopping List</h2>
-          <button onClick={toggleDrawer} className="text-lg font-semibold">
+          <button
+            onClick={toggleDrawer}
+            className="text-lg font-semibold"
+            type="button"
+          >
             X
           </button>
         </div>

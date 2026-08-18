@@ -12,7 +12,7 @@ type ButtonType = {
   displayName: string;
 };
 
-const buttonMapper: Record<ButtonVariant, ButtonType> = {
+const buttonMapper = {
   save: {
     className: "bg-primary hover:bg-primary/80",
     displayName: "Save",
@@ -25,7 +25,7 @@ const buttonMapper: Record<ButtonVariant, ButtonType> = {
     className: "bg-red-500 hover:bg-red-700/80 ",
     displayName: "Cancel",
   },
-};
+} satisfies Record<ButtonVariant, ButtonType>;
 
 const FormButton = ({
   name,

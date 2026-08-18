@@ -16,7 +16,6 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/planner" element={<Planner />} />
               <Route path="/recipes" element={<Recipes />} />
               <Route path="/recipes/add" element={<AddRecipeForm />} />
               <Route path="/recipe/:recipeId" element={<Recipe />} />
