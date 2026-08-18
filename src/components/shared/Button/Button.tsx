@@ -5,6 +5,7 @@ type ButtonVariant = "primary" | "secondary";
 type ButtonProps = {
   name: string;
   variant?: ButtonVariant;
+  type?: HTMLButtonElement["type"];
 };
 
 const variantMapping = {
@@ -15,13 +16,14 @@ const variantMapping = {
 const Button = ({
   name,
   variant = "primary",
+  type = "button",
   ...rest
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       {...rest}
       className={`${variantMapping[variant]} rounded-lg text-white px-4 py-2 w-fit`}
-      type="button"
+      type={type}
     >
       {name}
     </button>
