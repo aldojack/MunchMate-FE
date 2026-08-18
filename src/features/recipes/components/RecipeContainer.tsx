@@ -1,6 +1,6 @@
 import RecipeCard from "@/features/recipes/components/RecipeCard";
 import { Link } from "react-router-dom";
-import useRecipeContext from "@/features/recipes/hooks/useRecipeContext";
+import useRecipeContext from "@/hooks/useRecipeContext";
 
 const RecipeContainer = () => {
   const { recipes } = useRecipeContext();

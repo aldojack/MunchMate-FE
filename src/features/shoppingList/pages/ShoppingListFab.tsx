@@ -8,22 +8,22 @@ const ShoppingListFab = () => {
   return createPortal(
     shoppingList.length > 0 && (
       <button
+        type="button"
         onClick={toggleDrawer}
         aria-label="Open shopping list"
         className="
-    fixed bottom-4 right-4 z-[500]
-    h-14 w-14
-    rounded-full
-    border-2 border-primary
-    bg-primary text-white
-    flex items-center justify-center
-    shadow-md
-    transition
-    hover:shadow-lg
-    active:scale-95
-    focus:outline-none
-    focus:ring-2 focus:ring-accent focus:ring-offset-2
-  "
+        fixed bottom-4 right-4 z-[500]
+        h-14 w-14
+        rounded-full
+        border-2 border-primary
+        bg-primary text-white
+        flex items-center justify-center
+        shadow-md
+        transition
+        hover:shadow-lg
+        active:scale-95
+        focus:outline-none
+        focus:ring-2 focus:ring-accent focus:ring-offset-2"
       >
         <div className="relative">
           <div

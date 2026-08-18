@@ -1,1 +1,7 @@
-npm run lint && npm run build
+echo "Running lint..."
+npm run lint || { echo "Lint failed. Fix errors before commit."; exit 1; }
+
+echo "Building app..."
+npm run build || { echo "Build failed. Fix errors before commit."; exit 1; }
+
+echo "Pre-commit checks passed."

@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes } from "react";
 
-interface Props {
+type FormButtonProps = {
   name: ButtonVariant;
   handler: () => void;
-}
+};
 
 type ButtonVariant = "save" | "cancel" | "add";
 
@@ -12,7 +12,7 @@ type ButtonType = {
   displayName: string;
 };
 
-const buttonMapper: Record<ButtonVariant, ButtonType> = {
+const buttonMapper = {
   save: {
     className: "bg-primary hover:bg-primary/80",
     displayName: "Save",
@@ -25,13 +25,13 @@ const buttonMapper: Record<ButtonVariant, ButtonType> = {
     className: "bg-red-500 hover:bg-red-700/80 ",
     displayName: "Cancel",
   },
-};
+} satisfies Record<ButtonVariant, ButtonType>;
 
 const FormButton = ({
   name,
   handler,
   ...rest
-}: Props & ButtonHTMLAttributes<HTMLButtonElement>) => {
+}: FormButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       {...rest}
