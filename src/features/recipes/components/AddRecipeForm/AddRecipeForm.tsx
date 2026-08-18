@@ -98,7 +98,7 @@ const AddRecipeForm = () => {
           />
           <SourceSection formData={formData} updateFormData={updateFormData} />
           <div className="md:col-span-2 flex justify-center">
-            <Button name="Submit Recipe" />
+            <Button name="Submit Recipe" type="submit" />
           </div>
         </form>
       </div>
