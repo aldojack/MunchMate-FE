@@ -1,5 +1,8 @@
-import { RecipeDTO, ShoppingListItem } from "@/types";
-import { getLocalStorage } from "@/utils/localStorageUtil";
+import { Planner, ShoppingListItem } from "@/types";
+
+//Make more robust to handle multiple words, handle white spaces
+export const stringToTitleCase = (day: string) =>
+  day[0].toUpperCase() + day.slice(1);
 
 export function combineIngredients(
   ingredients: ShoppingListItem[],
@@ -23,15 +26,13 @@ export function combineIngredients(
   return combinedIngredients;
 }
 
-export const getShoppingList = (): ShoppingListItem[] => {
-  const storedPlanner = getLocalStorage<RecipeDTO[]>("planner")?.flatMap(
-    (recipe: RecipeDTO) =>
-      recipe.ingredients.map((ingredient) => ({
-        ...ingredient,
-        isChecked: false,
-      })),
-  );
-  return storedPlanner ? combineIngredients(storedPlanner) : [];
+export const getMealIds = (planner: Planner) => {
+  return Object.values(planner)
+    .flatMap((mealTypes) => Object.values(mealTypes))
+    .reduce<number[]>((acc, mealSet) => {
+      if (mealSet instanceof Set && mealSet.size > 0) {
+        acc.push(...mealSet);
+      }
+      return acc;
+    }, []);
 };
-
-export default { combineIngredients, getShoppingList };

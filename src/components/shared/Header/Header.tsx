@@ -90,6 +90,7 @@ const Header = () => {
             onClick={toggleTheme}
             aria-label="Toggle theme"
             className="rounded-full border border-primary/20 bg-primary/10 p-2 transition hover:border-primary hover:bg-primary/15"
+            type="button"
           >
             {themeLogo}
           </button>
@@ -102,6 +103,7 @@ const Header = () => {
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
               className="rounded-full border border-primary/20 bg-background p-2 text-text transition hover:bg-primary/10"
+              type="button"
             >
               {hamburgerMenu}
             </button>

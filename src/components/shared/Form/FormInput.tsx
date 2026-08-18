@@ -1,4 +1,4 @@
-interface InputProps {
+type InputProps = {
   name: string;
   label: string;
   required?: boolean;
@@ -6,7 +6,7 @@ interface InputProps {
   placeholder?: string;
   data: string | number | undefined;
   handleChange: (e: { target: HTMLInputElement }) => void;
-}
+};
 
 const FormInput = ({
   name,

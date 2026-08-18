@@ -1,7 +1,14 @@
-import useRecipeContext from "./useRecipeContext";
+import useRecipeContext from "@/hooks/useRecipeContext";
+import { DayPlanner } from "@/types";
 
-export const useRecipe = (recipeId?: number) => {
-  const { getRecipeById } = useRecipeContext();
+export const useRecipe = (data: DayPlanner) => {
+  const { getRecipesById } = useRecipeContext();
 
-  return recipeId == null ? undefined : getRecipeById(recipeId);
+  return {
+    data: {
+      breakfast: getRecipesById(Array.from(data?.breakfast)),
+      lunch: getRecipesById(Array.from(data?.lunch)),
+      dinner: getRecipesById(Array.from(data?.dinner)),
+    },
+  };
 };

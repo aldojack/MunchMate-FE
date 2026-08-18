@@ -10,10 +10,10 @@ const SourceSection = ({
   formData: Pick<RecipeDTO, "source">;
   updateFormData: (partialUpdate: Partial<RecipeDTO>) => void;
 }) => {
-  interface SourceChecked {
+  type SourceChecked = {
     isWebsite: boolean;
     isBook: boolean;
-  }
+  };
   const [sourceChecked, setSourceChecked] = useState<SourceChecked>({
     isWebsite: false,
     isBook: false,

@@ -101,6 +101,7 @@ const IngredientsSection = ({
                   ].filter((i) => i.name !== ingredient.name);
                   updateFormData({ ingredients: updatedIngredientList });
                 }}
+                type="button"
               >
                 {ingredient.name}
               </button>

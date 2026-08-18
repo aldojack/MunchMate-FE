@@ -1,17 +1,39 @@
+import {
+  createTheme,
+  ThemeProvider as MuiThemeProvider,
+} from "@mui/material/styles";
 import { createContext, ReactNode, useEffect, useState } from "react";
+
 const themes = ["light", "dark"] as const;
-export type ThemeType = (typeof themes)[number];
-interface ThemeContextInterface {
+
+type ThemeType = (typeof themes)[number];
+type ThemeContextType = {
   theme: ThemeType;
   changeTheme: (theme: ThemeType) => void;
-}
+};
 
-const ThemeContext = createContext<ThemeContextInterface | undefined>(
-  undefined,
-);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<ThemeType>("light");
+
+  const muiTheme = createTheme({
+    palette: {
+      mode: theme === "dark" ? "dark" : "light",
+      primary: {
+        main:
+          theme === "dark"
+            ? "rgb(80, 150, 250)" // Your dark mode primary
+            : "rgb(21, 70, 216)", // Your light mode primary
+      },
+      secondary: {
+        main: theme === "dark" ? "rgb(170, 70, 12)" : "rgb(180, 40, 5)",
+      },
+      background: {
+        default: theme === "dark" ? "rgb(13, 13, 2)" : "rgb(253, 253, 242)",
+      },
+    },
+  });
 
   const changeTheme = (newTheme: ThemeType) => {
     if (newTheme !== theme) {
@@ -33,10 +55,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const html = document.documentElement;
     html.classList.remove("light", "dark");
     html.classList.add(theme);
-  }, []);
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={state}>{children}</ThemeContext.Provider>
+    <MuiThemeProvider theme={muiTheme}>
+      <ThemeContext.Provider value={state}>{children}</ThemeContext.Provider>
+    </MuiThemeProvider>
   );
 };
 
