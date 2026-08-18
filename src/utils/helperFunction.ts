@@ -1,5 +1,4 @@
 import { Planner, ShoppingListItem } from "@/types";
-// import { getLocalStorage } from "@/utils/localStorageUtil";
 
 //Make more robust to handle multiple words, handle white spaces
 export const stringToTitleCase = (day: string) =>
