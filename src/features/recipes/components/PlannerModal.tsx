@@ -1,6 +1,10 @@
-import { DAYS, MEAL_TYPES } from "@/constants/constants";
-import { DaysType, MealType } from "@/types";
-import { stringToTitleCase } from "@/utils/helperFunction";
+import {
+  DAYS,
+  MEAL_TYPES,
+  type DaysType,
+  type MealType,
+} from "@/features/planner/types";
+import { stringToTitleCase } from "@/utils/stringUtils";
 import {
   Dialog,
   DialogActions,

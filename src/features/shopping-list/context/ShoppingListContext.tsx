@@ -1,14 +1,15 @@
 import { FC, createContext, ReactNode, useState, useEffect } from "react";
-import {
-  Planner,
-  RecipeDTO,
-  RecipeIngredientDTO,
-  ShoppingListItem,
-} from "@/types";
-import { combineIngredients, getMealIds } from "@/utils/helperFunction";
-import useMealPlannerContext from "@/hooks/useMealPlannerContext";
-import { getLocalStorage } from "@/utils/localStorageUtil";
+
 import useRecipeContext from "@/hooks/useRecipeContext";
+import useMealPlannerContext from "@/hooks/useMealPlannerContext";
+
+import type { Recipe, RecipeIngredient } from "@/features/recipes/types";
+import type { Planner } from "@/features/planner/types";
+import { ShoppingListItem } from "../types";
+
+import { getMealIds } from "@/features/planner/utils/getMealIds";
+import { combineIngredients } from "../utils/combineIngredients";
+import { getLocalStorage } from "@/utils/localStorageUtil";
 
 type ShoppingListContextType = {
   shoppingList: ShoppingListItem[];
@@ -26,16 +27,21 @@ type ShoppingListProviderProps = {
   children: ReactNode;
 };
 
+// TODO: Revisit Bulletproof React's stricter feature-boundary approach by composing
+// recipe and planner dependencies at the app layer and passing them into this provider.
+// TODO: Extract this pure shopping-list derivation into the shopping-list feature for independent testing.
+// TODO: Add unit tests for shopping-list derivation first, then test provider actions and regeneration behavior.
 const getShoppingList = (
-  getRecipesById: (id: number[]) => RecipeDTO[],
+  getRecipesById: (id: number[]) => Recipe[],
 ): ShoppingListItem[] => {
+  // TODO: Use planner state passed from useMealPlannerContext instead of reading localStorage here.
   const storedPlanner = getLocalStorage<Planner>("planner");
   const mealIdArray = storedPlanner
     ? Array.from(getMealIds(storedPlanner))
     : [];
   const flapMappedIngredients = getRecipesById(mealIdArray).flatMap(
-    (meal: RecipeDTO) =>
-      meal.ingredients.map((ingredient: RecipeIngredientDTO) => ({
+    (meal: Recipe) =>
+      meal.ingredients.map((ingredient: RecipeIngredient) => ({
         ...ingredient,
         isChecked: false,
       })),

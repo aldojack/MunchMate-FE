@@ -1,4 +1,4 @@
-import { Planner, MealType, DaysType } from "@/types";
+import { Planner, MealType, DaysType } from "./types";
 
 const createEmptyMeals = (): Record<MealType, Set<number>> => ({
   breakfast: new Set(),

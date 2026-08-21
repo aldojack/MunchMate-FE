@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { RecipeDTO } from "@/types";
+import { Recipe } from "../types";
 import RecipeCard from "@/features/recipes/components/RecipeCard";
 import Select, { SingleValue, MultiValue, StylesConfig } from "react-select";
-import { getAllIngredients } from "@/features/recipes/services/ingredientServices";
+import { getAllIngredients } from "@/features/recipes/api/ingredients";
 import useRecipeContext from "@/hooks/useRecipeContext";
 
 type Filters = {
@@ -36,9 +36,9 @@ const FilterRecipes = () => {
   ];
 
   useEffect(() => {
-    const updateSourceOptions = (data: RecipeDTO[]) => {
+    const updateSourceOptions = (data: Recipe[]) => {
       const uniqueSource = new Set<string>();
-      data.forEach((recipe: RecipeDTO) => uniqueSource.add(recipe.source.name));
+      data.forEach((recipe: Recipe) => uniqueSource.add(recipe.source.name));
       setSources([...uniqueSource]);
     };
 
@@ -56,7 +56,7 @@ const FilterRecipes = () => {
     fetchRecipes();
   }, [recipes]);
 
-  const filterRecipes = (): RecipeDTO[] => {
+  const filterRecipes = (): Recipe[] => {
     if (!recipes) return [];
 
     let filteredList = [...recipes];
@@ -156,8 +156,8 @@ const FilterRecipes = () => {
     return optionsList;
   };
 
-  const renderRecipes = (currentRecipes: RecipeDTO[]) => {
-    const renderedList = currentRecipes?.map((recipe: RecipeDTO) => {
+  const renderRecipes = (currentRecipes: Recipe[]) => {
+    const renderedList = currentRecipes?.map((recipe: Recipe) => {
       return <RecipeCard key={`rc${recipe.id}`} recipe={recipe} />;
     });
     // Possibley handle no matches better later

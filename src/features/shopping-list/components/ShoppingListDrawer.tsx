@@ -1,6 +1,6 @@
 import { Drawer } from "@mui/material";
-import useShoppingContext from "@/hooks/useShoppingContext";
-import { ShoppingListItem } from "@/types/index";
+import useShoppingContext from "@/features/shopping-list/hooks/useShoppingContext";
+import { ShoppingListItem } from "../types";
 
 const ShoppingListComponent = ({
   item,

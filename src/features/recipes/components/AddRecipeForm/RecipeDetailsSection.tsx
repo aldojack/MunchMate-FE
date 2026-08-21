@@ -1,14 +1,14 @@
-import FormInput from "@/components/shared/Form/FormInput";
-import { RecipeDTO } from "@/types";
+import FormInput from "@/features/recipes/components/AddRecipeForm/FormInput";
+import { Recipe } from "@/features/recipes/types";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 
 const RecipeDetailsSection = ({
   updateFormData,
   formData,
 }: {
-  updateFormData: (input: Partial<RecipeDTO>) => void;
+  updateFormData: (input: Partial<Recipe>) => void;
   formData: Pick<
-    RecipeDTO,
+    Recipe,
     "title" | "image" | "cookTime" | "prepTime" | "servingSize"
   >;
 }) => {

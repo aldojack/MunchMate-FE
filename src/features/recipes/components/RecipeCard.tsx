@@ -1,4 +1,4 @@
-import { RecipeDTO } from "@/types";
+import { Recipe } from "../types";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
 import PlannerModal from "./PlannerModal";
@@ -7,7 +7,7 @@ import { useState } from "react";
 const placeholder = "/images/placeholder.webp";
 
 type RecipeCardProps = {
-  recipe: RecipeDTO;
+  recipe: Recipe;
 };
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {

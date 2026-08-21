@@ -1,4 +1,4 @@
-import { RecipeDTO } from "@/types";
+import { Recipe } from "../types";
 import {
   createContext,
   ReactNode,
@@ -7,17 +7,17 @@ import {
   useMemo,
   useState,
 } from "react";
-import { getAllRecipes } from "@/features/recipes/services/recipeServices";
+import { getAllRecipes } from "@/features/recipes/api/recipes";
 
 type RecipeContextType = {
-  recipes: RecipeDTO[] | null;
-  getRecipeById: (id: number) => RecipeDTO | undefined;
-  getRecipesById: (ids: number[]) => RecipeDTO[];
+  recipes: Recipe[] | null;
+  getRecipeById: (id: number) => Recipe | undefined;
+  getRecipesById: (ids: number[]) => Recipe[];
 };
 const RecipeContext = createContext<RecipeContextType | null>(null);
 
 export const RecipeProvider = ({ children }: { children: ReactNode }) => {
-  const [recipes, setRecipes] = useState<RecipeDTO[] | null>(null);
+  const [recipes, setRecipes] = useState<Recipe[] | null>(null);
 
   useEffect(() => {
     const loadRecipes = async () => {
@@ -27,12 +27,12 @@ export const RecipeProvider = ({ children }: { children: ReactNode }) => {
     loadRecipes();
   }, []);
 
-  const isRecipe = (recipe: RecipeDTO | undefined): recipe is RecipeDTO => {
+  const isRecipe = (recipe: Recipe | undefined): recipe is Recipe => {
     return recipe?.id !== undefined && typeof recipe?.title === "string";
   };
 
   const getRecipeById = useCallback(
-    (id: number): RecipeDTO | undefined => {
+    (id: number): Recipe | undefined => {
       return recipes?.find((recipe) => recipe.id === id);
     },
     [recipes],

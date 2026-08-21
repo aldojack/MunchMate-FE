@@ -1,5 +1,5 @@
 import RecipeDetailsSection from "@/features/recipes/components/AddRecipeForm/RecipeDetailsSection";
-import { RecipeDTO } from "@/types";
+import { Recipe } from "@/features/recipes/types";
 import IngredientsSection from "@/features/recipes/components/AddRecipeForm/IngredientsSection";
 import InstructionsSection from "@/features/recipes/components/AddRecipeForm/InstructionsSection";
 import SourceSection from "@/features/recipes/components/AddRecipeForm/SourceSection";
@@ -7,11 +7,10 @@ import { FormEvent, useState } from "react";
 import axios from "axios";
 import { API_URL } from "@/config/api";
 import "react-toastify/dist/ReactToastify.css";
-
 import { toast, ToastContainer } from "react-toastify";
-import Button from "@/components/shared/Button/Button";
+import Button from "@/components/ui/Button/Button";
 
-type NewRecipe = Omit<RecipeDTO, "id">;
+type NewRecipe = Omit<Recipe, "id">;
 
 const AddRecipeForm = () => {
   const [formData, setFormData] = useState<NewRecipe>({
@@ -62,47 +61,37 @@ const AddRecipeForm = () => {
     }
   };
 
-  const updateFormData = (partialUpdate: Partial<RecipeDTO>) => {
+  const updateFormData = (partialUpdate: Partial<Recipe>) => {
     setFormData((prev) => ({ ...prev, ...partialUpdate }));
   };
 
   return (
-    <div className="min-h-screen bg-background py-8">
-      <div className="max-w-6xl mx-auto bg-white/5 rounded-2xl p-8 shadow-lg border-accent border-2">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-secondary mb-4">
-            Add New Recipe
-          </h1>
-          <p className="text-lg text-text opacity-80">
-            Share your favorite recipes with the community
-          </p>
+    <>
+      <ToastContainer />
+      <form
+        onSubmit={handleSubmit}
+        className="grid space-y-8 md:grid-cols-2 max-w-5xl mx-auto"
+      >
+        <RecipeDetailsSection
+          updateFormData={updateFormData}
+          formData={formData}
+        />
+        <IngredientsSection
+          formData={formData}
+          notify={notify}
+          updateFormData={updateFormData}
+        />
+        <InstructionsSection
+          formData={formData}
+          notify={notify}
+          updateFormData={updateFormData}
+        />
+        <SourceSection formData={formData} updateFormData={updateFormData} />
+        <div className="md:col-span-2 flex justify-center">
+          <Button name="Submit Recipe" type="submit" />
         </div>
-        <ToastContainer />
-        <form
-          onSubmit={handleSubmit}
-          className="grid space-y-8 md:grid-cols-2 max-w-5xl mx-auto"
-        >
-          <RecipeDetailsSection
-            updateFormData={updateFormData}
-            formData={formData}
-          />
-          <IngredientsSection
-            formData={formData}
-            notify={notify}
-            updateFormData={updateFormData}
-          />
-          <InstructionsSection
-            formData={formData}
-            notify={notify}
-            updateFormData={updateFormData}
-          />
-          <SourceSection formData={formData} updateFormData={updateFormData} />
-          <div className="md:col-span-2 flex justify-center">
-            <Button name="Submit Recipe" type="submit" />
-          </div>
-        </form>
-      </div>
-    </div>
+      </form>
+    </>
   );
 };
 

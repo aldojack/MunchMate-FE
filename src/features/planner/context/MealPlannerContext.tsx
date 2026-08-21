@@ -1,8 +1,8 @@
 import React, { createContext, useState, ReactNode, useMemo } from "react";
 import { getLocalStorage, setLocalStorage } from "@/utils/localStorageUtil";
 import { defaultPlanner } from "@/features/planner/constants";
-import { Planner, DaysType, MealType } from "@/types";
-import { getMealIds } from "@/utils/helperFunction";
+import { Planner, DaysType, MealType } from "../types";
+import { getMealIds } from "../utils/getMealIds";
 
 type MealPlannerContextType = {
   planner: Planner;
@@ -192,7 +192,7 @@ export const MealPlannerProvider = ({ children }: { children: ReactNode }) => {
       meals,
       setMeals,
     }),
-    [planner, meals],
+    [planner, addToPlanner, removeFromPlanner, moveMeal, meals],
   );
 
   return (
