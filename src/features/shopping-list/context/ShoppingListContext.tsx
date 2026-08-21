@@ -1,11 +1,17 @@
-import { FC, createContext, ReactNode, useState, useEffect } from "react";
+import {
+  type ReactNode,
+  type FC,
+  createContext,
+  useState,
+  useEffect,
+} from "react";
 
 import useRecipeContext from "@/hooks/useRecipeContext";
 import useMealPlannerContext from "@/hooks/useMealPlannerContext";
 
 import type { Recipe, RecipeIngredient } from "@/features/recipes/types";
 import type { Planner } from "@/features/planner/types";
-import { ShoppingListItem } from "../types";
+import type { ShoppingListItem } from "../types";
 
 import { getMealIds } from "@/features/planner/utils/getMealIds";
 import { combineIngredients } from "../utils/combineIngredients";

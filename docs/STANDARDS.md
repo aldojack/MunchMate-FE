@@ -19,6 +19,13 @@ This document captures the main conventions for frontend development in the Munc
 - `src/features`: feature-based modules with isolated pages, components, and state.
 - `src/utils`: small utility helpers and local storage helpers.
 - `src/assets`: static assets or images specific to the app.
+- Use kebab-case for feature directories, such as `shopping-list`.
+- Keep React component names and component folders in their existing PascalCase style.
+- Refactor folder ownership incrementally and run build and lint validation after each ownership group.
+- Keep HTTP request modules inside their owning feature under `api`; do not create a generic service layer until domain orchestration requires one.
+- Keep types inside their owning feature; remove `src/types` when no genuinely cross-feature type remains.
+- Keep utilities inside a feature when their behavior expresses that feature's domain; keep only domain-neutral infrastructure and formatting in `src/utils`.
+- Keep API configuration global under `src/config`; keep HTTP request modules inside their owning feature under `api`.
 
 ## React patterns
 
@@ -39,6 +46,7 @@ This document captures the main conventions for frontend development in the Munc
 - Run `npm run lint` before committing.
 - Use strict typing wherever possible.
 - Prefer `type` over using `interface` unless needing to `extend` from another object.
+- Use explicit type-only imports for types, such as `import type { DayPlanner } from "../types"`.
 - Keep lint fixes local to the relevant file and avoid disabling rules globally.
 
 ## Git workflow

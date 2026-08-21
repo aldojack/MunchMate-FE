@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Recipe } from "../types";
+import type { Recipe } from "../types";
 import RecipeCard from "@/features/recipes/components/RecipeCard";
-import Select, { SingleValue, MultiValue, StylesConfig } from "react-select";
+import type { SingleValue, MultiValue, StylesConfig } from "react-select";
+import Select from "react-select";
 import { getAllIngredients } from "@/features/recipes/api/ingredients";
 import useRecipeContext from "@/hooks/useRecipeContext";
 

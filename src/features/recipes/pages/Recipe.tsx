@@ -1,4 +1,5 @@
-import { useEffect, useState, FC } from "react";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
 import type { Recipe } from "../types";
 import { useParams, useNavigate } from "react-router-dom";
 import { getRecipeById } from "@/features/recipes/api/recipes";

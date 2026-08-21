@@ -1,9 +1,10 @@
 import RecipeDetailsSection from "@/features/recipes/components/AddRecipeForm/RecipeDetailsSection";
-import { Recipe } from "@/features/recipes/types";
+import type { Recipe } from "@/features/recipes/types";
 import IngredientsSection from "@/features/recipes/components/AddRecipeForm/IngredientsSection";
 import InstructionsSection from "@/features/recipes/components/AddRecipeForm/InstructionsSection";
 import SourceSection from "@/features/recipes/components/AddRecipeForm/SourceSection";
-import { FormEvent, useState } from "react";
+import type { FormEvent } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "@/config/api";
 import "react-toastify/dist/ReactToastify.css";

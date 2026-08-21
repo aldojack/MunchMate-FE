@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { Ingredient, Recipe, RecipeIngredient } from "@/features/recipes/types";
+import type {
+  Ingredient,
+  Recipe,
+  RecipeIngredient,
+} from "@/features/recipes/types";
 import AddIcon from "@mui/icons-material/Add";
 import KitchenIcon from "@mui/icons-material/Kitchen";
-import { Id } from "react-toastify";
+import type { Id } from "react-toastify";
 import axios from "axios";
 import { API_URL } from "@/config/api";
 import FormButton from "@/features/recipes/components/AddRecipeForm/FormButton";

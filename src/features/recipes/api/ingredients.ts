@@ -1,4 +1,4 @@
-import { Ingredient } from "../types";
+import type { Ingredient } from "../types";
 import axios from "axios";
 import { API_URL } from "@/config/api";
 

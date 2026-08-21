@@ -1,4 +1,4 @@
-import { Recipe } from "../types";
+import type { Recipe } from "../types";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
 import PlannerModal from "./PlannerModal";

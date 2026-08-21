@@ -1,6 +1,6 @@
 import { MealPlannerProvider } from "@/features/planner/context/MealPlannerContext";
 import { RecipeProvider } from "@/features/recipes/context/RecipeContext";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { ThemeProvider } from "./ThemeContext";
 import { ShoppingListProvider } from "@/features/shopping-list/context/ShoppingListContext";
 

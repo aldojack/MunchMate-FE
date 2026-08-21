@@ -1,4 +1,4 @@
-import { Planner } from "../types";
+import type { Planner } from "../types";
 
 export const getMealIds = (planner: Planner) => {
   return Object.values(planner)

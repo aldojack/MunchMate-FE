@@ -1,8 +1,8 @@
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
-import { Id } from "react-toastify";
-import { Recipe } from "@/features/recipes/types";
+import type { Id } from "react-toastify";
+import type { Recipe } from "@/features/recipes/types";
 import StepTabs from "./StepTabs";
 
 const InstructionsSection = ({
