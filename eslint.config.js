@@ -23,6 +23,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/consistent-type-imports": "error",
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "react-refresh/only-export-components": [
         "warn",
@@ -34,5 +35,5 @@ export default tseslint.config(
         version: "detect",
       },
     },
-  }
+  },
 );

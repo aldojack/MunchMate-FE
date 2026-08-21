@@ -1,11 +1,12 @@
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
-import { DayPlanner, DaysType, MealType, RecipeDTO } from "@/types";
+import { type DayPlanner, type DaysType, type MealType } from "../types";
+import { DAYS, MEAL_TYPES } from "../types";
+import type { Recipe } from "@/features/recipes/types";
 import { defaultPlanner } from "../constants";
 import { useRecipe } from "@/features/recipes/hooks/useRecipe";
-import { stringToTitleCase } from "@/utils/helperFunction";
-import { DAYS, MEAL_TYPES } from "@/constants/constants";
+import { stringToTitleCase } from "@/utils/stringUtils";
 import useMealPlannerContext from "@/hooks/useMealPlannerContext";
 import useRecipeContext from "@/hooks/useRecipeContext";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ const RecipeTile = ({
   onMove,
   onRemove,
 }: {
-  meal: RecipeDTO;
+  meal: Recipe;
   day: DaysType;
   mealType: MealType;
   onMove: (day: DaysType, mealType: MealType, mealId: number) => void;
@@ -83,7 +84,7 @@ const MealSlotCard = ({
 }: {
   day: DaysType;
   mealType: MealType;
-  meals: RecipeDTO[];
+  meals: Recipe[];
   onAdd: (day: DaysType, mealType: MealType) => void;
   onMove: (day: DaysType, mealType: MealType, mealId: number) => void;
   onRemove: (day: DaysType, mealType: MealType, mealId: number) => void;

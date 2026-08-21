@@ -1,16 +1,17 @@
-import { useEffect, useState, FC } from "react";
-import { RecipeDTO } from "@/types/index";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
+import type { Recipe } from "../types";
 import { useParams, useNavigate } from "react-router-dom";
-import { getRecipeById } from "@/features/recipes/services/recipeServices";
+import { getRecipeById } from "@/features/recipes/api/recipes";
 import AddIcon from "@mui/icons-material/Add";
 import PlannerModal from "../components/PlannerModal";
-import Button from "@/components/shared/Button/Button";
+import Button from "@/components/ui/Button/Button";
 
 const placeholder = "/images/placeholder.webp";
 
 const Recipe: FC = () => {
   const { recipeId } = useParams();
-  const [recipe, setRecipe] = useState<RecipeDTO>();
+  const [recipe, setRecipe] = useState<Recipe>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Recipe: FC = () => {
     const getRecipe = async () => {
       try {
         setIsLoading(true);
-        const data: RecipeDTO = await getRecipeById(recipeId);
+        const data: Recipe = await getRecipeById(recipeId);
         setRecipe(data);
       } catch (error) {
         console.error(error);

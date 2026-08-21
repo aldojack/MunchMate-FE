@@ -1,4 +1,4 @@
-import Button from "@/components/shared/Button/Button";
+import Button from "@/components/ui/Button/Button";
 import lightImg from "/images/landing_pasta.png";
 import darkImg from "/images/dark-pasta.png";
 import useThemeContext from "@/hooks/useThemeContext";
