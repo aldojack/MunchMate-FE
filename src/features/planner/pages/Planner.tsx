@@ -2,7 +2,7 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import { type DayPlanner, type DaysType, type MealType } from "../types";
-import { DAYS, MEAL_TYPES } from "../types";
+import { DAYS, MEAL_TYPES } from "../constants";
 import type { Recipe } from "@/features/recipes/types";
 import { defaultPlanner } from "../constants";
 import { useRecipe } from "@/features/recipes/hooks/useRecipe";

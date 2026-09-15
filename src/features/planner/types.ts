@@ -1,14 +1,4 @@
-export const DAYS = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
-] as const;
-
-export const MEAL_TYPES = ["breakfast", "lunch", "dinner"] as const;
+import type { DAYS, MEAL_TYPES } from "./constants";
 
 export type DaysType = (typeof DAYS)[number];
 export type MealType = (typeof MEAL_TYPES)[number];
