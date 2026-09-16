@@ -1,9 +1,4 @@
-import {
-  DAYS,
-  MEAL_TYPES,
-  type DaysType,
-  type MealType,
-} from "@/features/planner/types";
+import type { DaysType, MealType } from "@/features/planner/types";
 import { stringToTitleCase } from "@/utils/stringUtils";
 import {
   Dialog,
@@ -14,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useMealPlannerContext } from "@/hooks/useMealPlannerContext";
+import { DAYS, MEAL_TYPES } from "@/features/planner/constants";
 
 type PlannerModalProps = {
   open: boolean;
