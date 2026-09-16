@@ -1,7 +1,8 @@
+import LinkIcon from "@mui/icons-material/Link";
 import { useState } from "react";
+
 import FormInput from "@/features/recipes/components/AddRecipeForm/FormInput";
 import type { Recipe } from "@/features/recipes/types";
-import LinkIcon from "@mui/icons-material/Link";
 
 const SourceSection = ({
   formData,

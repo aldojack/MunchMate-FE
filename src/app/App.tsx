@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Layout from "./Layout";
+
 import Home from "@/features/home/pages/Home";
-import Recipe from "@/features/recipes/pages/Recipe";
 import Planner from "@/features/planner/pages/Planner";
-import Recipes from "@/features/recipes/pages/FilterRecipes";
 import AddRecipeForm from "@/features/recipes/components/AddRecipeForm/AddRecipeForm";
+import Recipes from "@/features/recipes/pages/FilterRecipes";
+import Recipe from "@/features/recipes/pages/Recipe";
+
+import Layout from "./Layout";
 import AppProviders from "./providers/AppProviders";
 
 function App() {

@@ -1,15 +1,16 @@
+import AddIcon from "@mui/icons-material/Add";
+import KitchenIcon from "@mui/icons-material/Kitchen";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import type { Id } from "react-toastify";
+
+import { API_URL } from "@/config/api";
+import FormButton from "@/features/recipes/components/AddRecipeForm/FormButton";
 import type {
   Ingredient,
   Recipe,
   RecipeIngredient,
 } from "@/features/recipes/types";
-import AddIcon from "@mui/icons-material/Add";
-import KitchenIcon from "@mui/icons-material/Kitchen";
-import type { Id } from "react-toastify";
-import axios from "axios";
-import { API_URL } from "@/config/api";
-import FormButton from "@/features/recipes/components/AddRecipeForm/FormButton";
 
 const IngredientsSection = ({
   formData,

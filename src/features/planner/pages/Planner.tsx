@@ -1,14 +1,16 @@
-import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
-import { type DayPlanner, type DaysType, type MealType } from "../types";
-import { DAYS, MEAL_TYPES, defaultPlanner } from "../constants";
-import type { Recipe } from "@/features/recipes/types";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { useRecipe } from "@/features/recipes/hooks/useRecipe";
-import { stringToTitleCase } from "@/utils/stringUtils";
+import type { Recipe } from "@/features/recipes/types";
 import useMealPlannerContext from "@/hooks/useMealPlannerContext";
 import useRecipeContext from "@/hooks/useRecipeContext";
-import { Link } from "react-router-dom";
+import { stringToTitleCase } from "@/utils/stringUtils";
+
+import { DAYS, MEAL_TYPES, defaultPlanner } from "../constants";
+import { type DayPlanner, type DaysType, type MealType } from "../types";
 
 type EditorMode = "add" | "move";
 

@@ -1,5 +1,5 @@
-import Button from "@/components/ui/Button/Button";
 import groceryList from "@/assets/grocerylist.jpg";
+import Button from "@/components/ui/Button/Button";
 
 const ShoppingListInfo = () => {
   return (

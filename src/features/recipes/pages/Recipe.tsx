@@ -1,11 +1,13 @@
+import AddIcon from "@mui/icons-material/Add";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import type { Recipe } from "../types";
 import { useParams, useNavigate } from "react-router-dom";
-import { getRecipeById } from "@/features/recipes/api/recipes";
-import AddIcon from "@mui/icons-material/Add";
-import PlannerModal from "../components/PlannerModal";
+
 import Button from "@/components/ui/Button/Button";
+import { getRecipeById } from "@/features/recipes/api/recipes";
+
+import PlannerModal from "../components/PlannerModal";
+import type { Recipe } from "../types";
 
 const placeholder = "/images/placeholder.webp";
 

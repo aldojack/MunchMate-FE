@@ -1,6 +1,7 @@
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+
 import FormInput from "@/features/recipes/components/AddRecipeForm/FormInput";
 import type { Recipe } from "@/features/recipes/types";
-import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 
 const RecipeDetailsSection = ({
   updateFormData,

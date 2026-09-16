@@ -1,8 +1,10 @@
-import type { Recipe } from "../types";
 import AddIcon from "@mui/icons-material/Add";
-import { Link } from "react-router-dom";
-import PlannerModal from "./PlannerModal";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
+import PlannerModal from "./PlannerModal";
+
+import type { Recipe } from "../types";
 
 const placeholder = "/images/placeholder.webp";
 

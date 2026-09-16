@@ -1,6 +1,6 @@
-import Button from "@/components/ui/Button/Button";
-import pastaLight from "@/assets/landing_pasta.png";
 import pastaDark from "@/assets/dark-pasta.png";
+import pastaLight from "@/assets/landing_pasta.png";
+import Button from "@/components/ui/Button/Button";
 import useThemeContext from "@/hooks/useThemeContext";
 
 const Hero = () => {

@@ -30,6 +30,25 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "no-console": ["warn", { allow: ["warn", "error"] }],
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "sibling",
+            "parent",
+            "index",
+            "object",
+          ],
+          "newlines-between": "always",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
