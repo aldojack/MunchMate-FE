@@ -1,5 +1,7 @@
 import { Drawer } from "@mui/material";
+
 import useShoppingContext from "@/features/shopping-list/hooks/useShoppingContext";
+
 import type { ShoppingListItem } from "../types";
 
 const ShoppingListComponent = ({

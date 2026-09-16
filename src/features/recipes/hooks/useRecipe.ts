@@ -1,5 +1,5 @@
-import useRecipeContext from "@/hooks/useRecipeContext";
 import type { DayPlanner } from "@/features/planner/types";
+import useRecipeContext from "@/hooks/useRecipeContext";
 
 export const useRecipe = (data: DayPlanner) => {
   const { getRecipesById } = useRecipeContext();

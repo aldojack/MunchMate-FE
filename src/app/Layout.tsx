@@ -1,7 +1,9 @@
-import Header from "./Header/Header";
 import { Outlet } from "react-router-dom";
-import ShoppingListFab from "@/features/shopping-list/components/ShoppingListFab";
+
 import ShoppingListDrawer from "@/features/shopping-list/components/ShoppingListDrawer";
+import ShoppingListFab from "@/features/shopping-list/components/ShoppingListFab";
+
+import Header from "./Header/Header";
 
 const Layout = () => {
   return (

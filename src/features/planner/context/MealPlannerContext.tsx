@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import React, { createContext, useState, useMemo, useCallback } from "react";
-import { getLocalStorage, setLocalStorage } from "@/utils/localStorageUtil";
+
 import { defaultPlanner } from "@/features/planner/constants";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorageUtil";
+
 import type { Planner, DaysType, MealType } from "../types";
 import { getMealIds } from "../utils/getMealIds";
 

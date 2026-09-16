@@ -1,11 +1,11 @@
+import pastaDark from "@/assets/dark-pasta.png";
+import pastaLight from "@/assets/landing_pasta.png";
 import Button from "@/components/ui/Button/Button";
-import lightImg from "/images/landing_pasta.png";
-import darkImg from "/images/dark-pasta.png";
 import useThemeContext from "@/hooks/useThemeContext";
 
 const Hero = () => {
   const { theme } = useThemeContext();
-  const img = theme === "light" ? lightImg : darkImg;
+  const img = theme === "light" ? pastaLight : pastaDark;
   return (
     <section className="flex flex-col md:grid md:grid-cols-2 min-h-[70vh] items-center py-16 px-4 md:px-8 lg:px-16 max-w-screen-xl mx-auto">
       <div className="flex justify-center items-center flex-col gap-8 animate-fade-in">

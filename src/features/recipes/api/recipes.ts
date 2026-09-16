@@ -1,6 +1,8 @@
-import type { Recipe } from "../types";
 import axios from "axios";
+
 import { API_URL } from "@/config/api";
+
+import type { Recipe } from "../types";
 
 const getAllRecipes = async (): Promise<Recipe[]> => {
   try {

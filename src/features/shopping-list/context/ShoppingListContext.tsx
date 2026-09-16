@@ -6,16 +6,15 @@ import {
   useEffect,
 } from "react";
 
-import useRecipeContext from "@/hooks/useRecipeContext";
-import useMealPlannerContext from "@/hooks/useMealPlannerContext";
-
-import type { Recipe, RecipeIngredient } from "@/features/recipes/types";
 import type { Planner } from "@/features/planner/types";
-import type { ShoppingListItem } from "../types";
-
 import { getMealIds } from "@/features/planner/utils/getMealIds";
-import { combineIngredients } from "../utils/combineIngredients";
+import type { Recipe, RecipeIngredient } from "@/features/recipes/types";
+import useMealPlannerContext from "@/hooks/useMealPlannerContext";
+import useRecipeContext from "@/hooks/useRecipeContext";
 import { getLocalStorage } from "@/utils/localStorageUtil";
+
+import type { ShoppingListItem } from "../types";
+import { combineIngredients } from "../utils/combineIngredients";
 
 type ShoppingListContextType = {
   shoppingList: ShoppingListItem[];

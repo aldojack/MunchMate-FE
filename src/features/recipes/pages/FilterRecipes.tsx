@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import type { Recipe } from "../types";
+import Select, {
+  type SingleValue,
+  type MultiValue,
+  type StylesConfig,
+} from "react-select";
+
 import RecipeCard from "@/features/recipes/components/RecipeCard";
-import type { SingleValue, MultiValue, StylesConfig } from "react-select";
-import Select from "react-select";
-import { getAllIngredients } from "@/features/recipes/api/ingredients";
 import useRecipeContext from "@/hooks/useRecipeContext";
+
+import { getAllIngredients } from "../api/ingredients";
+import type { Recipe } from "../types";
 
 type Filters = {
   source: string;

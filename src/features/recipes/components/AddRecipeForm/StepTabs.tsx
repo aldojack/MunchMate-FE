@@ -1,5 +1,6 @@
-import Button from "@/components/ui/Button/Button";
 import { useId, useRef, useState } from "react";
+
+import Button from "@/components/ui/Button/Button";
 
 type StepTabsProps = {
   steps: string[];

@@ -1,5 +1,6 @@
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import { createPortal } from "react-dom";
+
 import useShoppingContext from "@/features/shopping-list/hooks/useShoppingContext";
 
 const ShoppingListFab = () => {

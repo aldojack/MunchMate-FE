@@ -1,4 +1,3 @@
-import type { Recipe } from "../types";
 import {
   type ReactNode,
   createContext,
@@ -7,7 +6,10 @@ import {
   useMemo,
   useState,
 } from "react";
+
 import { getAllRecipes } from "@/features/recipes/api/recipes";
+
+import type { Recipe } from "../types";
 
 type RecipeContextType = {
   recipes: Recipe[] | null;

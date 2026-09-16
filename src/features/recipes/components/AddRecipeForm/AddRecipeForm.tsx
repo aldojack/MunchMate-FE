@@ -1,15 +1,16 @@
-import RecipeDetailsSection from "@/features/recipes/components/AddRecipeForm/RecipeDetailsSection";
-import type { Recipe } from "@/features/recipes/types";
+import axios from "axios";
+import { useState } from "react";
+import type { FormEvent } from "react";
+import { toast, ToastContainer } from "react-toastify";
+
+import Button from "@/components/ui/Button/Button";
+import { API_URL } from "@/config/api";
 import IngredientsSection from "@/features/recipes/components/AddRecipeForm/IngredientsSection";
 import InstructionsSection from "@/features/recipes/components/AddRecipeForm/InstructionsSection";
+import RecipeDetailsSection from "@/features/recipes/components/AddRecipeForm/RecipeDetailsSection";
 import SourceSection from "@/features/recipes/components/AddRecipeForm/SourceSection";
-import type { FormEvent } from "react";
-import { useState } from "react";
-import axios from "axios";
-import { API_URL } from "@/config/api";
+import type { Recipe } from "@/features/recipes/types";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
-import Button from "@/components/ui/Button/Button";
 
 type NewRecipe = Omit<Recipe, "id">;
 
