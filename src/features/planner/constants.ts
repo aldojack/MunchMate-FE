@@ -1,4 +1,16 @@
-import { Planner, MealType, DaysType } from "@/types";
+import type { Planner, MealType, DaysType } from "./types";
+
+export const DAYS = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+] as const;
+
+export const MEAL_TYPES = ["breakfast", "lunch", "dinner"] as const;
 
 const createEmptyMeals = (): Record<MealType, Set<number>> => ({
   breakfast: new Set(),

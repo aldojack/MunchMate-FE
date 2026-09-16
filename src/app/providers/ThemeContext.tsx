@@ -2,7 +2,8 @@ import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material/styles";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const themes = ["light", "dark"] as const;
 
