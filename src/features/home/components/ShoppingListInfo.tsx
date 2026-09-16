@@ -1,12 +1,12 @@
 import Button from "@/components/ui/Button/Button";
-import img from "/images/grocerylist.jpg";
+import groceryList from "@/assets/grocerylist.jpg";
 
 const ShoppingListInfo = () => {
   return (
     <section className="flex flex-col md:grid md:grid-cols-2 gap-8 items-center py-16 px-4 md:px-8 lg:px-16 max-w-screen-xl mx-auto">
       <div className="order-2 md:order-1 max-w-md md:max-w-lg mx-auto">
         <img
-          src={img}
+          src={groceryList}
           className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500"
           alt="grocery list"
         />
