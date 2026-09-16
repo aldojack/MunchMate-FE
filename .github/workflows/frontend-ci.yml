@@ -25,7 +25,7 @@ jobs:
     - name: Clear npm cache
       run: npm cache clean --force
     - name: Install dependencies
-      run: rm -rf node_modules package-lock.json && npm ci
+      run: npm ci
     - name: Linting
       run: npm run lint
   build:
@@ -43,6 +43,6 @@ jobs:
     - name: Clear npm cache
       run: npm cache clean --force
     - name: Install dependencies
-      run: rm -rf node_modules package-lock.json && npm ci
+      run: npm ci
     - name: Build production application
       run: npm run build
