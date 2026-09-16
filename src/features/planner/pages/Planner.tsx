@@ -3,6 +3,7 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import placeholder from "@/assets/placeholder.webp";
 import { useRecipe } from "@/features/recipes/hooks/useRecipe";
 import type { Recipe } from "@/features/recipes/types";
 import useMealPlannerContext from "@/hooks/useMealPlannerContext";
@@ -35,8 +36,6 @@ const RecipeTile = ({
   onMove: (day: DaysType, mealType: MealType, mealId: number) => void;
   onRemove: (day: DaysType, mealType: MealType, mealId: number) => void;
 }) => {
-  const placeholder = "/images/placeholder.webp";
-
   return (
     <div className="overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white shadow-sm">
       <Link to={`/recipe/${meal.id}`}>

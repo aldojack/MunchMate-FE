@@ -3,10 +3,9 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import avocado from "@/assets/darkavo.png";
+import egg from "@/assets/lightegg.png";
 import { useThemeContext } from "@/hooks/useThemeContext";
-
-const lightImg = "/images/lightegg.png";
-const darkImg = "/images/darkavo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -27,9 +26,9 @@ const Header = () => {
   const hamburgerMenu = isMenuOpen ? <MenuOpenIcon /> : <MenuIcon />;
   const themeLogo =
     theme === "dark" ? (
-      <img src={lightImg} alt="Switch to light mode" className="h-8 w-8" />
+      <img src={egg} alt="Switch to light mode" className="h-8 w-8" />
     ) : (
-      <img src={darkImg} alt="Switch to dark mode" className="h-8 w-8" />
+      <img src={avocado} alt="Switch to dark mode" className="h-8 w-8" />
     );
 
   const toggleTheme = () => {

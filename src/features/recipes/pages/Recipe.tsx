@@ -3,13 +3,12 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import placeholder from "@/assets/placeholder.webp";
 import Button from "@/components/ui/Button/Button";
 import { getRecipeById } from "@/features/recipes/api/recipes";
 
 import PlannerModal from "../components/PlannerModal";
 import type { Recipe } from "../types";
-
-const placeholder = "/images/placeholder.webp";
 
 const Recipe: FC = () => {
   const { recipeId } = useParams();
