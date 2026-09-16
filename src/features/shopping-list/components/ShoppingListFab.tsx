@@ -1,6 +1,6 @@
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import { createPortal } from "react-dom";
-import useShoppingContext from "@/hooks/useShoppingContext";
+import useShoppingContext from "@/features/shopping-list/hooks/useShoppingContext";
 
 const ShoppingListFab = () => {
   const { shoppingList, toggleDrawer } = useShoppingContext();

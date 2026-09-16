@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
-import { Ingredient, RecipeDTO, RecipeIngredientDTO } from "@/types";
+import type {
+  Ingredient,
+  Recipe,
+  RecipeIngredient,
+} from "@/features/recipes/types";
 import AddIcon from "@mui/icons-material/Add";
 import KitchenIcon from "@mui/icons-material/Kitchen";
-import { Id } from "react-toastify";
+import type { Id } from "react-toastify";
 import axios from "axios";
 import { API_URL } from "@/config/api";
-import FormButton from "@/components/shared/Form/FormButton";
+import FormButton from "@/features/recipes/components/AddRecipeForm/FormButton";
 
 const IngredientsSection = ({
   formData,
   notify,
   updateFormData,
 }: {
-  formData: Pick<RecipeDTO, "ingredients">;
+  formData: Pick<Recipe, "ingredients">;
   notify: (message: string) => Id;
-  updateFormData: (formData: Partial<RecipeDTO>) => void;
+  updateFormData: (formData: Partial<Recipe>) => void;
 }) => {
-  const [ingredient, setIngredient] = useState<Omit<RecipeIngredientDTO, "id">>(
-    { name: "", quantity: 0, unit: "" },
-  );
+  const [ingredient, setIngredient] = useState<Omit<RecipeIngredient, "id">>({
+    name: "",
+    quantity: 0,
+    unit: "",
+  });
   const [ingredientOptions, setIngredientOptions] = useState<Ingredient[]>();
   const [isAddingIngredient, setIsAddingIngredient] = useState(false);
   const units = [
@@ -53,7 +59,7 @@ const IngredientsSection = ({
     updateFormData({
       ingredients: [...formData.ingredients, ingredient],
     });
-    setIngredient((previousState: RecipeIngredientDTO) => {
+    setIngredient((previousState: RecipeIngredient) => {
       return { ...previousState, name: "", quantity: 0, unit: "" };
     });
     if (done) setIsAddingIngredient(false);
@@ -63,7 +69,7 @@ const IngredientsSection = ({
   }) => {
     const { name, value } = e.target;
 
-    setIngredient((previousState: Omit<RecipeIngredientDTO, "id">) => ({
+    setIngredient((previousState: Omit<RecipeIngredient, "id">) => ({
       ...previousState,
       [name]: value,
     }));

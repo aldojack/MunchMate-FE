@@ -1,8 +1,4 @@
-import { Planner, ShoppingListItem } from "@/types";
-
-//Make more robust to handle multiple words, handle white spaces
-export const stringToTitleCase = (day: string) =>
-  day[0].toUpperCase() + day.slice(1);
+import type { ShoppingListItem } from "@/features/shopping-list/types";
 
 export function combineIngredients(
   ingredients: ShoppingListItem[],
@@ -25,14 +21,3 @@ export function combineIngredients(
 
   return combinedIngredients;
 }
-
-export const getMealIds = (planner: Planner) => {
-  return Object.values(planner)
-    .flatMap((mealTypes) => Object.values(mealTypes))
-    .reduce<number[]>((acc, mealSet) => {
-      if (mealSet instanceof Set && mealSet.size > 0) {
-        acc.push(...mealSet);
-      }
-      return acc;
-    }, []);
-};

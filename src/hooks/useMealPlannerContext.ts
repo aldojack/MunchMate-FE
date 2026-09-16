@@ -1,11 +1,13 @@
 import { useContext } from "react";
-import MealPlannerContext from "@/context/MealPlannerContext";
+import MealPlannerContext from "@/features/planner/context/MealPlannerContext";
 
 export const useMealPlannerContext = () => {
   const mealPlanner = useContext(MealPlannerContext);
   if (!mealPlanner)
-    throw new Error("useMealPlannerContext must be used within MealPlannerProvider")
-  return mealPlanner
+    throw new Error(
+      "useMealPlannerContext must be used within MealPlannerProvider",
+    );
+  return mealPlanner;
 };
 
 export default useMealPlannerContext;

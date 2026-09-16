@@ -1,8 +1,8 @@
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
-import { Id } from "react-toastify";
-import { RecipeDTO } from "@/types";
+import type { Id } from "react-toastify";
+import type { Recipe } from "@/features/recipes/types";
 import StepTabs from "./StepTabs";
 
 const InstructionsSection = ({
@@ -10,9 +10,9 @@ const InstructionsSection = ({
   notify,
   updateFormData,
 }: {
-  formData: Pick<RecipeDTO, "instructions">;
+  formData: Pick<Recipe, "instructions">;
   notify: (message: string) => Id;
-  updateFormData: (partialUpdate: Partial<RecipeDTO>) => void;
+  updateFormData: (partialUpdate: Partial<Recipe>) => void;
 }) => {
   const [instruction, setInstruction] = useState<string>("");
   const [isAddingInstruction, setIsAddingInstruction] =
