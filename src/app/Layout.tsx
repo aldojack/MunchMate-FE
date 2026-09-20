@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 
 import ShoppingListDrawer from "@/features/shopping-list/components/ShoppingListDrawer";
 import ShoppingListFab from "@/features/shopping-list/components/ShoppingListFab";

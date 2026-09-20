@@ -1,6 +1,6 @@
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import placeholder from "@/assets/placeholder.webp";
 
