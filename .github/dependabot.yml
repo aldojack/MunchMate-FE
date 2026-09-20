@@ -10,6 +10,12 @@ updates:
     schedule:
       interval: "weekly"
     groups:
+      react:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react"
+          - "@types/react-dom"
       production-dependencies:
         dependency-type: "production"
         update-types:
