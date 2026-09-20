@@ -9,7 +9,7 @@ import { useState } from "react";
 
 import { DAYS, MEAL_TYPES } from "@/features/planner/constants";
 import type { DaysType, MealType } from "@/features/planner/types";
-import { useMealPlannerContext } from "@/hooks/useMealPlannerContext";
+import useMealPlannerContext from "@/hooks/useMealPlannerContext";
 import { stringToTitleCase } from "@/utils/stringUtils";
 
 type PlannerModalProps = {

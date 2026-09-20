@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import MealPlannerContext from "@/features/planner/context/MealPlannerContext";
 
-export const useMealPlannerContext = () => {
+const useMealPlannerContext = () => {
   const mealPlanner = useContext(MealPlannerContext);
   if (!mealPlanner)
     throw new Error(

@@ -17,7 +17,7 @@ export type Ingredient = {
   name: string;
 };
 
-export type Source = {
+type Source = {
   name: string;
   url?: string;
   book?: string;
@@ -42,5 +42,3 @@ export type Recipe = {
   prepTime: number;
   servingSize: number;
 };
-
-export { MeasurementUnit };
