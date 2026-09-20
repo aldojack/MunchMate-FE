@@ -9,21 +9,35 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-    groups:
-      react:
-        patterns:
-          - react
-          - react-dom
-          - "@types/react"
-          - "@types/react-dom"
-      production-dependencies:
-        dependency-type: "production"
-        update-types:
-          - "patch"
-          - "minor"
-      development-dependencies:
-        dependency-type: "development"
-        update-types:
-          - "patch"
-          - "minor"
+groups:
+  react:
+    patterns:
+      - "react"
+      - "react-dom"
+      - "@types/react"
+      - "@types/react-dom"
+
+  mui:
+    patterns:
+      - "@mui/*"
+      - "@emotion/*"
+
+  eslint:
+    patterns:
+      - "eslint"
+      - "@eslint/*"
+      - "eslint-*"
+      - "@typescript-eslint/*"
+      - "typescript-eslint"
+
+  vite:
+    patterns:
+      - "vite"
+      - "@vitejs/*"
+
+  css-tooling:
+    patterns:
+      - "tailwindcss"
+      - "postcss"
+      - "autoprefixer"
     open-pull-requests-limit: 10
