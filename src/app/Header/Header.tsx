@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import avocado from "@/assets/darkavo.png";
 import egg from "@/assets/lightegg.png";
-import { useThemeContext } from "@/hooks/useThemeContext";
+import useThemeContext from "@/hooks/useThemeContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

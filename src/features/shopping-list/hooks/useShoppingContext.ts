@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import ShoppingListContext from "@/features/shopping-list/context/ShoppingListContext";
 
-export const useShoppingContext = () => {
+const useShoppingContext = () => {
   const shoppingList = useContext(ShoppingListContext);
   if (!shoppingList)
     throw new Error(

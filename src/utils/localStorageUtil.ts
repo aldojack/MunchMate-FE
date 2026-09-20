@@ -26,5 +26,3 @@ export const setLocalStorage = <T>(item: string, data: T): void => {
     }),
   );
 };
-
-export default { getLocalStorage, setLocalStorage };
