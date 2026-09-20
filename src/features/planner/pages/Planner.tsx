@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import placeholder from "@/assets/placeholder.webp";
 import { useRecipe } from "@/features/recipes/hooks/useRecipe";

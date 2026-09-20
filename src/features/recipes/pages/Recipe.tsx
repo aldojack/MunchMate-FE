@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 
 import placeholder from "@/assets/placeholder.webp";
 import Button from "@/components/ui/Button/Button";
