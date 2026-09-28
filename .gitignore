@@ -26,3 +26,7 @@ skills-lock.json
 *.sln
 *.sw?
 tsconfig.app.tsbuildinfo
+
+# Vitest reports and artifacts
+.vitest/
+coverage/
